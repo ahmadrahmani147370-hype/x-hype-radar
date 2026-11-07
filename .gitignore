@@ -1,0 +1,8 @@
+.*
+!.gitignore
+!.nojekyll
+bot/
+scripts/
+logs/
+data/raw/
+*.log
