@@ -4,7 +4,16 @@
   const inTG = !!(tg && tg.platform && tg.platform !== "unknown");
   const $ = (s) => document.querySelector(s);
   const TZ = "Asia/Karachi";
-  let snap = null, kind = "all", sortBy = "default";
+  let snap = null, kind = "all", sortBy = "default", openSymbol = null;
+  const REFRESH_MS = 60_000;
+  let refreshPromise = null, nextRefresh = Date.now() + REFRESH_MS;
+  let pricesAsOf = null, snapshotFailed = false, firstLoad = true;
+  const marketCache = new Map();
+  const cgId = (t) => { const m = t.market || {}; return m.coingecko_id || t.coingecko_id || (/coingecko id ([a-z0-9-]+)/i.exec(m.match || "") || [])[1]; };
+  const marketKey = (t) => [t.symbol, t.market?.chain || t.chain || "", t.market?.token_address || t.contract_address || "", cgId(t) || ""].join(":");
+  const clock = (iso, seconds = false) => new Date(iso).toLocaleTimeString("en-GB", { timeZone: TZ, hour: "2-digit", minute: "2-digit", ...(seconds ? { second: "2-digit" } : {}), hour12: false });
+  const priceClass = (m) => m._direction > 0 ? "price-up" : m._direction < 0 ? "price-down" : "";
+  const marketState = (m) => `<span class="market-state ${m._stale ? "is-stale" : ""}">${m._stale ? "Last known · stale" : "Live market"}</span>`;
 
   // ---------- Telegram integration ----------
   if (inTG) {
@@ -84,9 +93,11 @@
         <div class="sp-row"><div><div class="sp-sym">$${esc(top.symbol)}</div><div class="sp-name">${tokenName(top)}${m.chain ? " · " + esc(m.chain) : ""}</div></div>
         <div class="sp-mult">${mult(top.spike_ratio)}<small>×</small></div></div>
         <div class="sp-chart">${sparkSVG(top.hourly, 300, 64, "hero")}</div>
+        <div class="sp-price ${priceClass(m)}">${price(m.price_usd)} ${marketState(m)}</div>
         <div class="sp-meta"><div><b>${num(top.recent_rate_per_h)}/h</b><span>mentions now</span></div>
         <div><b>${num(top.baseline_per_h, 1)}/h</b><span>24h baseline</span></div>
         <div><b>${m.change_1h != null ? pct(m.change_1h) : m.change_24h != null ? pct(m.change_24h) : "n/a"}</b><span>price ${m.change_1h != null ? "1h" : "24h"}</span></div></div>`;
+      $("#spotlight").insertAdjacentHTML("beforeend", `<div class="sp-market"><span>24h ${pct(m.change_24h)}</span><span>Liq ${usd(m.liquidity_usd)}</span><span>Cap ${usd(m.market_cap)}</span><span>Vol 24h ${usd(m.volume_24h)}</span></div>`);
       $("#spotlight").onclick = () => openSheet(top);
     }
 
@@ -102,13 +113,24 @@
     $("#method").innerHTML = `<div class="panel-h"><h3>How the radar works</h3><span class="muted small">Source: ${esc(snap.source)}</span></div>
       <p><b style="color:#fff">Spike ratio</b> — ${esc(snap.method.spike_ratio)}.</p>
       <p><b style="color:#fff">Hype score</b> — ${esc(snap.method.hype_score)}.</p>
-      <p><b style="color:#fff">Spiking</b> = spike ≥ 1.5× and ≥ 5 mentions/hour. Counts come from X's full post-count endpoint; top posts, authors and engagement come from the scanned sample. Market data is fetched at snapshot time; "n/a" means the source had nothing.</p>`;
+      <p><b style="color:#fff">Spiking</b> = spike ≥ 1.5× and ≥ 5 mentions/hour. Counts come from X's full post-count endpoint; top posts, authors and engagement come from the scanned sample. Prices refresh every 60 seconds while visible via DexScreener / CoinGecko. X mentions update hourly, independently. Missing values stay n/a; failed market refreshes keep last known values and show stale. Symbol-search matches are unverified: check the contract before trading.</p>`;
   }
 
   function updatePill() {
+    if (!snap) return;
     const gen = snap.x_data_as_of || snap.generated_at;
-    $("#snapAge").textContent = `${innerWidth > 520 ? "X data " : ""}${pkt(gen)} PKT · ${ago(gen)}`;
-    $("#livePill").classList.toggle("stale", Date.now() - new Date(gen) > 3 * 3600e3);
+    const stale = snap.tokens.some((t) => t.market?._stale);
+    $("#priceAge").textContent = pricesAsOf ? `Prices live · ${clock(pricesAsOf, true)} PKT` : "Prices · awaiting live feed";
+    $("#snapAge").textContent = `X data: ${clock(gen)} PKT`;
+    $("#feedStatus").textContent = snapshotFailed ? "X refresh delayed" : stale ? "Some markets stale" : "";
+    $("#livePill").classList.toggle("stale", stale || snapshotFailed);
+    $("#snapAge").classList.toggle("is-stale", snapshotFailed || Date.now() - new Date(gen) > 3 * 3600e3);
+  }
+  function updateCountdown() {
+    const left = Math.max(0, Math.ceil((nextRefresh - Date.now()) / 1000));
+    $("#countdown").style.setProperty("--remaining", left / 60);
+    $("#countdownNumber").textContent = refreshPromise ? "↻" : left;
+    $("#countdown").title = document.hidden ? "Refresh resumes when visible" : `Next refresh in ${left}s`;
   }
   function sorted() {
     let t = snap.tokens.slice();
@@ -132,9 +154,13 @@
       <div class="c-grid">
         <div><span>Now</span><b>${num(t.recent_rate_per_h)}/h</b></div>
         <div><span>24h</span><b>${num(t.mentions_24h)}</b></div>
-        <div><span>Price</span><b>${price(m.price_usd)}</b></div>
-        <div><span>${m.change_1h != null ? "1h" : "24h"}</span><b>${m.change_1h != null ? pct(m.change_1h) : pct(m.change_24h)}</b></div>
+        <div><span>Price</span><b class="${priceClass(m)}">${price(m.price_usd)}</b></div>
+        <div><span>1h / 24h</span><b>${pct(m.change_1h)} / ${pct(m.change_24h)}</b></div>
+        <div><span>Liquidity</span><b>${usd(m.liquidity_usd)}</b></div>
+        <div><span>Market cap</span><b>${usd(m.market_cap)}</b></div>
+        <div><span>Vol 24h</span><b>${usd(m.volume_24h)}</b></div>
       </div>
+      ${marketState(m)}
       ${flags ? `<div class="flags">${flags}</div>` : ""}
     </article>`;
   }
@@ -145,8 +171,11 @@
     document.querySelectorAll(".card").forEach((el) => (el.onclick = () => openSheet(snap.tokens.find((x) => x.symbol === el.dataset.sym))));
   }
 
-  function openSheet(t) {
-    haptic("medium");
+  function openSheet(t, updating = false) {
+    if (!t) return;
+    openSymbol = t.symbol;
+    const scroll = $("#sheet").scrollTop;
+    if (!updating) haptic("medium");
     const m = t.market || {};
     const hrs = t.hourly.length;
     const start = new Date(t.hourly_start);
@@ -165,9 +194,9 @@
       </div>
       <div class="d-chart">${sparkSVG(t.hourly, 400, 120, "d" + t.symbol)}
         <div class="axis"><span>${pkt(start.toISOString())}</span><span>hourly mentions · PKT</span><span>now</span></div></div>
-      <div class="sec-t">Market</div>
+      <div class="sec-t">Market ${marketState(m)}</div>
       <div class="kv">
-        <div><span>Price</span><b>${price(m.price_usd)}</b></div><div><span>Mkt cap</span><b>${usd(m.market_cap)}</b></div>
+        <div><span>Price</span><b class="${priceClass(m)}">${price(m.price_usd)}</b></div><div><span>Mkt cap</span><b>${usd(m.market_cap)}</b></div>
         <div><span>Change 1h / 24h</span><b>${pct(m.change_1h)} / ${pct(m.change_24h)}</b></div><div><span>Liquidity</span><b>${usd(m.liquidity_usd)}</b></div>
         <div><span>Volume 24h</span><b>${usd(m.volume_24h)}</b></div><div><span>Pair age</span><b>${m.pair_created_at ? ago(new Date(m.pair_created_at).toISOString()).replace(" ago", "") : NA}</b></div>
       </div>
@@ -178,10 +207,11 @@
       <div class="sec-t">Top posts in sample</div>${posts}
       <p class="muted small" style="margin-top:14px">X count query: <span class="mono">${esc(t.count_query)}</span></p>`;
     const cb = $("#caBox"); if (cb) cb.onclick = () => { navigator.clipboard && navigator.clipboard.writeText(ca); haptic(); toast("Contract copied"); };
-    $("#sheet").classList.add("on"); $("#backdrop").classList.add("on"); $("#sheet").setAttribute("aria-hidden", "false"); $("#sheet").scrollTop = 0;
+    $("#sheet").classList.add("on"); $("#backdrop").classList.add("on"); $("#sheet").setAttribute("aria-hidden", "false"); $("#sheet").scrollTop = updating ? scroll : 0;
     if (inTG) tg.BackButton.show();
   }
   function closeSheet() {
+    openSymbol = null;
     $("#sheet").classList.remove("on"); $("#backdrop").classList.remove("on"); $("#sheet").setAttribute("aria-hidden", "true");
     if (inTG) tg.BackButton.hide();
   }
@@ -201,25 +231,110 @@
   // ring gradient defs
   document.body.insertAdjacentHTML("beforeend", '<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="ringG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5a68"/><stop offset="1" stop-color="#b80018"/></linearGradient></defs></svg>');
 
-  async function load(manual, silent) {
-    const btn = $("#reloadBtn"); if (btn && !silent) btn.classList.add("spinning");
+  async function fetchJSON(url) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
     try {
-      const r = await fetch("data/snapshot.json?t=" + Date.now(), { cache: "no-store" });
-      const prev = snap && (snap.x_data_as_of || snap.generated_at);
-      snap = await r.json(); render(); const gen = snap.x_data_as_of || snap.generated_at;
-      if (manual) toast(`Updated · data as of ${pkt(gen)} PKT`); else if (silent && prev && prev !== gen) toast(`New data · ${pkt(gen)} PKT`);
-      if (!manual) { // deep link: ?token=SYM or Telegram startapp=SYM
-        const want = (new URLSearchParams(location.search).get("token") || (inTG && tg.initDataUnsafe && tg.initDataUnsafe.start_param) || "").toUpperCase();
-        const hit = want && snap.tokens.find((x) => x.symbol === want); if (hit) openSheet(hit);
+      const response = await fetch(url, { cache: "no-store", signal: controller.signal });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return await response.json();
+    } finally { clearTimeout(timeout); }
+  }
+  const finite = (v) => v !== null && v !== undefined && v !== "" && Number.isFinite(Number(v));
+  function applyMarket(t, values, sourceTime = Date.now()) {
+    const m = t.market || (t.market = {}), oldPrice = m.price_usd;
+    for (const [key, value] of Object.entries(values)) if (finite(value)) m[key] = Number(value);
+    m._direction = oldPrice != null && m.price_usd !== oldPrice ? Math.sign(m.price_usd - oldPrice) : 0;
+    m._asOf = sourceTime;
+    m._stale = Date.now() - sourceTime > 180000;
+    marketCache.set(marketKey(t), { ...m });
+  }
+  async function refreshMarkets() {
+    const groups = new Map(), cgTokens = [];
+    for (const t of snap.tokens) {
+      t.market = t.market || {};
+      t.market._stale = true; t.market._direction = 0;
+      if (cgId(t)) { cgTokens.push(t); continue; }
+      const chain = t.market.chain || t.chain, address = t.market.token_address || t.contract_address;
+      if (!chain || !address) continue;
+      if (!groups.has(chain)) groups.set(chain, []);
+      groups.get(chain).push(t);
+    }
+    const jobs = [];
+    for (const [chain, tokens] of groups) {
+      // DexScreener allows at most 30 token addresses per request.
+      const addresses = [...new Set(tokens.map(t => t.market.token_address || t.contract_address))];
+      for (let i = 0; i < addresses.length; i += 30) {
+        const batch = addresses.slice(i, i + 30);
+        jobs.push((async () => {
+          const pairs = await fetchJSON(`https://api.dexscreener.com/tokens/v1/${encodeURIComponent(chain)}/${batch.map(encodeURIComponent).join(",")}`);
+          if (!Array.isArray(pairs)) throw new Error("Invalid market response");
+          for (const t of tokens.filter(t => batch.includes(t.market.token_address || t.contract_address))) {
+            const address = t.market.token_address || t.contract_address;
+            // EVM addresses are case insensitive; Solana and other chains are not.
+            const same = (a, b) => a && b && (a.startsWith("0x") && b.startsWith("0x") ? a.toLowerCase() === b.toLowerCase() : a === b);
+            const matches = pairs.filter(p => p.chainId === chain && same(p.baseToken?.address, address) && finite(p.priceUsd) && Number(p.priceUsd) > 0);
+            matches.sort((a, b) => (b.liquidity?.usd || 0) - (a.liquidity?.usd || 0));
+            const p = matches.find(p => (p.url || "").toLowerCase() === (t.market.pair_url || "").toLowerCase()) || matches[0];
+            if (!p) continue;
+            applyMarket(t, { price_usd: p.priceUsd, change_1h: p.priceChange?.h1, change_24h: p.priceChange?.h24, liquidity_usd: p.liquidity?.usd, market_cap: p.marketCap, volume_24h: p.volume?.h24, volume_1h: p.volume?.h1 });
+          }
+        })());
       }
-    } catch (e) { if (!snap) $("#list").innerHTML = '<div class="empty">Snapshot load nahi ho saka. data/snapshot.json check karein.</div>'; else if (!silent) toast("Refresh failed — network check karein"); }
-    finally { if (btn) btn.classList.remove("spinning"); }
+    }
+    if (cgTokens.length) jobs.push((async () => {
+      const ids = [...new Set(cgTokens.map(cgId))].join(",");
+      const data = await fetchJSON(`https://api.coingecko.com/api/v3/simple/price?ids=${encodeURIComponent(ids)}&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=true`);
+      for (const t of cgTokens) {
+        const q = data[cgId(t)];
+        if (!q || !finite(q.usd) || Number(q.usd) <= 0) continue;
+        applyMarket(t, { price_usd: q.usd, change_24h: q.usd_24h_change, market_cap: q.usd_market_cap, volume_24h: q.usd_24h_vol }, q.last_updated_at ? q.last_updated_at * 1000 : Date.now());
+      }
+    })());
+    await Promise.allSettled(jobs);
+    const times = snap.tokens.filter(t => !t.market._stale).map(t => t.market._asOf);
+    if (times.length) pricesAsOf = Math.max(...times);
+  }
+  function load(manual = false) {
+    if (refreshPromise) return refreshPromise;
+    nextRefresh = Date.now() + REFRESH_MS;
+    $("#reloadBtn").classList.add("spinning");
+    refreshPromise = (async () => {
+      try {
+        const incoming = await fetchJSON("data/snapshot.json?t=" + Date.now());
+        if (!Array.isArray(incoming.tokens) || !incoming.stats || !incoming.method) throw new Error("Invalid snapshot");
+        for (const t of incoming.tokens) {
+          const cached = marketCache.get(marketKey(t));
+          if (cached) t.market = { ...t.market, ...cached, _direction: 0 };
+          else t.market = { ...t.market, _stale: true };
+        }
+        snap = incoming; snapshotFailed = false;
+      } catch (e) { snapshotFailed = true; }
+      if (!snap) {
+        $("#list").innerHTML = '<div class="empty">Snapshot load nahi ho saka. Refresh to retry.</div>';
+        return;
+      }
+      render(); // Keep the dashboard usable while the live feeds are loading.
+      await refreshMarkets();
+      render();
+      document.body.classList.add("has-refreshed");
+      if (openSymbol) openSheet(snap.tokens.find(t => t.symbol === openSymbol), true);
+      if (firstLoad) {
+        firstLoad = false;
+        const want = (new URLSearchParams(location.search).get("token") || (inTG && tg.initDataUnsafe?.start_param) || "").toUpperCase();
+        const hit = snap.tokens.find(t => t.symbol === want); if (hit) openSheet(hit);
+      }
+      if (manual) toast(snapshotFailed ? "X snapshot delayed · last known data kept" : snap.tokens.some(t => t.market._stale) ? "Refreshed · some markets stale" : "Live prices refreshed");
+    })().catch(() => { if (snap) { snap.tokens.forEach(t => t.market._stale = true); updatePill(); } })
+      .finally(() => { refreshPromise = null; $("#reloadBtn").classList.remove("spinning"); updateCountdown(); });
+    return refreshPromise;
   }
   load();
-  setInterval(() => snap && updatePill(), 60000);
-  // auto re-fetch every 5 min while open (data refreshes hourly 24/7)
-  setInterval(() => { if (!document.hidden) load(false, true); }, 5 * 60e3);
-  document.addEventListener("visibilitychange", () => { if (!document.hidden) load(false, true); });
+  setInterval(() => {
+    updateCountdown();
+    if (!document.hidden && !refreshPromise && Date.now() >= nextRefresh) load();
+  }, 1000);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) load(); });
 
   // ---------- pull-to-refresh (mobile) ----------
   document.body.insertAdjacentHTML("afterbegin", '<div class="ptr" id="ptr"><div class="ptr-ring"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="15"/></svg></div><span class="ptr-txt">Pull to refresh</span></div>');
@@ -227,7 +342,7 @@
   let y0 = null, dy = 0, busy = false;
   const setPull = (d) => { ptr.style.transform = `translate(-50%, ${Math.min(d, 110) - 70}px)`; ptr.style.opacity = Math.min(d / TH, 1);
     ptr.querySelector("svg").style.transform = `rotate(${d * 4}deg)`; ptr.classList.toggle("armed", d >= TH); ptrTxt.textContent = d >= TH ? "Release to refresh" : "Pull to refresh"; };
-  addEventListener("touchstart", (e) => { if (!busy && scrollY <= 0 && !document.querySelector(".sheet.open")) { y0 = e.touches[0].clientY; dy = 0; ptr.classList.remove("snap"); } }, { passive: true });
+  addEventListener("touchstart", (e) => { if (!busy && scrollY <= 0 && !document.querySelector(".sheet.on")) { y0 = e.touches[0].clientY; dy = 0; ptr.classList.remove("snap"); } }, { passive: true });
   addEventListener("touchmove", (e) => { if (y0 == null) return; dy = (e.touches[0].clientY - y0) * 0.5; if (dy > 0) { setPull(dy); if (e.cancelable) e.preventDefault(); } else setPull(0); }, { passive: false });
   addEventListener("touchend", async () => { if (y0 == null) return; y0 = null; ptr.classList.add("snap");
     if (dy >= TH) { busy = true; ptr.classList.add("spin"); ptrTxt.textContent = "Refreshing…"; setPull(TH); if (inTG && tg.HapticFeedback) tg.HapticFeedback.impactOccurred("medium");

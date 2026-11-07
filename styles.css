@@ -216,3 +216,25 @@ h3{font:600 15px "Space Grotesk",Inter,system-ui,sans-serif;letter-spacing:.02em
 @keyframes ptrspin{to{transform:rotate(360deg)}}
 #reloadBtn.spinning svg{animation:ptrspin .8s linear infinite;color:#ff3b4e}
 html,body{overscroll-behavior-y:contain}
+
+/* Live market refresh — 60 seconds, independent of hourly X snapshots */
+.feed-times{display:flex;flex-direction:column;gap:3px;font-size:11px;white-space:nowrap}
+#snapAge{color:var(--muted);font-size:10px}
+#feedStatus{font-size:9px;color:var(--gold)}
+#feedStatus:empty{display:none}
+.live-pill{border-radius:12px;max-width:none;overflow:visible}
+.countdown{position:relative;width:36px;height:36px;flex:none;display:grid;place-items:center;color:#ff5264;font:10px "JetBrains Mono",monospace}
+.countdown svg{position:absolute;inset:0;width:36px;height:36px;transform:rotate(-90deg)}
+.countdown circle{fill:none;stroke-width:2}
+.count-track{stroke:#332027}.count-progress{stroke:#ff2a3d;stroke-dasharray:94.248;stroke-dashoffset:calc(94.248 * (1 - var(--remaining)));transition:stroke-dashoffset .4s linear}
+.market-state{display:inline-block;font-size:9px;color:#888;letter-spacing:.03em;margin-top:8px}
+.market-state.is-stale,.is-stale{color:var(--gold)!important}
+.sp-price{font:600 24px "Space Grotesk",sans-serif;margin-top:12px;border-radius:7px}
+.sp-price .market-state{font-family:Inter,sans-serif;font-weight:400;margin-left:8px;vertical-align:middle}
+.sp-market{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:12px;color:#aaa;font-size:11px}
+.price-up{animation:priceUp 1.8s ease-out!important}.price-down{animation:priceDown 1.8s ease-out!important}
+@keyframes priceUp{0%,20%{color:#58e4aa;background:#1b684541}100%{background:transparent}}
+@keyframes priceDown{0%,20%{color:#ff5264;background:#a8223841}100%{background:transparent}}
+.has-refreshed .card{animation:none;opacity:1;transform:none}
+@media(max-width:520px){.topbar{flex-wrap:wrap;gap:10px}.top-actions{width:100%;justify-content:flex-end}.live-pill{margin-right:auto;max-width:none;padding:6px 10px}.feed-times{font-size:11px}.c-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.c-grid>div:nth-child(4){grid-column:span 2}.c-grid b{font-size:13px}.sp-meta{gap:6px}.sp-meta b{font-size:14px}}
+@media(prefers-reduced-motion:reduce){.price-up,.price-down{animation:none!important}}
