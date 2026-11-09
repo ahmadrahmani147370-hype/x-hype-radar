@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=live60-v2" />
+<link rel="stylesheet" href="styles.css?v=pumpdump-v1" />
 </head>
 <body>
 <div class="bg-glow" aria-hidden="true"></div>
@@ -44,10 +44,15 @@
 
   <section class="stats" id="stats"></section>
 
+  <section class="sigboard" id="sigBoard"></section>
+
   <section class="controls">
     <div class="seg" id="kindSeg" role="tablist">
       <button data-kind="all" class="on">All</button>
       <button data-kind="spiking">Spiking</button>
+      <button data-kind="pump">🚀 Pump</button>
+      <button data-kind="dump">🩸 Dump</button>
+      <button data-kind="early">👀 Early</button>
       <button data-kind="emerging">Emerging</button>
       <button data-kind="major">Majors</button>
     </div>
@@ -55,6 +60,10 @@
       <label for="sortSel">Sort</label>
       <select id="sortSel">
         <option value="default">Radar rank</option>
+        <option value="pump">Pump signal</option>
+        <option value="dump">Dump signal</option>
+        <option value="risk">Risk (safest first)</option>
+        <option value="accel">Hype momentum</option>
         <option value="spike">Spike ratio</option>
         <option value="score">Hype score</option>
         <option value="rate">Mentions / hour</option>
@@ -86,6 +95,6 @@
 </aside>
 <div class="toast" id="toast"></div>
 
-<script src="app.js?v=live60-v2"></script>
+<script src="app.js?v=pumpdump-v1"></script>
 </body>
 </html>

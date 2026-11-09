@@ -78,6 +78,107 @@
   const tokenName = (t) => esc(t.note ? "pump.fun launchpad (PUMP)" : (t.market && t.market.name) || (t.kind === "major" ? "Major" : "Unpriced token"));
   const xSearch = (t) => "https://x.com/search?q=" + encodeURIComponent("$" + t.symbol) + "&f=live";
 
+  // ---------- Pump/Dump signal, risk score, hype momentum (mirror of scripts/signals.py) ----------
+  const N = (v) => (v === null || v === undefined || v === "" || !Number.isFinite(Number(v)) ? null : Number(v));
+  const fp = (v) => (v >= 0 ? "+" : "") + (Math.abs(v) >= 10 ? v.toFixed(0) : v.toFixed(1)) + "%";
+  function marketFromPairs(pairs, address, preferUrl) {
+    const same = (a, b) => a && b && (a.startsWith("0x") && b.startsWith("0x") ? a.toLowerCase() === b.toLowerCase() : a === b);
+    const ps = (pairs || []).filter((p) => same(p.baseToken?.address, address) && N(p.priceUsd) > 0);
+    if (!ps.length) return null;
+    ps.sort((a, b) => (b.liquidity?.usd || 0) - (a.liquidity?.usd || 0));
+    const p = ps.find((x) => preferUrl && (x.url || "").toLowerCase() === preferUrl.toLowerCase()) || ps[0];
+    const pc = p.priceChange || {}, tx = p.txns || {}, vol = p.volume || {};
+    const chg = (w) => { if (pc[w] != null) return pc[w]; const t = tx[w]; return t && typeof t === "object" && (t.buys || 0) + (t.sells || 0) === 0 ? 0 : null; };
+    const liq = p.liquidity?.usd, tot = ps.reduce((a, x) => a + (x.liquidity?.usd || 0), 0);
+    return { num: { price_usd: p.priceUsd, change_5m: chg("m5"), change_1h: chg("h1"), change_6h: chg("h6"), change_24h: chg("h24"),
+        volume_5m: vol.m5, volume_1h: vol.h1, volume_6h: vol.h6, volume_24h: vol.h24, liquidity_usd: liq, market_cap: p.marketCap || p.fdv, fdv: p.fdv,
+        pairs_count: ps.length, top_pair_liq_share: liq && tot ? +(liq / tot).toFixed(3) : null },
+      obj: { txns_5m: tx.m5, txns_1h: tx.h1, txns_6h: tx.h6, txns_24h: tx.h24 } };
+  }
+  function buyRatio(m) {
+    for (const [k, l] of [["txns_1h", "1h"], ["txns_6h", "6h"], ["txns_24h", "24h"]]) {
+      const t = m[k] || {}, b = N(t.buys) || 0, s = N(t.sells) || 0;
+      if (b + s >= 20) return [b / (b + s), l, b, s];
+    }
+    return [null, null];
+  }
+  function momentumFor(t) {
+    const h = t.hourly || [], prior = h.slice(-4, -2);
+    const priorRate = prior.length ? prior.reduce((a, b) => a + b, 0) / prior.length : null;
+    const now = N(t.recent_rate_per_h) || 0, accel = priorRate != null ? +(now / Math.max(priorRate, 0.5)).toFixed(2) : null;
+    const prev = N(t.prev_spike_ratio), spike = N(t.spike_ratio) || 0, dropped = prev != null && spike < prev * 0.6;
+    let state = "steady";
+    if (accel == null) state = "n/a";
+    else if (accel >= 1.5 && (prev == null || spike >= prev * 0.8)) state = "accelerating";
+    else if (accel < 0.7 || (dropped && accel < 1.5)) state = "fading";
+    return { accel, prior_rate_per_h: priorRate != null ? +priorRate.toFixed(1) : null, state };
+  }
+  function signalFor(t) {
+    const m = t.market || {}, mo = t.momentum || momentumFor(t);
+    const spike = N(t.spike_ratio) || 0, rate = N(t.recent_rate_per_h) || 0;
+    const [p5, p1, p6, p24] = ["change_5m", "change_1h", "change_6h", "change_24h"].map((k) => N(m[k]));
+    const [br, brw] = buyRatio(m);
+    const hypeUp = spike >= 1.5 && rate >= 5 && mo.state !== "fading", fading = mo.state === "fading" || spike < 1.2;
+    const bs = br != null ? `buys ${(br * 100).toFixed(0)}% (${brw})` : "buy/sell n/a";
+    const hype = `X ${spike.toFixed(1)}x` + (mo.state !== "n/a" ? `, ${mo.state}` : "");
+    const R = (code, label, ...parts) => ({ code, label, reason: parts.filter(Boolean).join(" · ") });
+    if (p1 == null && p6 == null && p24 == null) return spike >= 2 && rate >= 5 ? R("early", "Hype bina price", hype, "market data n/a") : R("neutral", "Neutral", hype, "market data n/a");
+    if (p1 == null) {
+      const [lw, lv] = p24 != null ? ["24h", p24] : ["6h", p6], ch = `${lw} ${fp(lv)}`;
+      if (lv <= -8) return R("dump", "DUMP chal raha", ch, hype);
+      if (lv >= 15 && fading) return R("overheated", "Overheated / Dump risk", ch, hype);
+      if (lv >= 6 && hypeUp) return R("pump", "PUMP shuru", ch, hype);
+      if (spike >= 2 && rate >= 5 && Math.abs(lv) < 3) return R("early", "Hype bina price", hype, ch);
+      return R("neutral", "Neutral", hype, ch);
+    }
+    const sellsWin = br != null && br < 0.5;
+    const moves = [["5m", p5], ["1h", p1], ["6h", p6]].filter(([, v]) => v != null && Math.abs(v) >= 1).map(([w, v]) => `${w} ${fp(v)}`).join(", ");
+    if (p1 <= -30 || (p6 != null && p6 <= -50) || ((p1 <= -15 || (p5 != null && p5 <= -8)) && (br == null || sellsWin))) return R("dump", "DUMP chal raha", moves, bs, hype);
+    const hot = p1 >= 30 || (p6 != null && p6 >= 80) || (p24 != null && p24 >= 150);
+    if (hot && (fading || (br != null && br < 0.48) || (p5 != null && p5 <= -5))) {
+      const big = p1 >= 30 ? `1h ${fp(p1)}` : p6 != null && p6 >= 80 ? `6h ${fp(p6)}` : `24h ${fp(p24)}`;
+      return R("overheated", "Overheated / Dump risk", big, bs, hype);
+    }
+    if (hypeUp && (p1 >= 5 || (p5 != null && p5 >= 3)) && (br == null || br >= 0.52)) return R("pump", "PUMP shuru", moves, bs, hype);
+    if (spike >= 2 && rate >= 5 && Math.abs(p1) < 5 && (p6 == null || p6 < 20)) return R("early", "Hype bina price", hype, `price 1h ${fp(p1)} (abhi move nahi hua)`);
+    if (hot) return R("overheated", "Overheated / Dump risk", `1h ${fp(p1)}` + (p6 != null ? `, 6h ${fp(p6)}` : ""), bs, hype);
+    return R("neutral", "Neutral", hype, `1h ${fp(p1)}`, bs);
+  }
+  function riskFor(t) {
+    const m = t.market || {}, why = []; let pts = 0;
+    const add = (n, txt) => { pts += n; why.push(`+${n} ${txt}`); };
+    if (t.kind === "major" && m.source === "CoinGecko") {
+      const cap = N(m.market_cap); if (cap != null && cap < 1e9) add(10, "market cap < $1B");
+      return { score: pts, level: pts < 30 ? "Low" : "Medium", reasons: why.length ? why : ["Large-cap major (CoinGecko)"] };
+    }
+    const liq = N(m.liquidity_usd);
+    if (liq == null) add(20, "no DEX liquidity data"); else if (liq < 1e4) add(30, "liquidity < $10K"); else if (liq < 5e4) add(20, "liquidity < $50K"); else if (liq < 2e5) add(10, "liquidity < $200K");
+    const age = N(m.pair_created_at);
+    if (age) { const h = (Date.now() - age) / 3.6e6; if (h < 6) add(20, "pair < 6h old"); else if (h < 24) add(15, "pair < 24h old"); else if (h < 72) add(8, "pair < 3 days old"); }
+    const fdv = N(m.fdv) || N(m.market_cap);
+    if (fdv && liq) { const r = fdv / liq; if (r > 100) add(15, `FDV/liquidity ${r.toFixed(0)}x`); else if (r > 30) add(8, `FDV/liquidity ${r.toFixed(0)}x`); }
+    const [br, brw] = buyRatio(m);
+    if (br != null) { if (br < 0.4) add(15, `sells ${(100 - br * 100).toFixed(0)}% (${brw})`); else if (br < 0.47) add(8, `sells ${(100 - br * 100).toFixed(0)}% (${brw})`); }
+    const v24 = N(m.volume_24h);
+    if (liq && liq > 1e6 && v24 != null && liq > 100 * Math.max(v24, 1)) add(15, "huge liquidity but tiny volume (pool may be fake/unverified)");
+    const v1 = N(m.volume_1h);
+    if (v1 && liq && v1 / liq > 20) add(8, `1h volume ${(v1 / liq).toFixed(0)}x liquidity (churn)`);
+    const share = N(m.top_pair_liq_share);
+    if (share != null && (m.pairs_count || 0) > 1 && share > 0.95) add(4, "liquidity concentrated in 1 pair");
+    const flags = (t.risk_flags || []).join(" ");
+    if (flags.includes("shill")) add(10, "few accounts posting most mentions");
+    if (flags.includes("Airdrop")) add(15, "scam-link patterns in posts");
+    if ((m.match || "").startsWith("symbol")) add(10, "matched by symbol only");
+    pts = Math.min(100, pts);
+    return { score: pts, level: pts < 30 ? "Low" : pts < 60 ? "Medium" : "High", reasons: why.length ? why : ["No automatic risk points"] };
+  }
+  const enrich = (t) => { t.momentum = momentumFor(t); t.signal = signalFor(t); t.risk = riskFor(t); return t; };
+  const SIG = { pump: ["🚀", "sig-pump"], overheated: ["🔥", "sig-hot"], dump: ["🩸", "sig-dump"], early: ["👀", "sig-early"], neutral: ["•", "sig-neutral"] };
+  const sigBadge = (t) => { const s = t.signal || { code: "neutral", label: "Neutral" }; const [ic, cl] = SIG[s.code] || SIG.neutral; return `<span class="sig ${cl}">${ic} ${esc(s.label)}</span>`; };
+  const riskChip = (t) => { const r = t.risk; if (!r) return ""; return `<span class="risk-chip risk-${r.level.toLowerCase()}" title="${esc(r.reasons.join(" · "))}">Risk ${r.score}<em>${r.level}</em></span>`; };
+  const momo = (t) => { const s = t.momentum?.state; return s === "accelerating" ? '<span class="momo up" title="Mentions accelerating vs 2h before">▲ tez</span>' : s === "fading" ? '<span class="momo down" title="Mentions slowing">▼ thanda</span>' : ""; };
+  const PUMP_RANK = { pump: 0, early: 1, neutral: 2, overheated: 3, dump: 4 }, DUMP_RANK = { dump: 0, overheated: 1, neutral: 2, early: 3, pump: 4 };
+
   // ---------- render ----------
   function render() {
     const s = snap.stats, toks = snap.tokens;
@@ -89,7 +190,7 @@
     const top = spiking[0] || toks[0];
     if (top) {
       const m = top.market || {};
-      $("#spotlight").innerHTML = `<span class="sp-tag">🔥 Top spike right now</span>
+      $("#spotlight").innerHTML = `<div class="sp-tags"><span class="sp-tag">🔥 Top spike right now</span>${sigBadge(top)}</div>
         <div class="sp-row"><div><div class="sp-sym">$${esc(top.symbol)}</div><div class="sp-name">${tokenName(top)}${m.chain ? " · " + esc(m.chain) : ""}</div></div>
         <div class="sp-mult">${mult(top.spike_ratio)}<small>×</small></div></div>
         <div class="sp-chart">${sparkSVG(top.hourly, 300, 64, "hero")}</div>
@@ -107,12 +208,19 @@
       [mult(maxSpike) + "×", "Biggest mention spike"], [num(s.mentions_24h_tracked), "Mentions tracked (24h)"],
     ].map(([b, l]) => `<div class="stat"><b>${b}</b><span>${l}</span></div>`).join("");
 
+    const cnt = (c) => toks.filter((t) => c.includes(t.signal?.code)).length;
+    $("#sigBoard").innerHTML = [["pump", "🚀", "PUMP shuru", ["pump"], "Hype + price + buys upar"], ["early", "👀", "Hype bina price", ["early"], "Mentions upar, price abhi flat"],
+      ["dump", "🩸", "Dump / Overheated", ["dump", "overheated"], "Price gir raha ya bahut garam"], ["all", "📡", "Sab tokens", null, "Pura radar"]]
+      .map(([k, ic, l, codes, sub]) => `<button class="sb sb-${k} ${kind === k ? "on" : ""}" data-kind="${k}"><span class="sb-ic">${ic}</span><b>${codes ? cnt(codes) : toks.length}</b><span class="sb-l">${l}</span><span class="sb-s">${sub}</span></button>`).join("");
     renderList();
     $("#also").innerHTML = (snap.also_seen || []).map((a) =>
       `<a class="chip" href="https://x.com/search?q=${encodeURIComponent("$" + a.symbol)}&f=live" data-link>$${esc(a.symbol)}<em>${a.posts}p · ${a.authors}a</em></a>`).join("") || '<span class="muted">—</span>';
     $("#method").innerHTML = `<div class="panel-h"><h3>How the radar works</h3><span class="muted small">Source: ${esc(snap.source)}</span></div>
       <p><b style="color:#fff">Spike ratio</b> — ${esc(snap.method.spike_ratio)}.</p>
       <p><b style="color:#fff">Hype score</b> — ${esc(snap.method.hype_score)}.</p>
+      <p><b style="color:#fff">Pump/Dump signal</b> — ${esc(snap.method.signal || "")}. Live prices se har minute dobara calculate hota hai.</p>
+      <p><b style="color:#fff">Risk score</b> — ${esc(snap.method.risk || "")}. Yeh sirf automatic andaza hai — DYOR.</p>
+      <p><b style="color:#fff">Momentum</b> — ▲ tez = mentions/h abhi pichle 2 ghante se 1.5× zyada; ▼ thanda = 0.7× se kam ya spike pichle scan se kafi gira.</p>
       <p><b style="color:#fff">Spiking</b> = spike ≥ 1.5× and ≥ 5 mentions/hour. Counts come from X's full post-count endpoint; top posts, authors and engagement come from the scanned sample. Prices refresh every 60 seconds while visible via DexScreener / CoinGecko. X mentions update hourly, independently. Missing values stay n/a; failed market refreshes keep last known values and show stale. Symbol-search matches are unverified: check the contract before trading.</p>`;
   }
 
@@ -134,10 +242,18 @@
   }
   function sorted() {
     let t = snap.tokens.slice();
+    const sc = (x) => x.signal?.code || "neutral";
     if (kind === "spiking") t = t.filter((x) => x.is_spiking);
+    else if (kind === "pump") t = t.filter((x) => sc(x) === "pump");
+    else if (kind === "dump") t = t.filter((x) => sc(x) === "dump" || sc(x) === "overheated");
+    else if (kind === "early") t = t.filter((x) => sc(x) === "early");
     else if (kind !== "all") t = t.filter((x) => x.kind === kind);
     const k = { spike: "spike_ratio", score: "hype_score", rate: "recent_rate_per_h", m24: "mentions_24h" }[sortBy];
     if (k) t.sort((a, b) => b[k] - a[k]);
+    else if (sortBy === "pump") t.sort((a, b) => PUMP_RANK[sc(a)] - PUMP_RANK[sc(b)] || b.spike_ratio - a.spike_ratio);
+    else if (sortBy === "dump") t.sort((a, b) => DUMP_RANK[sc(a)] - DUMP_RANK[sc(b)] || (N(a.market?.change_1h) ?? 0) - (N(b.market?.change_1h) ?? 0));
+    else if (sortBy === "risk") t.sort((a, b) => (a.risk?.score ?? 101) - (b.risk?.score ?? 101));
+    else if (sortBy === "accel") t.sort((a, b) => (b.momentum?.accel ?? -1) - (a.momentum?.accel ?? -1));
     return t;
   }
 
@@ -149,18 +265,20 @@
       <div class="c-top"><div class="rank">${String(i + 1).padStart(2, "0")}</div>${avatar(t)}
         <div class="c-id"><div class="c-sym">$${esc(t.symbol)} ${t.is_spiking ? '<span class="badge fire">Spiking</span>' : `<span class="badge">${t.kind}</span>`}</div>
         <div class="c-name">${tokenName(t)}${m.chain ? " · " + esc(m.chain) : ""}</div></div>${ring(t.hype_score)}</div>
-      <div class="c-mid"><div><div class="mult ${up ? "up" : "flat"}">${mult(t.spike_ratio)}×</div><div class="mult-l">vs 24h baseline</div></div>
+      <div class="sig-row">${sigBadge(t)}${riskChip(t)}</div>
+      <div class="sig-why">${esc(t.signal?.reason || "")}</div>
+      <div class="c-mid"><div><div class="mult ${up ? "up" : "flat"}">${mult(t.spike_ratio)}× ${momo(t)}</div><div class="mult-l">vs 24h baseline${t.prev_spike_ratio != null ? ` · last scan ${mult(t.prev_spike_ratio)}×` : ""}</div></div>
         <div class="spark">${sparkSVG(t.hourly, 200, 44, t.symbol)}</div></div>
       <div class="c-grid">
         <div><span>Now</span><b>${num(t.recent_rate_per_h)}/h</b></div>
         <div><span>24h</span><b>${num(t.mentions_24h)}</b></div>
         <div><span>Price</span><b class="${priceClass(m)}">${price(m.price_usd)}</b></div>
-        <div><span>1h / 24h</span><b>${pct(m.change_1h)} / ${pct(m.change_24h)}</b></div>
+        <div><span>${m.change_1h != null ? "1h / 24h" : "24h"}</span><b>${m.change_1h != null ? pct(m.change_1h) + " / " : ""}${pct(m.change_24h)}</b></div>
         <div><span>Liquidity</span><b>${usd(m.liquidity_usd)}</b></div>
         <div><span>Market cap</span><b>${usd(m.market_cap)}</b></div>
         <div><span>Vol 24h</span><b>${usd(m.volume_24h)}</b></div>
       </div>
-      ${marketState(m)}
+      <div class="c-foot">${marketState(m)}<div class="quick">${(m.token_address || t.contract_address) ? `<button class="qbtn" data-copy="${esc(m.token_address || t.contract_address)}" title="Copy contract">⧉ CA</button>` : ""}${m.pair_url ? `<a class="qbtn" href="${esc(safeUrl(m.pair_url))}" data-link>Chart</a>` : ""}<a class="qbtn" href="${xSearch(t)}" data-link>X</a></div></div>
       ${flags ? `<div class="flags">${flags}</div>` : ""}
     </article>`;
   }
@@ -168,9 +286,30 @@
   function renderList() {
     const t = sorted();
     $("#list").innerHTML = t.length ? t.map(card).join("") : '<div class="empty">Is filter mein abhi koi token nahi.</div>';
-    document.querySelectorAll(".card").forEach((el) => (el.onclick = () => openSheet(snap.tokens.find((x) => x.symbol === el.dataset.sym))));
+    document.querySelectorAll(".card").forEach((el) => (el.onclick = (e) => { if (e.target.closest(".qbtn")) return; openSheet(snap.tokens.find((x) => x.symbol === el.dataset.sym)); }));
   }
 
+  function signalPanel(t) {
+    const m = t.market || {}, r = t.risk || { score: 0, level: "Low", reasons: [] }, mo = t.momentum || {};
+    const [br, brw, b, sl] = buyRatio(m);
+    const bar = br != null ? `<div class="bsbar"><div class="bs-b" style="width:${(br * 100).toFixed(1)}%"></div></div>
+      <div class="bs-l"><span class="pos">Buys ${num(b, 1)} · ${(br * 100).toFixed(0)}%</span><span class="muted">${brw} txns</span><span class="neg">${(100 - br * 100).toFixed(0)}% · ${num(sl, 1)} Sells</span></div>` : '<p class="muted small">Buy/sell txns: n/a</p>';
+    const ch = [["5m", m.change_5m], ["1h", m.change_1h], ["6h", m.change_6h], ["24h", m.change_24h]].filter(([, v]) => v != null);
+    const mom = mo.accel != null ? `${num(t.recent_rate_per_h)}/h abhi vs ${num(mo.prior_rate_per_h, 1)}/h 2 ghante pehle (${mo.accel >= 10 ? mo.accel.toFixed(0) : mo.accel.toFixed(1)}×)` : "n/a";
+    return `<div class="sigpanel ${(SIG[t.signal?.code] || SIG.neutral)[1]}">
+      <div class="sp-h"><span class="muted small">PUMP / DUMP SIGNAL</span>${sigBadge(t)}</div>
+      <div class="sig-why big">${esc(t.signal?.reason || "")}</div>
+      ${ch.length ? `<div class="chg">${ch.map(([w, v]) => `<div><span>${w}</span><b>${pct(v)}</b></div>`).join("")}</div>` : ""}
+      ${bar}
+      <div class="mom"><span>Hype momentum ${momo(t)}</span><b>${mom}</b>${t.prev_spike_ratio != null ? `<b>Spike: pichla scan ${mult(t.prev_spike_ratio)}× → ab ${mult(t.spike_ratio)}×</b>` : ""}</div>
+    </div>
+    <div class="riskpanel risk-${r.level.toLowerCase()}">
+      <div class="sp-h"><span class="muted small">RUG / RISK SCORE</span><b class="rk">${r.score}<small>/100 · ${r.level}</small></b></div>
+      <div class="rmeter"><i style="left:${r.score}%"></i></div>
+      <ul>${r.reasons.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+      <p class="muted small">Automatic andaza hai, guarantee nahi. Zyada score = zyada khatra. DYOR — kharidne se pehle contract, holders aur liquidity lock khud check karein.</p>
+    </div>`;
+  }
   function openSheet(t, updating = false) {
     if (!t) return;
     openSymbol = t.symbol;
@@ -186,6 +325,7 @@
     const ca = m.token_address || t.contract_address;
     $("#sheetBody").innerHTML = `
       <div class="d-head">${avatar(t)}<div><div class="d-sym">$${esc(t.symbol)}</div><div class="muted small">${tokenName(t)}${m.chain ? " · " + esc(m.chain) + (m.dex ? " / " + esc(m.dex) : "") : ""}</div></div></div>
+      ${signalPanel(t)}
       <div class="kv">
         <div><span>Spike ratio</span><b class="red">${mult(t.spike_ratio)}×</b></div><div><span>Hype score</span><b>${t.hype_score}/100</b></div>
         <div><span>Mentions now</span><b>${num(t.recent_rate_per_h)}/h</b></div><div><span>Baseline</span><b>${t.baseline_per_h}/h</b></div>
@@ -203,10 +343,10 @@
       <p class="muted small" style="margin-top:6px">${m.source ? "Source: " + esc(m.source) + " — " + esc(m.match || "") : "Market data unavailable for this token."}</p>
       ${ca ? `<div class="sec-t">Contract</div><div class="ca" id="caBox" title="Copy">${esc(ca)}</div>` : ""}
       <div class="flags">${(t.risk_flags || []).map((f) => `<span class="flag">⚠ ${esc(f)}</span>`).join("") || '<span class="flag ok">No automatic red flags — still DYOR</span>'}</div>
-      <div class="btns"><a class="btn primary" href="${xSearch(t)}" data-link>Live on X</a>${m.pair_url ? `<a class="btn" href="${esc(safeUrl(m.pair_url))}" data-link>DexScreener</a>` : ""}</div>
+      <div class="btns"><a class="btn primary" href="${xSearch(t)}" data-link>Live on X</a>${m.pair_url ? `<a class="btn" href="${esc(safeUrl(m.pair_url))}" data-link>DexScreener</a>` : ""}${ca && m.chain === "solana" ? `<a class="btn" href="https://rugcheck.xyz/tokens/${encodeURIComponent(ca)}" data-link>RugCheck</a>` : ""}${ca ? `<button class="btn" data-copy="${esc(ca)}">⧉ Copy CA</button>` : ""}</div>
       <div class="sec-t">Top posts in sample</div>${posts}
       <p class="muted small" style="margin-top:14px">X count query: <span class="mono">${esc(t.count_query)}</span></p>`;
-    const cb = $("#caBox"); if (cb) cb.onclick = () => { navigator.clipboard && navigator.clipboard.writeText(ca); haptic(); toast("Contract copied"); };
+    const cb = $("#caBox"); if (cb) cb.onclick = () => copyText(ca);
     $("#sheet").classList.add("on"); $("#backdrop").classList.add("on"); $("#sheet").setAttribute("aria-hidden", "false"); $("#sheet").scrollTop = updating ? scroll : 0;
     if (inTG) tg.BackButton.show();
   }
@@ -224,7 +364,17 @@
   $("#backdrop").onclick = closeSheet; $("#sheetClose").onclick = closeSheet;
   document.addEventListener("keydown", (e) => e.key === "Escape" && closeSheet());
   $("#kindSeg").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; haptic("light");
-    kind = b.dataset.kind; document.querySelectorAll("#kindSeg button").forEach((x) => x.classList.toggle("on", x === b)); renderList(); };
+    setKind(b.dataset.kind); };
+  function setKind(k) { kind = k; document.querySelectorAll("#kindSeg button, #sigBoard .sb").forEach((x) => x.classList.toggle("on", x.dataset.kind === k)); renderList(); }
+  $("#sigBoard").onclick = (e) => { const b = e.target.closest(".sb"); if (!b) return; haptic("light"); setKind(b.dataset.kind);
+    document.querySelector(".controls").scrollIntoView({ behavior: "smooth", block: "start" }); };
+  const copyText = (txt) => {
+    const done = () => { haptic(); toast("Contract copied"); };
+    const fallback = () => { const ta = document.createElement("textarea"); ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); } catch (e) { toast("Copy failed"); } ta.remove(); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, fallback); else fallback();
+  };
+  document.addEventListener("click", (e) => { const b = e.target.closest("[data-copy]"); if (!b) return; e.preventDefault(); e.stopPropagation(); copyText(b.dataset.copy); }, true);
   $("#sortSel").onchange = (e) => { sortBy = e.target.value; renderList(); };
   $("#reloadBtn").onclick = () => { const b = $("#reloadBtn"); b.classList.remove("spin"); void b.offsetWidth; b.classList.add("spin"); load(true); };
 
@@ -273,11 +423,10 @@
             const address = t.market.token_address || t.contract_address;
             // EVM addresses are case insensitive; Solana and other chains are not.
             const same = (a, b) => a && b && (a.startsWith("0x") && b.startsWith("0x") ? a.toLowerCase() === b.toLowerCase() : a === b);
-            const matches = pairs.filter(p => p.chainId === chain && same(p.baseToken?.address, address) && finite(p.priceUsd) && Number(p.priceUsd) > 0);
-            matches.sort((a, b) => (b.liquidity?.usd || 0) - (a.liquidity?.usd || 0));
-            const p = matches.find(p => (p.url || "").toLowerCase() === (t.market.pair_url || "").toLowerCase()) || matches[0];
-            if (!p) continue;
-            applyMarket(t, { price_usd: p.priceUsd, change_1h: p.priceChange?.h1, change_24h: p.priceChange?.h24, liquidity_usd: p.liquidity?.usd, market_cap: p.marketCap, volume_24h: p.volume?.h24, volume_1h: p.volume?.h1 });
+            const mk = marketFromPairs(pairs.filter(p => p.chainId === chain), address, t.market.pair_url);
+            if (!mk) continue;
+            for (const [k, v] of Object.entries(mk.obj)) if (v && typeof v === "object") t.market[k] = v;
+            applyMarket(t, mk.num);
           }
         })());
       }
@@ -292,6 +441,7 @@
       }
     })());
     await Promise.allSettled(jobs);
+    snap.tokens.forEach(enrich); // re-score pump/dump + risk with the fresh market data
     const times = snap.tokens.filter(t => !t.market._stale).map(t => t.market._asOf);
     if (times.length) pricesAsOf = Math.max(...times);
   }
@@ -308,6 +458,7 @@
           if (cached) t.market = { ...t.market, ...cached, _direction: 0 };
           else t.market = { ...t.market, _stale: true };
         }
+        incoming.tokens.forEach(enrich);
         snap = incoming; snapshotFailed = false;
       } catch (e) { snapshotFailed = true; }
       if (!snap) {
