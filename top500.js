@@ -225,7 +225,7 @@
     return ex ? `https://www.tradingview.com/chart/?symbol=${ex}:${encodeURIComponent(pair)}` : null; }
   function judgePanel(c) {
     const j = agent && agent.coins && agent.coins[c.id];
-    if (!j) return `<div class="judgepanel jv-wait"><div class="sp-h"><span class="muted small">SIGNAL JUDGE</span></div><p class="muted small" style="margin:6px 0 0">Is coin ka verdict abhi nahi mila (agle refresh par aayega).</p></div>`;
+    if (!j) return `<div class="judgepanel jv-wait"><div class="sp-h"><span class="muted small">SIGNAL JUDGE <span class="judge-mode">STRICT</span></span></div><p class="muted small" style="margin:6px 0 0">Is coin ka verdict abhi nahi mila (agle refresh par aayega).</p></div>`;
     const v = j.verdict || "WAIT", cls = v === "BUY" ? "jv-buy" : v === "SELL" ? "jv-sell" : "jv-wait";
     const ic = v === "BUY" ? "🟢" : v === "SELL" ? "🔴" : "⚪";
     const score = j.score != null ? `Score ${j.score}/100 — yeh indicator agreement hai, jeetne ki probability nahi.` : "Score n/a";
@@ -233,7 +233,7 @@
     const lv = (v === "BUY" || v === "SELL") && j.entry
       ? `<div class="judge-lv">${kv("Entry", price(j.entry))}${kv("Stop", j.stop != null ? price(j.stop) : "n/a")}${kv("Target", j.target != null ? price(j.target) : "n/a")}</div>${j.levels_note ? `<p class="judge-lv-note">${esc(j.levels_note)}</p>` : ""}`
       : "";
-    return `<div class="judgepanel ${cls}"><div class="sp-h"><span class="muted small">SIGNAL JUDGE</span><span class="muted small">${agent.generated_at ? ago(agent.generated_at) : ""}</span></div>
+    return `<div class="judgepanel ${cls}"><div class="sp-h"><span class="muted small">SIGNAL JUDGE <span class="judge-mode">STRICT</span></span><span class="muted small">${agent.generated_at ? ago(agent.generated_at) : ""}</span></div>
       <div class="judge-verdict">${ic} ${esc(v)}</div><div class="judge-score">${esc(score)}</div>
       ${why ? `<ul class="judge-why">${why}</ul>` : ""}${lv}</div>`;
   }

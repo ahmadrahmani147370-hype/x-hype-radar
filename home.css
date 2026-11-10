@@ -131,6 +131,7 @@ svg{fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-l
 
 /* Signal Judge card */
 .judge-card{padding:11px 12px}
+.judge-mode{display:inline-block;margin-left:6px;vertical-align:middle;font:700 9px/1 Outfit,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-line);background:var(--amber-soft);padding:3px 6px;border-radius:99px}
 .judge-mood{font-size:12px;color:var(--text2);line-height:1.45;margin:0 0 8px;padding:8px 10px;border-radius:12px;background:var(--card2);border:1px solid var(--line)}
 .judge-mood b{font-weight:700}
 .judge-mood .mood-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.02em;padding:1px 7px;border-radius:99px;margin-right:6px;vertical-align:1px}

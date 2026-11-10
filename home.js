@@ -2,7 +2,7 @@
    or live public exchange APIs (Binance → Bybit → OKX klines). Missing values show "—". */
 (() => {
   "use strict";
-  const VER = "h8";
+  const VER = "h9";
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const N = (v) => (v == null || v === "" || isNaN(+v) ? null : +v);
   const tg = window.Telegram && window.Telegram.WebApp, inTG = !!(tg && tg.initData);
@@ -238,7 +238,7 @@
         : `<div class="empty">${empty}</div>`;
       return `<div class="judge-col"><h4>${title}</h4>${body}</div>`;
     };
-    box.innerHTML = col("🟢 BUY picks", (AG.picks || {}).buy, "abhi koi strong BUY nahi") + col("🔴 SELL picks", (AG.picks || {}).sell, "abhi koi strong SELL nahi");
+    box.innerHTML = col("🟢 BUY picks", (AG.picks || {}).buy, "abhi koi mazboot setup nahi") + col("🔴 SELL picks", (AG.picks || {}).sell, "abhi koi mazboot setup nahi");
   }
   function renderAll() { if (!T5 && !LED && !AG) return; renderHeader(); renderStats(); renderLive(); renderJudge(); renderPerf(); renderPnl(); renderSignals(); renderScanner(); renderAnalysis(); renderStatus(); }
   document.addEventListener("click", (e) => {

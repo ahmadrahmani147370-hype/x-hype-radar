@@ -142,6 +142,7 @@
 .judgepanel.jv-sell{background:var(--red-soft);border-color:var(--line-red)}
 .judgepanel.jv-wait{background:var(--card2);border-color:var(--line)}
 .judgepanel .sp-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.judge-mode{display:inline-block;margin-left:6px;vertical-align:middle;font:700 9px/1 Outfit,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-line);background:var(--amber-soft);padding:2px 6px;border-radius:99px}
 .judge-verdict{font:700 18px/1.2 Outfit,Inter,sans-serif;margin-top:6px}
 .judge-score{font-size:12px;color:var(--text2);margin-top:2px}
 .judge-why{margin:8px 0 0;padding:0 0 0 16px;color:var(--text2);font-size:12.5px;line-height:1.45}
