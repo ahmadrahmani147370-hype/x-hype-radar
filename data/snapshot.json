@@ -1,15 +1,15 @@
 {
- "generated_at": "2026-11-09T23:48:03.586267Z",
- "x_data_as_of": "2026-11-09T23:10:06.000Z",
+ "generated_at": "2026-11-10T00:11:11.738262Z",
+ "x_data_as_of": "2026-11-10T00:10:39.000Z",
  "source": "X public search via Grok Bot x MCP (search_posts_all, get_posts_counts_recent); market: DexScreener, CoinGecko",
  "stats": {
-  "posts_analyzed": 216,
-  "unique_authors": 169,
-  "cashtags_seen": 138,
+  "posts_analyzed": 204,
+  "unique_authors": 153,
+  "cashtags_seen": 130,
   "tokens_tracked": 22,
   "count_queries": 22,
   "discovery_queries": 8,
-  "mentions_24h_tracked": 329636
+  "mentions_24h_tracked": 448532
  },
  "method": {
   "spike_ratio": "posts/hour over last ~1.5h (previous full hour + current partial hour) / average posts/hour over the 22 hours before (floor 0.5/h)",
@@ -19,133 +19,133 @@
  },
  "tokens": [
   {
-   "symbol": "PMURT",
+   "symbol": "PERPULATOR",
    "kind": "emerging",
    "note": null,
-   "count_query": "PMURT -is:retweet",
-   "mentions_24h": 266,
-   "mentions_6h": 190,
-   "mentions_current_hour_partial": 44,
+   "count_query": "PERPULATOR -is:retweet",
+   "mentions_24h": 65,
+   "mentions_6h": 64,
+   "mentions_current_hour_partial": 42,
    "current_hour_minutes": 10,
-   "recent_rate_per_h": 153.5,
-   "baseline_per_h": 3.91,
-   "spike_ratio": 39.27,
+   "recent_rate_per_h": 52.0,
+   "baseline_per_h": 0.18,
+   "spike_ratio": 103.98,
    "hourly": [
-    6,
-    8,
-    1,
-    3,
-    5,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
     0,
     1,
     0,
-    1,
-    1,
     0,
-    1,
-    2,
-    4,
-    16,
-    15,
-    6,
-    5,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
     3,
-    3,
-    3,
-    2,
-    135,
-    264.9
+    19,
+    242.3
    ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
-   "sample_posts": 30,
-   "unique_authors": 20,
-   "sample_engagement": 96,
+   "hourly_start": "2026-11-09T01:00:00.000Z",
+   "sample_posts": 28,
+   "unique_authors": 23,
+   "sample_engagement": 84,
    "scam_pattern_share": 0.0,
-   "contract_address": "6D62Zh47ATUb7Cf3ZkZ2CqyX7haSL6j9CsaP7kWHmGi2",
+   "contract_address": "BH5bq6NamreYUbu1hG6RQyCXXzrDvQ7Zi7w82mrbpump",
    "top_posts": [
     {
-     "id": "2119924305031266570",
-     "url": "https://x.com/tamara_bm/status/2119924305031266570",
-     "text": "PMURT official token $PMURT is live.\n\nCa: 6D62Zh47ATUb7Cf3ZkZ2CqyX7haSL6j9CsaP7kWHmGi2",
-     "created_at": "2026-11-09T22:45:15.000Z",
-     "author": "tamara_bm",
-     "author_name": "dev red (winter arc) 🍃",
-     "followers": 233,
-     "metrics": {
-      "bookmark_count": 4,
-      "impression_count": 162,
-      "like_count": 34,
-      "quote_count": 0,
-      "reply_count": 14,
-      "retweet_count": 14
-     },
-     "engagement": 76
-    },
-    {
-     "id": "2119928121159803095",
-     "url": "https://x.com/Sol_Gems00/status/2119928121159803095",
-     "text": "Watch your entry on $PMURT\nGamble for now 🎲 \nCA&gt;\n\n6D62Zh47ATUb7Cf3ZkZ2CqyX7haSL6j9CsaP7kWHmGi2\n\n#memecoin #Dewtee #helevier #Solana https://t.co/TRS6BN6yO4",
-     "created_at": "2026-11-09T23:00:25.000Z",
-     "author": "Sol_Gems00",
-     "author_name": "Sol_Gems💎",
-     "followers": 1676,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 42,
-      "like_count": 1,
-      "quote_count": 1,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 3
-    },
-    {
-     "id": "2119924437508059497",
-     "url": "https://x.com/degensignal1/status/2119924437508059497",
-     "text": "138.5x on my tg on $PMURT\n\n6D62Zh47ATUb7Cf3ZkZ2CqyX7haSL6j9CsaP7kWHmGi2 https://t.co/6CKF44Npro https://t.co/jTxnMJZ6F0",
-     "created_at": "2026-11-09T22:45:46.000Z",
-     "author": "degensignal1",
-     "author_name": "𝐃𝐄𝐆𝐄𝐍 𝐒𝐈𝐆𝐍𝐀𝐋𝐒 📡",
-     "followers": 262,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 50,
-      "like_count": 1,
-      "quote_count": 1,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 3
-    },
-    {
-     "id": "2119922143052063017",
-     "url": "https://x.com/SPCXpump/status/2119922143052063017",
-     "text": "JUST IN: $PMURT pumped 2.6x\n\nMoves like this are why we're here.\n\n📋 6D62Zh47ATUb7Cf3ZkZ2CqyX7haSL6j9CsaP7kWHmGi2\n\nNext 100x call incoming…\n\nStay tuned. 🔔 https://t.co/SLdDCt9It5",
-     "created_at": "2026-11-09T22:36:39.000Z",
-     "author": "SPCXpump",
-     "author_name": "$PUMP",
-     "followers": 1474,
+     "id": "2119916124473356506",
+     "url": "https://x.com/eli_dev1/status/2119916124473356506",
+     "text": "Perpulator &gt; Perculator https://t.co/HMbjvTfU4o",
+     "created_at": "2026-11-09T22:12:44.000Z",
+     "author": "eli_dev1",
+     "author_name": "Eli | Fivebar",
+     "followers": 186,
      "metrics": {
       "bookmark_count": 1,
-      "impression_count": 64,
-      "like_count": 1,
+      "impression_count": 4541,
+      "like_count": 14,
+      "quote_count": 9,
+      "reply_count": 11,
+      "retweet_count": 2
+     },
+     "engagement": 47
+    },
+    {
+     "id": "2119915443691381166",
+     "url": "https://x.com/fivebar_xyz/status/2119915443691381166",
+     "text": "We have set in motion the steps to fork and build from Toly's open source repo, we will rename it Perpulator. Sorry folks, you had your chance and insane support, and you messed it up screwing your holders @PercolatorTrade \n\nWe watched the whole thing unfold and it was not an htt",
+     "created_at": "2026-11-09T22:10:02.000Z",
+     "author": "fivebar_xyz",
+     "author_name": "Fivebar Labs",
+     "followers": 80,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 6510,
+      "like_count": 8,
+      "quote_count": 3,
+      "reply_count": 3,
+      "retweet_count": 0
+     },
+     "engagement": 17
+    },
+    {
+     "id": "2119940000049504549",
+     "url": "https://x.com/jacksneth/status/2119940000049504549",
+     "text": "@eli_dev1 haha basically  on\n@Pumpfun\nthey have the ability to redirect the fees generated by trading a token to either a solana wallet or a github that you can log in with and claim the fees for.   \n\nif you drop a solana wallet or a github we can create a token to fundraise and ",
+     "created_at": "2026-11-09T23:47:37.000Z",
+     "author": "jacksneth",
+     "author_name": "jacksn",
+     "followers": 2729,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 158,
+      "like_count": 6,
       "quote_count": 0,
       "reply_count": 1,
       "retweet_count": 0
      },
-     "engagement": 2
+     "engagement": 7
     },
     {
-     "id": "2119925505184952769",
-     "url": "https://x.com/ASTRAsol4/status/2119925505184952769",
-     "text": "$PMURT\n\nCA&gt;&gt;\n6D62Zh47ATUb7Cf3ZkZ2CqyX7haSL6j9CsaP7kWHmGi2 https://t.co/OvZjzoO5nf",
-     "created_at": "2026-11-09T22:50:01.000Z",
-     "author": "ASTRAsol4",
-     "author_name": "ASTRA",
-     "followers": 1424,
+     "id": "2119937380845285722",
+     "url": "https://x.com/bitecong/status/2119937380845285722",
+     "text": "🤖 AI Signal (SOL) $PERPULATOR\n\nCA: BH5bq6NamreYUbu1hG6RQyCXXzrDvQ7Zi7w82mrbpump\n\nPerpulator (PERPULATOR) is a pumpfun token about six minutes old, and nobody on X has posted about its contract yet. There is no clear theme in the name or ticker as given.\n\nThe token metadata links ",
+     "created_at": "2026-11-09T23:37:12.000Z",
+     "author": "bitecong",
+     "author_name": "Green onions",
+     "followers": 38613,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 142,
+      "impression_count": 534,
+      "like_count": 0,
+      "quote_count": 1,
+      "reply_count": 1,
+      "retweet_count": 1
+     },
+     "engagement": 5
+    },
+    {
+     "id": "2119943074788888670",
+     "url": "https://x.com/CryptoKittoll/status/2119943074788888670",
+     "text": "Track your entry on $PERPULATOR\nCA;\n\nBH5bq6NamreYUbu1hG6RQyCXXzrDvQ7Zi7w82mrbpump https://t.co/cXc7wqSM1C",
+     "created_at": "2026-11-09T23:59:50.000Z",
+     "author": "CryptoKittoll",
+     "author_name": "CryptoKitty",
+     "followers": 2182,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 79,
       "like_count": 0,
       "quote_count": 1,
       "reply_count": 0,
@@ -158,66 +158,64 @@
     "source": "DexScreener",
     "match": "contract address from X posts",
     "chain": "solana",
-    "dex": "raydium",
-    "pair_url": "https://dexscreener.com/solana/cd95wjapbxqqokgkrw2aq7rqgqzrrxnkprdy6shfrp6z",
-    "token_address": "6D62Zh47ATUb7Cf3ZkZ2CqyX7haSL6j9CsaP7kWHmGi2",
-    "name": "Opposite Trump",
-    "price_usd": 9.05e-06,
-    "change_5m": -2.74,
-    "change_1h": -97.91,
-    "change_6h": -94.58,
-    "change_24h": -94.58,
-    "volume_5m": 230.3,
-    "volume_1h": 808601.75,
-    "volume_6h": 1504533.27,
-    "volume_24h": 1504533.27,
-    "liquidity_usd": 16113.89,
-    "market_cap": 9050,
-    "fdv": 9050,
-    "pair_created_at": 1794262841000,
-    "image": "https://cdn.dexscreener.com/cms/images/Knzhthvn98ms4CVH?width=800&height=800&quality=95&format=auto",
+    "dex": "pumpswap",
+    "pair_url": "https://dexscreener.com/solana/7ovtrbkj98rrbzru81wozrmnkj7bngurlebdmvcwjifv",
+    "token_address": "BH5bq6NamreYUbu1hG6RQyCXXzrDvQ7Zi7w82mrbpump",
+    "name": "Perpulator",
+    "price_usd": 0.0001759,
+    "change_5m": -19.48,
+    "change_1h": 366,
+    "change_6h": 366,
+    "change_24h": 366,
+    "volume_5m": 99099.25,
+    "volume_1h": 710347.33,
+    "volume_6h": 710347.33,
+    "volume_24h": 710347.33,
+    "liquidity_usd": 33152.8,
+    "market_cap": 175741,
+    "fdv": 175741,
+    "pair_created_at": 1794267995000,
+    "image": null,
     "txns_5m": {
-     "buys": 4,
-     "sells": 13
+     "buys": 1270,
+     "sells": 857
     },
     "txns_1h": {
-     "buys": 11836,
-     "sells": 12661
+     "buys": 7181,
+     "sells": 5660
     },
     "txns_6h": {
-     "buys": 24998,
-     "sells": 25592
+     "buys": 7181,
+     "sells": 5660
     },
     "txns_24h": {
-     "buys": 24998,
-     "sells": 25592
+     "buys": 7181,
+     "sells": 5660
     },
     "pairs_count": 6,
-    "top_pair_liq_share": 0.951
+    "top_pair_liq_share": 0.729
    },
-   "hype_score": 79,
+   "hype_score": 84,
    "risk_flags": [
-    "Low liquidity (< $20k)",
     "Pair < 24h old"
    ],
    "momentum": {
-    "accel": 61.4,
-    "prior_rate_per_h": 2.5,
+    "accel": 34.67,
+    "prior_rate_per_h": 1.5,
     "state": "accelerating"
    },
    "signal": {
-    "code": "dump",
-    "label": "DUMP chal raha",
-    "reason": "5m -2.7%, 1h -98%, 6h -95% · buys 48% (1h) · X 39.3x, accelerating"
+    "code": "overheated",
+    "label": "Overheated / Dump risk",
+    "reason": "1h +366% · buys 56% (1h) · X 104.0x, accelerating"
    },
    "risk": {
-    "score": 52,
+    "score": 48,
     "level": "Medium",
     "reasons": [
      "+20 liquidity < $50K",
      "+20 pair < 6h old",
-     "+8 1h volume 50x liquidity (churn)",
-     "+4 liquidity concentrated in 1 pair"
+     "+8 1h volume 21x liquidity (churn)"
     ]
    },
    "is_spiking": true
@@ -227,43 +225,43 @@
    "kind": "emerging",
    "note": null,
    "count_query": "USELESS -is:retweet",
-   "mentions_24h": 40147,
-   "mentions_6h": 11326,
-   "mentions_current_hour_partial": 303,
+   "mentions_24h": 40272,
+   "mentions_6h": 10697,
+   "mentions_current_hour_partial": 238,
    "current_hour_minutes": 10,
-   "recent_rate_per_h": 2131.7,
-   "baseline_per_h": 1647.41,
-   "spike_ratio": 1.29,
+   "recent_rate_per_h": 1591.6,
+   "baseline_per_h": 1693.36,
+   "spike_ratio": 0.94,
    "hourly": [
-    1153,
     1157,
     1089,
-    1028,
+    1027,
     1042,
     1061,
     1235,
     1356,
     1440,
-    1409,
-    1409,
-    1653,
-    1690,
+    1408,
+    1408,
+    1650,
+    1689,
     1985,
-    2008,
+    2007,
     2183,
-    2275,
-    2231,
-    2187,
+    2274,
+    2228,
+    2185,
     2205,
-    2227,
-    2220,
-    2184,
-    1818.0
+    2226,
+    2218,
+    2181,
+    1629,
+    1375.3
    ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
+   "hourly_start": "2026-11-09T01:00:00.000Z",
    "sample_posts": 3,
    "unique_authors": 3,
-   "sample_engagement": 523,
+   "sample_engagement": 529,
    "scam_pattern_share": 0.0,
    "contract_address": null,
    "top_posts": [
@@ -274,34 +272,16 @@
      "created_at": "2026-11-09T15:11:09.000Z",
      "author": "coldtrz",
      "author_name": "cold",
-     "followers": 84390,
+     "followers": 84387,
      "metrics": {
       "bookmark_count": 2,
-      "impression_count": 10040,
-      "like_count": 196,
+      "impression_count": 10289,
+      "like_count": 199,
       "quote_count": 6,
-      "reply_count": 98,
+      "reply_count": 99,
       "retweet_count": 48
      },
-     "engagement": 402
-    },
-    {
-     "id": "2119816240919134642",
-     "url": "https://x.com/TheBearSoprano/status/2119816240919134642",
-     "text": "Everyone knows $USELESS in the memecoin space.\n\nBut here’s what most people are sleeping on:\n\nThe same team just launched a new coin, and it’s still under $1M in market cap. https://t.co/OItITw6WEY",
-     "created_at": "2026-11-09T15:35:50.000Z",
-     "author": "TheBearSoprano",
-     "author_name": "Tony",
-     "followers": 837,
-     "metrics": {
-      "bookmark_count": 2,
-      "impression_count": 938,
-      "like_count": 42,
-      "quote_count": 0,
-      "reply_count": 1,
-      "retweet_count": 9
-     },
-     "engagement": 61
+     "engagement": 406
     },
     {
      "id": "2119825519307092027",
@@ -313,13 +293,31 @@
      "followers": 2316,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 1143,
-      "like_count": 40,
+      "impression_count": 1172,
+      "like_count": 42,
       "quote_count": 1,
       "reply_count": 2,
       "retweet_count": 8
      },
-     "engagement": 60
+     "engagement": 62
+    },
+    {
+     "id": "2119816240919134642",
+     "url": "https://x.com/TheBearSoprano/status/2119816240919134642",
+     "text": "Everyone knows $USELESS in the memecoin space.\n\nBut here’s what most people are sleeping on:\n\nThe same team just launched a new coin, and it’s still under $1M in market cap. https://t.co/OItITw6WEY",
+     "created_at": "2026-11-09T15:35:50.000Z",
+     "author": "TheBearSoprano",
+     "author_name": "Tony",
+     "followers": 837,
+     "metrics": {
+      "bookmark_count": 2,
+      "impression_count": 944,
+      "like_count": 42,
+      "quote_count": 0,
+      "reply_count": 1,
+      "retweet_count": 9
+     },
+     "engagement": 61
     }
    ],
    "market": {
@@ -363,19 +361,21 @@
     "pairs_count": 1,
     "top_pair_liq_share": 1.0
    },
-   "hype_score": 62,
+   "hype_score": 60,
    "risk_flags": [
     "Matched by symbol only - verify contract"
    ],
+   "prev_spike_ratio": 1.29,
+   "prev_snapshot_at": "2026-11-09T23:10:06.000Z",
    "momentum": {
-    "accel": 0.96,
-    "prior_rate_per_h": 2223.5,
+    "accel": 0.72,
+    "prior_rate_per_h": 2199.5,
     "state": "steady"
    },
    "signal": {
     "code": "neutral",
     "label": "Neutral",
-    "reason": "X 1.3x, steady · 1h +0.0% · buy/sell n/a"
+    "reason": "X 0.9x, steady · 1h +0.0% · buy/sell n/a"
    },
    "risk": {
     "score": 25,
@@ -388,475 +388,21 @@
    "is_spiking": false
   },
   {
-   "symbol": "REX",
-   "kind": "emerging",
-   "note": null,
-   "count_query": "REX -is:retweet",
-   "mentions_24h": 22250,
-   "mentions_6h": 4896,
-   "mentions_current_hour_partial": 178,
-   "current_hour_minutes": 10,
-   "recent_rate_per_h": 983.5,
-   "baseline_per_h": 913.27,
-   "spike_ratio": 1.08,
-   "hourly": [
-    804,
-    734,
-    746,
-    746,
-    725,
-    831,
-    770,
-    807,
-    945,
-    845,
-    855,
-    985,
-    1048,
-    1176,
-    1139,
-    1052,
-    1097,
-    1039,
-    1004,
-    862,
-    950,
-    932,
-    970,
-    1064.5
-   ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
-   "sample_posts": 2,
-   "unique_authors": 2,
-   "sample_engagement": 6,
-   "scam_pattern_share": 0.0,
-   "contract_address": "CmQJNJ185pjzQoebPbcqZu1kTykHxJbn4gER1Af7pump",
-   "top_posts": [
-    {
-     "id": "2119752676766630102",
-     "url": "https://x.com/climamonterrey/status/2119752676766630102",
-     "text": "Review the profile of rex fun $REX on Solana \n\n Explore the token details and discover more about the Solana memecoin and crypto airdrop ecosystem. \n\n CA=CmQJNJ185pjzQoebPbcqZu1kTykHxJbn4gER1Af7pump \n\n https://t.co/y0LopraQ2z",
-     "created_at": "2026-11-09T11:23:15.000Z",
-     "author": "climamonterrey",
-     "author_name": "El Clima Monterrey",
-     "followers": 1007,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 3,
-      "like_count": 0,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 2
-     },
-     "engagement": 4
-    },
-    {
-     "id": "2119750869650477421",
-     "url": "https://x.com/nishantjeph/status/2119750869650477421",
-     "text": "Review the profile of rex fun $REX on Solana \n\n Explore the token details and discover more about the Solana memecoin and crypto airdrop ecosystem. \n\n CA=CmQJNJ185pjzQoebPbcqZu1kTykHxJbn4gER1Af7pump \n\n https://t.co/OByDLR60by",
-     "created_at": "2026-11-09T11:16:05.000Z",
-     "author": "nishantjeph",
-     "author_name": "Dr Nishant Kumar",
-     "followers": 1944,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 4,
-      "like_count": 0,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 1
-     },
-     "engagement": 2
-    }
-   ],
-   "market": {
-    "source": "DexScreener",
-    "match": "contract address from X posts",
-    "chain": "solana",
-    "dex": "pumpswap",
-    "pair_url": "https://dexscreener.com/solana/8xzxttcfq49n5awdmtlaok7mkmz65aaatpqryd9m1jl7",
-    "token_address": "CmQJNJ185pjzQoebPbcqZu1kTykHxJbn4gER1Af7pump",
-    "name": "rex.fun",
-    "price_usd": 8.877e-05,
-    "change_5m": null,
-    "change_1h": -10.08,
-    "change_6h": -7.9,
-    "change_24h": -16.24,
-    "volume_5m": 0,
-    "volume_1h": 1322.09,
-    "volume_6h": 1840.38,
-    "volume_24h": 3147,
-    "liquidity_usd": 26068.81,
-    "market_cap": 88760,
-    "fdv": 88760,
-    "pair_created_at": 1782273742000,
-    "image": "https://cdn.dexscreener.com/cms/images/ZwYnJWecMpyXFYR4?width=800&height=800&quality=95&format=auto",
-    "txns_5m": {
-     "buys": 0,
-     "sells": 1
-    },
-    "txns_1h": {
-     "buys": 7,
-     "sells": 6
-    },
-    "txns_6h": {
-     "buys": 27,
-     "sells": 23
-    },
-    "txns_24h": {
-     "buys": 60,
-     "sells": 49
-    },
-    "pairs_count": 1,
-    "top_pair_liq_share": 1.0
-   },
-   "hype_score": 51,
-   "risk_flags": [],
-   "momentum": {
-    "accel": 1.05,
-    "prior_rate_per_h": 941.0,
-    "state": "steady"
-   },
-   "signal": {
-    "code": "neutral",
-    "label": "Neutral",
-    "reason": "X 1.1x, steady · 1h -10% · buys 54% (6h)"
-   },
-   "risk": {
-    "score": 20,
-    "level": "Low",
-    "reasons": [
-     "+20 liquidity < $50K"
-    ]
-   },
-   "is_spiking": false
-  },
-  {
-   "symbol": "BTC",
-   "kind": "major",
-   "note": null,
-   "count_query": "bitcoin -is:retweet",
-   "mentions_24h": 43715,
-   "mentions_6h": 9477,
-   "mentions_current_hour_partial": 226,
-   "current_hour_minutes": 10,
-   "recent_rate_per_h": 1470.3,
-   "baseline_per_h": 1830.73,
-   "spike_ratio": 0.8,
-   "hourly": [
-    1496,
-    1430,
-    1405,
-    1208,
-    1193,
-    1295,
-    1521,
-    1711,
-    1883,
-    1654,
-    1700,
-    1806,
-    2053,
-    2508,
-    2651,
-    2588,
-    2193,
-    2221,
-    2120,
-    1937,
-    1940,
-    1763,
-    1491,
-    1347.0
-   ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
-   "sample_posts": 7,
-   "unique_authors": 7,
-   "sample_engagement": 3,
-   "scam_pattern_share": 0.0,
-   "contract_address": null,
-   "top_posts": [
-    {
-     "id": "2119819324328386614",
-     "url": "https://x.com/jnvck_crypto/status/2119819324328386614",
-     "text": "bullish on $BTC send it higher https://t.co/BxXUkfaKQX",
-     "created_at": "2026-11-09T15:48:05.000Z",
-     "author": "jnvck_crypto",
-     "author_name": "JNVCK CRYPTO",
-     "followers": 1894,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 134,
-      "like_count": 2,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 2
-    },
-    {
-     "id": "2119850116358267198",
-     "url": "https://x.com/jaredfromsubw8y/status/2119850116358267198",
-     "text": "feels good holding the next 100x + memecoin 3years cooking \n\n$eth $ondo $bitcoin $apu $btc $hype  $pepe https://t.co/Z1AYR4BLw3",
-     "created_at": "2026-11-09T17:50:27.000Z",
-     "author": "jaredfromsubw8y",
-     "author_name": "Jaredfromsubway.eth 🍀 💹🧲",
-     "followers": 250,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 78,
-      "like_count": 1,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 1
-    },
-    {
-     "id": "2119930200150663239",
-     "url": "https://x.com/orusrock/status/2119930200150663239",
-     "text": "the $NASDAQ is up 2.5% today while $BTC sits at $74,810 after $1b in longs got liquidated overnight, so the flush was a crypto problem and stocks didn't get the memo. $XRP down 5.3% and $WTI down 4% to $87, and somehow i'm the one who feels behind.",
-     "created_at": "2026-11-09T23:08:40.000Z",
-     "author": "orusrock",
-     "author_name": "Orusrock",
-     "followers": 63,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 0,
-      "like_count": 0,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 0
-    },
-    {
-     "id": "2119929768833364453",
-     "url": "https://x.com/JG_DiVincenzo/status/2119929768833364453",
-     "text": "Stocks just had their best day since April, and $BTC mostly shrugged. CoinDesk: crypto is back to falling with stocks but not rising with them. BTC ~$74.8k late, still holding its 200-day average (~$73.2k). Options desks are buying puts. Tuesday's CPI is the next real test.",
-     "created_at": "2026-11-09T23:06:57.000Z",
-     "author": "JG_DiVincenzo",
-     "author_name": "Joseph DiVincenzo",
-     "followers": 160,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 10,
-      "like_count": 0,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 0
-    },
-    {
-     "id": "2119929663397187740",
-     "url": "https://x.com/PandemicFusion/status/2119929663397187740",
-     "text": "🚨 CRYPTO MARKET UPDATE — Nov 9, 2026 🚨\n🔻 Market Pressure Hits Risk Assets\n * $BTC slipped to ~$74.5K after briefly touching $73.5K lows, struggling to reclaim $76K momentum.\n * $ETH took a heavier hit, dropping below $2,130 (down ~5% in 24h).\n * Liquidations spiked past https://t",
-     "created_at": "2026-11-09T23:06:32.000Z",
-     "author": "PandemicFusion",
-     "author_name": "MKUltra",
-     "followers": 214,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 10,
-      "like_count": 0,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 0
-    }
-   ],
-   "market": {
-    "source": "CoinGecko",
-    "match": "coingecko id bitcoin",
-    "price_usd": 75127,
-    "change_24h": 0.3842882929574226,
-    "volume_24h": 31025799655.387,
-    "market_cap": 1511015803295.5923
-   },
-   "hype_score": 49,
-   "risk_flags": [],
-   "momentum": {
-    "accel": 0.79,
-    "prior_rate_per_h": 1851.5,
-    "state": "steady"
-   },
-   "signal": {
-    "code": "neutral",
-    "label": "Neutral",
-    "reason": "X 0.8x, steady · 24h +0.4%"
-   },
-   "risk": {
-    "score": 0,
-    "level": "Low",
-    "reasons": [
-     "Large-cap major (CoinGecko)"
-    ]
-   },
-   "is_spiking": false
-  },
-  {
-   "symbol": "PUMP",
-   "kind": "emerging",
-   "note": null,
-   "count_query": "PUMP -is:retweet",
-   "mentions_24h": 22002,
-   "mentions_6h": 5414,
-   "mentions_current_hour_partial": 155,
-   "current_hour_minutes": 10,
-   "recent_rate_per_h": 846.3,
-   "baseline_per_h": 920.55,
-   "spike_ratio": 0.92,
-   "hourly": [
-    664,
-    668,
-    676,
-    731,
-    819,
-    661,
-    672,
-    666,
-    700,
-    772,
-    699,
-    895,
-    1139,
-    963,
-    1094,
-    1289,
-    1380,
-    1338,
-    1148,
-    1180,
-    1067,
-    1031,
-    833,
-    925.4
-   ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
-   "sample_posts": 2,
-   "unique_authors": 2,
-   "sample_engagement": 3,
-   "scam_pattern_share": 0.0,
-   "contract_address": "6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx",
-   "top_posts": [
-    {
-     "id": "2119842843925610629",
-     "url": "https://x.com/bitrebelution/status/2119842843925610629",
-     "text": "WHY GAMBLE IN THE CASINO WHEN YOU CAN OWN THE CASINO? 🎰👀\n\nEveryone is hunting for the next 100x memecoin.\nBut who’s making money from ALL that trading?\nThe numbers might surprise you! 🔥\n\n📊 #SOLANA REVENUE: SEPT → OCT\n\n🟢 $PUMP: +34.5%\n🔴 https://t.co/OhzshvYtNu",
-     "created_at": "2026-11-09T17:21:33.000Z",
-     "author": "bitrebelution",
-     "author_name": "Bitrebelution",
-     "followers": 1266,
-     "metrics": {
-      "bookmark_count": 1,
-      "impression_count": 165,
-      "like_count": 3,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 3
-    },
-    {
-     "id": "2119929738034659566",
-     "url": "https://x.com/cryptobllaney/status/2119929738034659566",
-     "text": "solana:6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx will flip $PUMP",
-     "created_at": "2026-11-09T23:06:50.000Z",
-     "author": "cryptobllaney",
-     "author_name": "BLANEY",
-     "followers": 12,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 2,
-      "like_count": 0,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 0
-    }
-   ],
-   "market": {
-    "source": "DexScreener",
-    "match": "contract address from X posts",
-    "chain": "solana",
-    "dex": "meteora",
-    "pair_url": "https://dexscreener.com/solana/zxtpi4btawx3mgdapoezkmd1hxx8cdecfrqxmwvsclx",
-    "token_address": "6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx",
-    "name": "STONK",
-    "price_usd": 0.05208,
-    "change_5m": 0.01,
-    "change_1h": -4.53,
-    "change_6h": 2.88,
-    "change_24h": 16.55,
-    "volume_5m": 4258.1,
-    "volume_1h": 110111.75,
-    "volume_6h": 563818.11,
-    "volume_24h": 4410819.27,
-    "liquidity_usd": 2122462.13,
-    "market_cap": 52083766,
-    "fdv": 52083766,
-    "pair_created_at": 1786531900000,
-    "image": "https://cdn.dexscreener.com/cms/images/bJ1wrZe7IYIknT9a?width=800&height=800&quality=95&format=auto",
-    "txns_5m": {
-     "buys": 13,
-     "sells": 11
-    },
-    "txns_1h": {
-     "buys": 163,
-     "sells": 360
-    },
-    "txns_6h": {
-     "buys": 1144,
-     "sells": 1903
-    },
-    "txns_24h": {
-     "buys": 9408,
-     "sells": 11659
-    },
-    "pairs_count": 30,
-    "top_pair_liq_share": 0.544
-   },
-   "hype_score": 49,
-   "risk_flags": [],
-   "momentum": {
-    "accel": 0.81,
-    "prior_rate_per_h": 1049.0,
-    "state": "steady"
-   },
-   "signal": {
-    "code": "neutral",
-    "label": "Neutral",
-    "reason": "X 0.9x, steady · 1h -4.5% · buys 31% (1h)"
-   },
-   "risk": {
-    "score": 15,
-    "level": "Low",
-    "reasons": [
-     "+15 sells 69% (1h)"
-    ]
-   },
-   "is_spiking": false
-  },
-  {
    "symbol": "SOL",
    "kind": "major",
    "note": null,
    "count_query": "solana -is:retweet",
-   "mentions_24h": 52250,
-   "mentions_6h": 10870,
-   "mentions_current_hour_partial": 241,
-   "current_hour_minutes": 10,
-   "recent_rate_per_h": 1452.3,
-   "baseline_per_h": 2199.14,
-   "spike_ratio": 0.66,
+   "mentions_24h": 51543,
+   "mentions_6h": 9498,
+   "mentions_current_hour_partial": 296,
+   "current_hour_minutes": 11,
+   "recent_rate_per_h": 1469.9,
+   "baseline_per_h": 2203.95,
+   "spike_ratio": 0.67,
    "hourly": [
-    1326,
-    1365,
-    1229,
-    1238,
+    1363,
+    1228,
+    1237,
     1385,
     2929,
     1847,
@@ -868,20 +414,21 @@
     2618,
     2712,
     3417,
-    2867,
-    2825,
-    3062,
-    2853,
+    2863,
+    2824,
+    3058,
+    2851,
     2353,
-    2290,
-    1678,
-    1455,
-    1436.4
+    2288,
+    1677,
+    1450,
+    1434,
+    1672.8
    ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
-   "sample_posts": 11,
-   "unique_authors": 6,
-   "sample_engagement": 13,
+   "hourly_start": "2026-11-09T01:00:00.000Z",
+   "sample_posts": 3,
+   "unique_authors": 3,
+   "sample_engagement": 10,
    "scam_pattern_share": 0.0,
    "contract_address": null,
    "top_posts": [
@@ -913,7 +460,7 @@
      "followers": 40,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 36,
+      "impression_count": 37,
       "like_count": 2,
       "quote_count": 0,
       "reply_count": 1,
@@ -922,52 +469,16 @@
      "engagement": 3
     },
     {
-     "id": "2119929759547469854",
-     "url": "https://x.com/Yovelcrypto/status/2119929759547469854",
-     "text": "$SOL 1D Institutional Update:\n\nRejection at $124.60 triggered distribution, printing a Bearish CHoCH below $94.61.\n\nPrice ($86.73) is currently testing the Daily Bullish Imbalance at $80.79.\n\nBreakdown of key levels below 🧵👇\n#SOL #Crypto #Solana https://t.co/wD2wZQ7jAW",
-     "created_at": "2026-11-09T23:06:55.000Z",
-     "author": "Yovelcrypto",
-     "author_name": "Yovel Crypto money",
-     "followers": 2206,
+     "id": "2119879379446530253",
+     "url": "https://x.com/signalshotai/status/2119879379446530253",
+     "text": "Equity markets took their worst hit since 2025 yet crypto stayed firm. \nSchroders just launched on Solana. $SOL now carries direct institutional product exposure even if the scale stays unclear.",
+     "created_at": "2026-11-09T19:46:44.000Z",
+     "author": "signalshotai",
+     "author_name": "SignalShot",
+     "followers": 181,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 9,
-      "like_count": 0,
-      "quote_count": 0,
-      "reply_count": 2,
-      "retweet_count": 0
-     },
-     "engagement": 2
-    },
-    {
-     "id": "2119929846637670643",
-     "url": "https://x.com/Sol_Ficra/status/2119929846637670643",
-     "text": "6.9x Returns from our initial\ninvestment on $ANT\n\n 🚀🔥\nCa&gt;\n\n3JPqzDf4wqF8wkVR3yErsQJ9ma1wNFBC8zMR7ctCgVzi\n\n#bbvipks5 $sol https://t.co/ZWrpZmZWP3 https://t.co/WNhdE9gHeR",
-     "created_at": "2026-11-09T23:07:16.000Z",
-     "author": "Sol_Ficra",
-     "author_name": "Sol Ficra",
-     "followers": 5667,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 195,
-      "like_count": 1,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 1
-    },
-    {
-     "id": "2119930019992818133",
-     "url": "https://x.com/Nikola_solana/status/2119930019992818133",
-     "text": "@bitget The REAL TESLA is back on Solana to claim his liquidity! 🤫⚡ \n\n100% community driven. Let's shock the charts! 🚀\n\n🌐 Buy: https://t.co/IfKJMiUyvQ\n\n📝 CA: 9HEQrhykk8wHxT7h5Ai12YPQfD43iR7p9e6hN9Bvpump\n\n$Nikola $SOL #Solana",
-     "created_at": "2026-11-09T23:07:57.000Z",
-     "author": "Nikola_solana",
-     "author_name": "Nikolasolana",
-     "followers": 27,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 0,
+      "impression_count": 16,
       "like_count": 0,
       "quote_count": 0,
       "reply_count": 0,
@@ -979,22 +490,24 @@
    "market": {
     "source": "CoinGecko",
     "match": "coingecko id solana",
-    "price_usd": 86.49,
-    "change_24h": -0.2509831578661088,
-    "volume_24h": 2547642154.4964957,
-    "market_cap": 51126448073.721375
+    "price_usd": 86.69,
+    "change_24h": -0.20876545621916387,
+    "volume_24h": 2424207050.0854306,
+    "market_cap": 51250874887.45308
    },
-   "hype_score": 49,
+   "hype_score": 50,
    "risk_flags": [],
+   "prev_spike_ratio": 0.66,
+   "prev_snapshot_at": "2026-11-09T23:10:06.000Z",
    "momentum": {
-    "accel": 0.73,
-    "prior_rate_per_h": 1984.0,
+    "accel": 0.94,
+    "prior_rate_per_h": 1563.5,
     "state": "steady"
    },
    "signal": {
     "code": "neutral",
     "label": "Neutral",
-    "reason": "X 0.7x, steady · 24h -0.3%"
+    "reason": "X 0.7x, steady · 24h -0.2%"
    },
    "risk": {
     "score": 0,
@@ -1006,133 +519,316 @@
    "is_spiking": false
   },
   {
+   "symbol": "FAIR",
+   "kind": "emerging",
+   "note": null,
+   "count_query": "FAIR -is:retweet",
+   "mentions_24h": 76889,
+   "mentions_6h": 20220,
+   "mentions_current_hour_partial": 580,
+   "current_hour_minutes": 10,
+   "recent_rate_per_h": 3411.7,
+   "baseline_per_h": 3187.5,
+   "spike_ratio": 1.07,
+   "hourly": [
+    2663,
+    2765,
+    2545,
+    2391,
+    2393,
+    2247,
+    2359,
+    2239,
+    2335,
+    2418,
+    2499,
+    2967,
+    3467,
+    3822,
+    3979,
+    4359,
+    4263,
+    4199,
+    4186,
+    3953,
+    4033,
+    4043,
+    3425,
+    3335.5
+   ],
+   "hourly_start": "2026-11-09T01:00:00.000Z",
+   "sample_posts": 4,
+   "unique_authors": 2,
+   "sample_engagement": 6,
+   "scam_pattern_share": 0.0,
+   "contract_address": "FairDR2UmRqHxsVPdPcetePCjFaDqVYv3oQX9fcQTpTg",
+   "top_posts": [
+    {
+     "id": "2119944713637642356",
+     "url": "https://x.com/clebers1984/status/2119944713637642356",
+     "text": "⚖️ $FAIR — $16.3K MC\n\n$FAIR is currently sitting at just $16.3K MC, placing it in tiny-cap territory. An early-stage setup worth keeping on the radar as market activity develops. 👀📊\n\nWant more early Solana calls? Join my TG — link in bio!\n\nCA: https://t.co/4nsxe2XhAf",
+     "created_at": "2026-11-10T00:06:21.000Z",
+     "author": "clebers1984",
+     "author_name": "João Pereira💎💫",
+     "followers": 1031,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 11,
+      "like_count": 0,
+      "quote_count": 2,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 4
+    },
+    {
+     "id": "2119945183274098809",
+     "url": "https://x.com/clebers1984/status/2119945183274098809",
+     "text": "💎 $FAIR — $176K MC\n\n$FAIR has climbed from its original $16.3K call to $176K — an impressive 10.8x market-cap run! Another strong milestone as this early pick continues to gain ground. 🚀📈\n\nWant more early Solana calls? Join my TG — link in bio!\n\nCA: https://t.co/j0YlNlAH55 https:",
+     "created_at": "2026-11-10T00:08:13.000Z",
+     "author": "clebers1984",
+     "author_name": "João Pereira💎💫",
+     "followers": 1031,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 2,
+      "like_count": 1,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 1
+    },
+    {
+     "id": "2119944887487311990",
+     "url": "https://x.com/clebers1984/status/2119944887487311990",
+     "text": "🔥 $FAIR — $39K MC\n\nFrom $16.3K to $39K — that's a solid 2.4x move! $FAIR is making progress from its early valuation, with its latest market activity putting it on the radar. 📈👀\n\nWant more early Solana calls? Join my TG — link in bio!\n\nCA: https://t.co/zG91SPE7Fk https://t.co/7lo",
+     "created_at": "2026-11-10T00:07:02.000Z",
+     "author": "clebers1984",
+     "author_name": "João Pereira💎💫",
+     "followers": 1031,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 5,
+      "like_count": 1,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 1
+    },
+    {
+     "id": "2119944597883277440",
+     "url": "https://x.com/AlphaPulsevw/status/2119944597883277440",
+     "text": "🚀 $FAIR — $359K MC\n\n$FAIR has advanced from $16.3K to $359K — a 22x rise. What started as a small-cap call has now reached a significant new valuation. 📈\n\nWant more early calls? Join my TG — link in bio!\n\nCA: \"FairDR2UmRqHxsVPdPcetePCjFaDqVYv3oQX9fcQTpTg\"\n\n#FAIR #Solana #Crypto h",
+     "created_at": "2026-11-10T00:05:53.000Z",
+     "author": "AlphaPulsevw",
+     "author_name": "AlphaPulse",
+     "followers": 2376,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 42,
+      "like_count": 0,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 0
+    }
+   ],
+   "market": {
+    "source": "DexScreener",
+    "match": "contract address from X posts",
+    "chain": "solana",
+    "dex": "raydium",
+    "pair_url": "https://dexscreener.com/solana/54gtphjaegksfq6pwsrja656zrgvfhkc5fzqbmp7qxms",
+    "token_address": "FairDR2UmRqHxsVPdPcetePCjFaDqVYv3oQX9fcQTpTg",
+    "name": "FAIR",
+    "price_usd": 0.0001471,
+    "change_5m": -12.13,
+    "change_1h": -46.46,
+    "change_6h": 316,
+    "change_24h": 316,
+    "volume_5m": 6040.43,
+    "volume_1h": 97482.58,
+    "volume_6h": 1083850.09,
+    "volume_24h": 1083850.09,
+    "liquidity_usd": 30480.88,
+    "market_cap": 146823,
+    "fdv": 146823,
+    "pair_created_at": 1794252601000,
+    "image": "https://cdn.dexscreener.com/cms/images/wlJyr4oG1Qvn3OuL?width=800&height=800&quality=95&format=auto",
+    "txns_5m": {
+     "buys": 100,
+     "sells": 63
+    },
+    "txns_1h": {
+     "buys": 1105,
+     "sells": 797
+    },
+    "txns_6h": {
+     "buys": 12816,
+     "sells": 9296
+    },
+    "txns_24h": {
+     "buys": 12816,
+     "sells": 9296
+    },
+    "pairs_count": 5,
+    "top_pair_liq_share": 0.848
+   },
+   "hype_score": 49,
+   "risk_flags": [
+    "Pair < 24h old"
+   ],
+   "momentum": {
+    "accel": 0.84,
+    "prior_rate_per_h": 4038.0,
+    "state": "steady"
+   },
+   "signal": {
+    "code": "dump",
+    "label": "DUMP chal raha",
+    "reason": "5m -12%, 1h -46%, 6h +316% · buys 58% (1h) · X 1.1x, steady"
+   },
+   "risk": {
+    "score": 40,
+    "level": "Medium",
+    "reasons": [
+     "+20 liquidity < $50K",
+     "+20 pair < 6h old"
+    ]
+   },
+   "is_spiking": false
+  },
+  {
    "symbol": "BANK",
    "kind": "emerging",
    "note": null,
    "count_query": "BANK -is:retweet",
-   "mentions_24h": 62767,
-   "mentions_6h": 13173,
-   "mentions_current_hour_partial": 373,
+   "mentions_24h": 62931,
+   "mentions_6h": 12117,
+   "mentions_current_hour_partial": 389,
    "current_hour_minutes": 10,
-   "recent_rate_per_h": 2158.8,
-   "baseline_per_h": 2660.77,
-   "spike_ratio": 0.81,
+   "recent_rate_per_h": 1972.2,
+   "baseline_per_h": 2676.86,
+   "spike_ratio": 0.74,
    "hourly": [
-    1728,
-    1734,
-    1744,
-    1673,
+    1732,
+    1742,
+    1672,
     1687,
     1846,
     2134,
     2390,
     2620,
-    2721,
+    2720,
     3233,
-    3392,
-    3549,
-    3646,
-    3839,
-    3465,
-    3343,
-    3138,
-    2964,
-    2815,
-    2628,
-    2248,
-    2145,
-    2241.7
+    3391,
+    3545,
+    3644,
+    3835,
+    3463,
+    3340,
+    3131,
+    2962,
+    2813,
+    2624,
+    2246,
+    2121,
+    1924,
+    2251.4
    ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
-   "sample_posts": 8,
-   "unique_authors": 4,
+   "hourly_start": "2026-11-09T01:00:00.000Z",
+   "sample_posts": 13,
+   "unique_authors": 6,
    "sample_engagement": 8,
    "scam_pattern_share": 0.0,
-   "contract_address": "5vF6GKASqDF5iNKAyEwbimhivXPW32bACEe4WXfapump",
+   "contract_address": "HA9JHZn8S8VhtGtHtQcDVoLFBAssFPce9VthA2Pgpump",
    "top_posts": [
     {
-     "id": "2119750381521821707",
-     "url": "https://x.com/Sol_b33y/status/2119750381521821707",
-     "text": "$BANK\nbid or fade \nCa::\n\n5vF6GKASqDF5iNKAyEwbimhivXPW32bACEe4WXfapump\n\n#solana #memecoin #memecoin1000x https://t.co/bP24Juaq2s",
-     "created_at": "2026-11-09T11:14:08.000Z",
-     "author": "Sol_b33y",
-     "author_name": "BABY🍃",
-     "followers": 1210,
+     "id": "2119767149623312591",
+     "url": "https://x.com/Strong69106/status/2119767149623312591",
+     "text": "Watch your entry on $BANK\nGamble for now🍀\nCA:\n\nHA9JHZn8S8VhtGtHtQcDVoLFBAssFPce9VthA2Pgpump\n#solana #memecoin #memecoin1000x https://t.co/DDdmXEVLNJ",
+     "created_at": "2026-11-09T12:20:46.000Z",
+     "author": "Strong69106",
+     "author_name": "StrongSniper",
+     "followers": 6944,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 72,
-      "like_count": 0,
+      "impression_count": 126,
+      "like_count": 1,
+      "quote_count": 1,
+      "reply_count": 1,
+      "retweet_count": 0
+     },
+     "engagement": 4
+    },
+    {
+     "id": "2119764903271539197",
+     "url": "https://x.com/INSIDER_DEVZ/status/2119764903271539197",
+     "text": "Watch your entry on $BANK\nGamble for now🍀\nCA:\n\nHA9JHZn8S8VhtGtHtQcDVoLFBAssFPce9VthA2Pgpump\n#solana #memecoin #memecoin1000x https://t.co/KldS7GuHch",
+     "created_at": "2026-11-09T12:11:50.000Z",
+     "author": "INSIDER_DEVZ",
+     "author_name": "DEV🎯",
+     "followers": 4635,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 130,
+      "like_count": 1,
       "quote_count": 1,
       "reply_count": 0,
       "retweet_count": 0
      },
-     "engagement": 2
+     "engagement": 3
     },
     {
-     "id": "2119749357805383871",
-     "url": "https://x.com/_hillscaller/status/2119749357805383871",
-     "text": "Watch your entry on $BANK\n\n5vF6GKASqDF5iNKAyEwbimhivXPW32bACEe4WXfapump\n\n#solana #memecoin #memecoin1000x #fomo https://t.co/gCtlO6m19h",
-     "created_at": "2026-11-09T11:10:04.000Z",
-     "author": "_hillscaller",
-     "author_name": "Hills🍀",
-     "followers": 1662,
+     "id": "2119765293618856044",
+     "url": "https://x.com/_Shonsol/status/2119765293618856044",
+     "text": "Cool 37x up on call $BANK\nTG eating massively \nDm for entry \n\nHA9JHZn8S8VhtGtHtQcDVoLFBAssFPce9VthA2Pgpump\n#solana #memecoin #memecoin1000x https://t.co/TZdvPogQqZ https://t.co/vq8Z8w2kps",
+     "created_at": "2026-11-09T12:13:23.000Z",
+     "author": "_Shonsol",
+     "author_name": "Shon sol",
+     "followers": 1917,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 127,
-      "like_count": 0,
-      "quote_count": 1,
+      "impression_count": 122,
+      "like_count": 1,
+      "quote_count": 0,
       "reply_count": 0,
       "retweet_count": 0
      },
-     "engagement": 2
+     "engagement": 1
     },
     {
-     "id": "2119749353984180496",
-     "url": "https://x.com/Great_Meme02/status/2119749353984180496",
-     "text": "3x up from my call on $BANK\nCA&gt;&gt;\n\n5vF6GKASqDF5iNKAyEwbimhivXPW32bACEe4WXfapump\n\n#solana #memecoin #degen https://t.co/OBS3Atb3LZ https://t.co/vejYVwDtf5",
-     "created_at": "2026-11-09T11:10:03.000Z",
-     "author": "Great_Meme02",
-     "author_name": "Great Meme 🚀",
-     "followers": 1716,
+     "id": "2119767311573786993",
+     "url": "https://x.com/addamsol_999/status/2119767311573786993",
+     "text": "Impressive 52x up on call $BANK\nTG printing massively 💸\nDM for early entries \n\nHA9JHZn8S8VhtGtHtQcDVoLFBAssFPce9VthA2Pgpump\n#solana #memecoin #memecoin100x #SOL https://t.co/fCWvCpY1fu https://t.co/RhDEWBeVFI",
+     "created_at": "2026-11-09T12:21:25.000Z",
+     "author": "addamsol_999",
+     "author_name": "AdDam Sol",
+     "followers": 2079,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 79,
+      "impression_count": 6,
       "like_count": 0,
-      "quote_count": 1,
+      "quote_count": 0,
       "reply_count": 0,
       "retweet_count": 0
      },
-     "engagement": 2
+     "engagement": 0
     },
     {
-     "id": "2119749959130198497",
-     "url": "https://x.com/Great_Meme02/status/2119749959130198497",
-     "text": "4x up from my call on $BANK\nCA&gt;&gt;\n\n5vF6GKASqDF5iNKAyEwbimhivXPW32bACEe4WXfapump\n\n#solana #memecoin #degen https://t.co/FrGHJ8foCD https://t.co/WWDmUBaHbO",
-     "created_at": "2026-11-09T11:12:27.000Z",
-     "author": "Great_Meme02",
-     "author_name": "Great Meme 🚀",
-     "followers": 1716,
+     "id": "2119766837575770250",
+     "url": "https://x.com/_Shonsol/status/2119766837575770250",
+     "text": "Massive 52x up on call $BANK\nTG eating massively \nDm for entry \n\nHA9JHZn8S8VhtGtHtQcDVoLFBAssFPce9VthA2Pgpump\n#solana #memecoin #memecoin1000x https://t.co/TcFV5ODcnm https://t.co/vq8Z8w2kps",
+     "created_at": "2026-11-09T12:19:32.000Z",
+     "author": "_Shonsol",
+     "author_name": "Shon sol",
+     "followers": 1917,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 82,
-      "like_count": 0,
-      "quote_count": 1,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 2
-    },
-    {
-     "id": "2119751231258136622",
-     "url": "https://x.com/Sol_b33y/status/2119751231258136622",
-     "text": "3X profit from my Tg call $BANK\n\n5vF6GKASqDF5iNKAyEwbimhivXPW32bACEe4WXfapump\n#solana #memecoin #memecoin1000x https://t.co/flRmVijAbl https://t.co/oohOAtB4aI",
-     "created_at": "2026-11-09T11:17:31.000Z",
-     "author": "Sol_b33y",
-     "author_name": "BABY🍃",
-     "followers": 1210,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 32,
+      "impression_count": 150,
       "like_count": 0,
       "quote_count": 0,
       "reply_count": 0,
@@ -1146,122 +842,159 @@
     "match": "contract address from X posts",
     "chain": "solana",
     "dex": "pumpswap",
-    "pair_url": "https://dexscreener.com/solana/cuqlfrufvqijtrptmczxfosodhhigksk4fvs9pnjcud",
-    "token_address": "5vF6GKASqDF5iNKAyEwbimhivXPW32bACEe4WXfapump",
+    "pair_url": "https://dexscreener.com/solana/8fc6dftrnwcszfmpzdhxbzwd5okxdgumbvtgeeydl1uf",
+    "token_address": "HA9JHZn8S8VhtGtHtQcDVoLFBAssFPce9VthA2Pgpump",
     "name": "BankCoin",
-    "price_usd": 2.921e-06,
-    "change_5m": 0,
-    "change_1h": -6.59,
-    "change_6h": -8.54,
-    "change_24h": -93.57,
-    "volume_5m": 0,
-    "volume_1h": 75.73,
-    "volume_6h": 1783.45,
-    "volume_24h": 379727.36,
-    "liquidity_usd": 3031.38,
-    "market_cap": 2810,
-    "fdv": 2810,
-    "pair_created_at": 1794222450000,
-    "image": "https://cdn.dexscreener.com/cms/images/TDCFfVzNcTQOtdh_?width=800&height=800&quality=95&format=auto",
+    "price_usd": 2.667e-05,
+    "change_5m": -11.01,
+    "change_1h": -17.84,
+    "change_6h": 54.02,
+    "change_24h": -44.84,
+    "volume_5m": 354.94,
+    "volume_1h": 9437.96,
+    "volume_6h": 76854.36,
+    "volume_24h": 695458.06,
+    "liquidity_usd": 13462.5,
+    "market_cap": 25696,
+    "fdv": 25696,
+    "pair_created_at": 1794224581000,
+    "image": "https://cdn.dexscreener.com/cms/images/RD5VsmJ9YA8_JNyp?width=800&height=800&quality=95&format=auto",
     "txns_5m": {
-     "buys": 0,
-     "sells": 0
+     "buys": 3,
+     "sells": 6
     },
     "txns_1h": {
-     "buys": 0,
-     "sells": 9
+     "buys": 109,
+     "sells": 111
     },
     "txns_6h": {
-     "buys": 25,
-     "sells": 56
+     "buys": 1014,
+     "sells": 766
     },
     "txns_24h": {
-     "buys": 6999,
-     "sells": 5493
+     "buys": 10608,
+     "sells": 7064
     },
-    "pairs_count": 4,
-    "top_pair_liq_share": 1.0
+    "pairs_count": 7,
+    "top_pair_liq_share": 0.992
    },
-   "hype_score": 48,
+   "hype_score": 47,
    "risk_flags": [
     "Low liquidity (< $20k)",
     "Pair < 24h old"
    ],
+   "prev_spike_ratio": 0.81,
+   "prev_snapshot_at": "2026-11-09T23:10:06.000Z",
    "momentum": {
-    "accel": 0.89,
-    "prior_rate_per_h": 2438.0,
+    "accel": 0.9,
+    "prior_rate_per_h": 2183.5,
     "state": "steady"
    },
    "signal": {
-    "code": "neutral",
-    "label": "Neutral",
-    "reason": "X 0.8x, steady · 1h -6.6% · buys 31% (6h)"
+    "code": "dump",
+    "label": "DUMP chal raha",
+    "reason": "5m -11%, 1h -18%, 6h +54% · buys 50% (1h) · X 0.7x, steady"
    },
    "risk": {
-    "score": 64,
-    "level": "High",
+    "score": 39,
+    "level": "Medium",
     "reasons": [
-     "+30 liquidity < $10K",
+     "+20 liquidity < $50K",
      "+15 pair < 24h old",
-     "+15 sells 69% (6h)",
      "+4 liquidity concentrated in 1 pair"
     ]
    },
    "is_spiking": false
   },
   {
-   "symbol": "XRP",
+   "symbol": "DOPE",
    "kind": "emerging",
    "note": null,
-   "count_query": "XRP -is:retweet",
-   "mentions_24h": 22143,
-   "mentions_6h": 5720,
-   "mentions_current_hour_partial": 164,
+   "count_query": "DOPE -is:retweet",
+   "mentions_24h": 10697,
+   "mentions_6h": 2863,
+   "mentions_current_hour_partial": 88,
    "current_hour_minutes": 10,
-   "recent_rate_per_h": 983.4,
-   "baseline_per_h": 912.41,
-   "spike_ratio": 1.08,
+   "recent_rate_per_h": 482.2,
+   "baseline_per_h": 440.77,
+   "spike_ratio": 1.09,
    "hourly": [
-    792,
-    646,
-    607,
-    547,
-    493,
-    508,
-    619,
-    688,
-    877,
-    823,
-    705,
-    851,
-    878,
-    1008,
-    1175,
-    1100,
-    1282,
-    1901,
-    1458,
-    1077,
-    1080,
-    958,
-    983,
-    985.6
+    433,
+    384,
+    379,
+    396,
+    305,
+    274,
+    275,
+    306,
+    242,
+    308,
+    342,
+    395,
+    444,
+    498,
+    625,
+    598,
+    613,
+    583,
+    644,
+    630,
+    538,
+    485,
+    478,
+    506.1
    ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
+   "hourly_start": "2026-11-09T01:00:00.000Z",
    "sample_posts": 3,
    "unique_authors": 3,
-   "sample_engagement": 0,
+   "sample_engagement": 2,
    "scam_pattern_share": 0.0,
-   "contract_address": null,
+   "contract_address": "0x970370AfA7C401c9F390A890D81068D5a1898A08",
    "top_posts": [
     {
-     "id": "2119930200150663239",
-     "url": "https://x.com/orusrock/status/2119930200150663239",
-     "text": "the $NASDAQ is up 2.5% today while $BTC sits at $74,810 after $1b in longs got liquidated overnight, so the flush was a crypto problem and stocks didn't get the memo. $XRP down 5.3% and $WTI down 4% to $87, and somehow i'm the one who feels behind.",
-     "created_at": "2026-11-09T23:08:40.000Z",
-     "author": "orusrock",
-     "author_name": "Orusrock",
-     "followers": 63,
+     "id": "2119870312196231551",
+     "url": "https://x.com/WeHave1DFacts/status/2119870312196231551",
+     "text": "🚀🔥 $DOPE IS MAKING MOVES!\n\n📈 $16K MC ➜ $147K MC\n\nThat’s an impressive 9X run from the early entry! Timing and momentum made the difference. 💎\n\n👀 Watching closely for the next Solana gem before it takes off.\n\n📩 Join my private Telegram for early calls and exclusive market https://",
+     "created_at": "2026-11-09T19:10:42.000Z",
+     "author": "WeHave1DFacts",
+     "author_name": "AlphaRadar 💎💰",
+     "followers": 1705,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 94,
+      "like_count": 1,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 1
+    },
+    {
+     "id": "2119861199206482271",
+     "url": "https://x.com/RaloBBz/status/2119861199206482271",
+     "text": "Phantom troupe really are full of scammers. That’s why they are in every coin because they launch them. They just launched another $dope coin lmaoooo",
+     "created_at": "2026-11-09T18:34:29.000Z",
+     "author": "RaloBBz",
+     "author_name": "Ralo",
+     "followers": 400,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 47,
+      "like_count": 0,
+      "quote_count": 0,
+      "reply_count": 1,
+      "retweet_count": 0
+     },
+     "engagement": 1
+    },
+    {
+     "id": "2119945470130913755",
+     "url": "https://x.com/DopeTokenETH/status/2119945470130913755",
+     "text": "Doge or Pepe?\nWrong question.\n\nOne face. One word. $DOPE\nThe faces. The word. The cut.\n\nCA: 0x970370AfA7C401c9F390A890D81068D5a1898A08 https://t.co/3xCIU0uQ1S",
+     "created_at": "2026-11-10T00:09:21.000Z",
+     "author": "DopeTokenETH",
+     "author_name": "Doge Pepe",
+     "followers": 30,
      "metrics": {
       "bookmark_count": 0,
       "impression_count": 0,
@@ -1271,18 +1004,129 @@
       "retweet_count": 0
      },
      "engagement": 0
+    }
+   ],
+   "market": {
+    "source": "DexScreener",
+    "match": "contract address from X posts",
+    "chain": "ethereum",
+    "dex": "uniswap",
+    "pair_url": "https://dexscreener.com/ethereum/0xcb85a5cbeaae99dad73ed1de7546f04e6026775370055a349e8549016b83c20c",
+    "token_address": "0x970370AfA7C401c9F390A890D81068D5a1898A08",
+    "name": "Doge Pepe",
+    "price_usd": 0.0003047,
+    "change_5m": -13.67,
+    "change_1h": 11.86,
+    "change_6h": 11134,
+    "change_24h": 11134,
+    "volume_5m": 2019.7,
+    "volume_1h": 22166.4,
+    "volume_6h": 110387.75,
+    "volume_24h": 110387.75,
+    "liquidity_usd": 48888.02,
+    "market_cap": 304729,
+    "fdv": 304729,
+    "pair_created_at": 1794254255000,
+    "image": null,
+    "txns_5m": {
+     "buys": 5,
+     "sells": 1
     },
+    "txns_1h": {
+     "buys": 48,
+     "sells": 10
+    },
+    "txns_6h": {
+     "buys": 197,
+     "sells": 68
+    },
+    "txns_24h": {
+     "buys": 197,
+     "sells": 68
+    },
+    "pairs_count": 1,
+    "top_pair_liq_share": 1.0
+   },
+   "hype_score": 47,
+   "risk_flags": [
+    "Pair < 24h old"
+   ],
+   "momentum": {
+    "accel": 0.94,
+    "prior_rate_per_h": 511.5,
+    "state": "steady"
+   },
+   "signal": {
+    "code": "overheated",
+    "label": "Overheated / Dump risk",
+    "reason": "6h +11134% · buys 83% (1h) · X 1.1x, steady"
+   },
+   "risk": {
+    "score": 40,
+    "level": "Medium",
+    "reasons": [
+     "+20 liquidity < $50K",
+     "+20 pair < 6h old"
+    ]
+   },
+   "is_spiking": false
+  },
+  {
+   "symbol": "XRP",
+   "kind": "emerging",
+   "note": null,
+   "count_query": "XRP -is:retweet",
+   "mentions_24h": 22241,
+   "mentions_6h": 5288,
+   "mentions_current_hour_partial": 155,
+   "current_hour_minutes": 11,
+   "recent_rate_per_h": 1020.1,
+   "baseline_per_h": 920.41,
+   "spike_ratio": 1.11,
+   "hourly": [
+    646,
+    607,
+    547,
+    493,
+    507,
+    619,
+    688,
+    877,
+    823,
+    705,
+    851,
+    878,
+    1007,
+    1175,
+    1099,
+    1281,
+    1900,
+    1458,
+    1076,
+    1079,
+    954,
+    979,
+    1045,
+    878.7
+   ],
+   "hourly_start": "2026-11-09T01:00:00.000Z",
+   "sample_posts": 2,
+   "unique_authors": 2,
+   "sample_engagement": 0,
+   "scam_pattern_share": 0.0,
+   "contract_address": null,
+   "top_posts": [
     {
-     "id": "2119929877860323604",
-     "url": "https://x.com/Diana_1120jw/status/2119929877860323604",
-     "text": "🚨 A new low for $XRP has emerged; the market may not have bottomed out yet!\n\nAs previously anticipated, XRP has broken below the key support level of $1.23, hitting a fresh low.\n\nKeep a close eye on the following levels below:\n\n📉 $1.08 → $1.03 → $0.99\n\nIf the selling pressure htt",
-     "created_at": "2026-11-09T23:07:23.000Z",
-     "author": "Diana_1120jw",
-     "author_name": "Diana",
-     "followers": 518,
+     "id": "2119945545951125507",
+     "url": "https://x.com/CMSLawFirmLLC/status/2119945545951125507",
+     "text": "🚨💰 Looking to diversify your investments? Explore $XRP, $XLM, secure crypto storage, and the future of blockchain technology. 🔐\n\nComment QFS to learn more. 👀\n\n#XRP #XLM #Crypto #Blockchain #DigitalAssets https://t.co/YYyalpLFJA",
+     "created_at": "2026-11-10T00:09:39.000Z",
+     "author": "CMSLawFirmLLC",
+     "author_name": "CMS Law Firm LLC",
+     "followers": 1418,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 1,
+      "impression_count": 0,
       "like_count": 0,
       "quote_count": 0,
       "reply_count": 0,
@@ -1319,11 +1163,11 @@
     "name": "Ripple",
     "price_usd": 1.56,
     "change_5m": 0,
-    "change_1h": null,
+    "change_1h": 0,
     "change_6h": null,
     "change_24h": null,
     "volume_5m": 0,
-    "volume_1h": 194.75,
+    "volume_1h": 0,
     "volume_6h": 506.22,
     "volume_24h": 2013.97,
     "liquidity_usd": 1562018539.09,
@@ -1336,8 +1180,8 @@
      "sells": 0
     },
     "txns_1h": {
-     "buys": 1,
-     "sells": 1
+     "buys": 0,
+     "sells": 0
     },
     "txns_6h": {
      "buys": 3,
@@ -1354,15 +1198,17 @@
    "risk_flags": [
     "Matched by symbol only - verify contract"
    ],
+   "prev_spike_ratio": 1.08,
+   "prev_snapshot_at": "2026-11-09T23:10:06.000Z",
    "momentum": {
-    "accel": 0.97,
-    "prior_rate_per_h": 1019.0,
+    "accel": 1.06,
+    "prior_rate_per_h": 966.5,
     "state": "steady"
    },
    "signal": {
     "code": "neutral",
     "label": "Neutral",
-    "reason": "X 1.1x, steady · market data n/a"
+    "reason": "X 1.1x, steady · 1h +0.0% · buys 50% (24h)"
    },
    "risk": {
     "score": 25,
@@ -1375,19 +1221,185 @@
    "is_spiking": false
   },
   {
+   "symbol": "PEACE",
+   "kind": "emerging",
+   "note": null,
+   "count_query": "PEACE -is:retweet",
+   "mentions_24h": 89926,
+   "mentions_6h": 19118,
+   "mentions_current_hour_partial": 578,
+   "current_hour_minutes": 10,
+   "recent_rate_per_h": 3277.0,
+   "baseline_per_h": 3796.95,
+   "spike_ratio": 0.86,
+   "hourly": [
+    2659,
+    2661,
+    2764,
+    3016,
+    3715,
+    3870,
+    3649,
+    3530,
+    3580,
+    3470,
+    3686,
+    4167,
+    4404,
+    4758,
+    4632,
+    4707,
+    4504,
+    4488,
+    4406,
+    3845,
+    3631,
+    3391,
+    3267,
+    3334.6
+   ],
+   "hourly_start": "2026-11-09T01:00:00.000Z",
+   "sample_posts": 3,
+   "unique_authors": 3,
+   "sample_engagement": 0,
+   "scam_pattern_share": 0.0,
+   "contract_address": "4RKEFqT6tozTFUNuCGS9Dd4fbiMgzuDqmRtY2yezpump",
+   "top_posts": [
+    {
+     "id": "2119945082203770956",
+     "url": "https://x.com/SolTokenScan/status/2119945082203770956",
+     "text": "⚡️ FRESH PUMP MIGRATED\n$PEACE | MC $60.6K | Liq $15.3K\nHolders 497 | CTO No | DEX No\nBurn Yes | Locked Yes\nCA: 4RKEFqT6tozTFUNuCGS9Dd4fbiMgzuDqmRtY2yezpump\n\n🚀 Trade Token: https://t.co/k99vnBNaTv",
+     "created_at": "2026-11-10T00:07:48.000Z",
+     "author": "SolTokenScan",
+     "author_name": "Solana Token Scanner",
+     "followers": 3336,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 49,
+      "like_count": 0,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 0
+    },
+    {
+     "id": "2119944983923052562",
+     "url": "https://x.com/bitecong/status/2119944983923052562",
+     "text": "🤖 AI Signal (SOL) $Peace\n\nCA: 4RKEFqT6tozTFUNuCGS9Dd4fbiMgzuDqmRtY2yezpump\n\nPeacecoin (Peace) is a pumpfun token on Solana, about six minutes old, and it graduated from the bonding curve to PumpSwap at +6 min 12 s after launch. The peace theme is one people already search: it is ",
+     "created_at": "2026-11-10T00:07:25.000Z",
+     "author": "bitecong",
+     "author_name": "Green onions",
+     "followers": 38613,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 253,
+      "like_count": 0,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 0
+    },
+    {
+     "id": "2119944974229782891",
+     "url": "https://x.com/solhousesignals/status/2119944974229782891",
+     "text": "$PEACE (Peacecoin) doubled 💰\n\n📊 MC: $35.6K | Liq: $0\n💵 Vol 24h: $53.0K\n🔄 Buys/Sells: 1,113 / 639\n\n📋 CA:\n4RKEFqT6tozTFUNuCGS9Dd4fbiMgzuDqmRtY2yezpump\n\n🤖 Full scan + chart → link in bio\n\n#Peace #solhousesignal #pump #solana #100x https://t.co/vWwl1EC32N",
+     "created_at": "2026-11-10T00:07:23.000Z",
+     "author": "solhousesignals",
+     "author_name": "Solhouse Signal",
+     "followers": 3123,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 42,
+      "like_count": 0,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 0
+    }
+   ],
+   "market": {
+    "source": "DexScreener",
+    "match": "contract address from X posts",
+    "chain": "solana",
+    "dex": "pumpswap",
+    "pair_url": "https://dexscreener.com/solana/bloacqte2pkm3igyoj7meeasctlgckf2cmnb6g1m1ccu",
+    "token_address": "4RKEFqT6tozTFUNuCGS9Dd4fbiMgzuDqmRtY2yezpump",
+    "name": "Peacecoin",
+    "price_usd": 4.039e-05,
+    "change_5m": 1.57,
+    "change_1h": 1.57,
+    "change_6h": 1.57,
+    "change_24h": 1.57,
+    "volume_5m": 119436.18,
+    "volume_1h": 119436.18,
+    "volume_6h": 119436.18,
+    "volume_24h": 119436.18,
+    "liquidity_usd": 14933.2,
+    "market_cap": 40395,
+    "fdv": 40395,
+    "pair_created_at": 1794269217000,
+    "image": null,
+    "txns_5m": {
+     "buys": 2008,
+     "sells": 1202
+    },
+    "txns_1h": {
+     "buys": 2008,
+     "sells": 1202
+    },
+    "txns_6h": {
+     "buys": 2008,
+     "sells": 1202
+    },
+    "txns_24h": {
+     "buys": 2008,
+     "sells": 1202
+    },
+    "pairs_count": 2,
+    "top_pair_liq_share": 1.0
+   },
+   "hype_score": 46,
+   "risk_flags": [
+    "Low liquidity (< $20k)",
+    "Pair < 24h old"
+   ],
+   "momentum": {
+    "accel": 0.93,
+    "prior_rate_per_h": 3511.0,
+    "state": "steady"
+   },
+   "signal": {
+    "code": "neutral",
+    "label": "Neutral",
+    "reason": "X 0.9x, steady · 1h +1.6% · buys 63% (1h)"
+   },
+   "risk": {
+    "score": 44,
+    "level": "Medium",
+    "reasons": [
+     "+20 liquidity < $50K",
+     "+20 pair < 6h old",
+     "+4 liquidity concentrated in 1 pair"
+    ]
+   },
+   "is_spiking": false
+  },
+  {
    "symbol": "ZEC",
    "kind": "major",
    "note": null,
    "count_query": "ZEC -is:retweet",
-   "mentions_24h": 2737,
-   "mentions_6h": 630,
-   "mentions_current_hour_partial": 11,
+   "mentions_24h": 2749,
+   "mentions_6h": 578,
+   "mentions_current_hour_partial": 15,
    "current_hour_minutes": 10,
-   "recent_rate_per_h": 97.8,
-   "baseline_per_h": 115.68,
-   "spike_ratio": 0.85,
+   "recent_rate_per_h": 86.1,
+   "baseline_per_h": 116.95,
+   "spike_ratio": 0.74,
    "hourly": [
-    75,
     85,
     76,
     81,
@@ -1410,9 +1422,10 @@
     116,
     111,
     103,
-    66.2
+    86,
+    86.8
    ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
+   "hourly_start": "2026-11-09T01:00:00.000Z",
    "sample_posts": 7,
    "unique_authors": 7,
    "sample_engagement": 71,
@@ -1444,7 +1457,7 @@
      "created_at": "2026-11-09T14:58:44.000Z",
      "author": "Mbura80",
      "author_name": "MD 💎",
-     "followers": 1656,
+     "followers": 1658,
      "metrics": {
       "bookmark_count": 0,
       "impression_count": 274,
@@ -1483,7 +1496,7 @@
      "followers": 5445,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 98,
+      "impression_count": 100,
       "like_count": 1,
       "quote_count": 2,
       "reply_count": 0,
@@ -1513,22 +1526,24 @@
    "market": {
     "source": "CoinGecko",
     "match": "coingecko id zcash",
-    "price_usd": 1155.19,
-    "change_24h": -4.645973922707854,
-    "volume_24h": 1034500790.9235461,
-    "market_cap": 19729088591.881508
+    "price_usd": 1171.09,
+    "change_24h": -4.3393051930177675,
+    "volume_24h": 984665458.9855015,
+    "market_cap": 19948995178.380356
    },
-   "hype_score": 47,
+   "hype_score": 46,
    "risk_flags": [],
+   "prev_spike_ratio": 0.85,
+   "prev_snapshot_at": "2026-11-09T23:10:06.000Z",
    "momentum": {
-    "accel": 0.86,
-    "prior_rate_per_h": 113.5,
+    "accel": 0.8,
+    "prior_rate_per_h": 107.0,
     "state": "steady"
    },
    "signal": {
     "code": "neutral",
     "label": "Neutral",
-    "reason": "X 0.8x, steady · 24h -4.6%"
+    "reason": "X 0.7x, steady · 24h -4.3%"
    },
    "risk": {
     "score": 0,
@@ -1540,184 +1555,18 @@
    "is_spiking": false
   },
   {
-   "symbol": "SEND",
-   "kind": "emerging",
-   "note": null,
-   "count_query": "SEND (solana OR pump OR CA OR memecoin OR crypto OR token) -is:retweet",
-   "mentions_24h": 5813,
-   "mentions_6h": 1628,
-   "mentions_current_hour_partial": 39,
-   "current_hour_minutes": 10,
-   "recent_rate_per_h": 217.7,
-   "baseline_per_h": 247.41,
-   "spike_ratio": 0.88,
-   "hourly": [
-    155,
-    245,
-    159,
-    122,
-    121,
-    117,
-    125,
-    302,
-    157,
-    201,
-    261,
-    257,
-    236,
-    252,
-    432,
-    215,
-    301,
-    411,
-    412,
-    404,
-    244,
-    314,
-    215,
-    234.0
-   ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
-   "sample_posts": 3,
-   "unique_authors": 3,
-   "sample_engagement": 8,
-   "scam_pattern_share": 0.0,
-   "contract_address": null,
-   "top_posts": [
-    {
-     "id": "2119813952620450059",
-     "url": "https://x.com/indeli_cat/status/2119813952620450059",
-     "text": "Get up and $SEND it https://t.co/mZMNzveSml",
-     "created_at": "2026-11-09T15:26:45.000Z",
-     "author": "indeli_cat",
-     "author_name": "indeli",
-     "followers": 2597,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 166,
-      "like_count": 7,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 7
-    },
-    {
-     "id": "2119923587536888277",
-     "url": "https://x.com/joohoo_an/status/2119923587536888277",
-     "text": "@CondoOndo $SEND it.",
-     "created_at": "2026-11-09T22:42:24.000Z",
-     "author": "joohoo_an",
-     "author_name": "jh",
-     "followers": 547,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 5,
-      "like_count": 1,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 1
-    },
-    {
-     "id": "2119832046579146791",
-     "url": "https://x.com/defimaestro90/status/2119832046579146791",
-     "text": "@senderdotfamily $SEND it",
-     "created_at": "2026-11-09T16:38:39.000Z",
-     "author": "defimaestro90",
-     "author_name": "Maestro",
-     "followers": 6466,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 35,
-      "like_count": 0,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 0
-    }
-   ],
-   "market": {
-    "source": "DexScreener",
-    "match": "symbol search (verify CA before trading)",
-    "chain": "base",
-    "dex": "aerodrome",
-    "pair_url": "https://dexscreener.com/base/0x69bc1d350fe13f499c6aeded2c5ea9471b2a599a",
-    "token_address": "0xEab49138BA2Ea6dd776220fE26b7b8E446638956",
-    "name": "Send",
-    "price_usd": 0.01261,
-    "change_5m": 0,
-    "change_1h": -0.04,
-    "change_6h": -0.03,
-    "change_24h": -2.5,
-    "volume_5m": 0,
-    "volume_1h": 100.56,
-    "volume_6h": 105.64,
-    "volume_24h": 7941.81,
-    "liquidity_usd": 1107061.43,
-    "market_cap": 4505708,
-    "fdv": 12324172,
-    "pair_created_at": 1737333519000,
-    "image": "https://cdn.dexscreener.com/cms/images/0ae072f8e5952caef7592541141eccad78f88b3d30578aa81b409027fd8eb6d7?width=800&height=800&quality=95&format=auto",
-    "txns_5m": {
-     "buys": 0,
-     "sells": 0
-    },
-    "txns_1h": {
-     "buys": 0,
-     "sells": 2
-    },
-    "txns_6h": {
-     "buys": 1,
-     "sells": 2
-    },
-    "txns_24h": {
-     "buys": 2,
-     "sells": 13
-    },
-    "pairs_count": 1,
-    "top_pair_liq_share": 1.0
-   },
-   "hype_score": 45,
-   "risk_flags": [
-    "Matched by symbol only - verify contract"
-   ],
-   "momentum": {
-    "accel": 0.78,
-    "prior_rate_per_h": 279.0,
-    "state": "steady"
-   },
-   "signal": {
-    "code": "neutral",
-    "label": "Neutral",
-    "reason": "X 0.9x, steady · 1h -0.0% · buy/sell n/a"
-   },
-   "risk": {
-    "score": 25,
-    "level": "Low",
-    "reasons": [
-     "+15 huge liquidity but tiny volume (pool may be fake/unverified)",
-     "+10 matched by symbol only"
-    ]
-   },
-   "is_spiking": false
-  },
-  {
    "symbol": "ZNR",
    "kind": "emerging",
    "note": null,
    "count_query": "ZNR -is:retweet",
-   "mentions_24h": 10020,
-   "mentions_6h": 2902,
-   "mentions_current_hour_partial": 87,
-   "current_hour_minutes": 10,
-   "recent_rate_per_h": 442.6,
-   "baseline_per_h": 416.64,
-   "spike_ratio": 1.06,
+   "mentions_24h": 10060,
+   "mentions_6h": 2453,
+   "mentions_current_hour_partial": 72,
+   "current_hour_minutes": 11,
+   "recent_rate_per_h": 402.9,
+   "baseline_per_h": 422.36,
+   "spike_ratio": 0.95,
    "hourly": [
-    294,
     380,
     401,
     373,
@@ -1735,28 +1584,29 @@
     253,
     723,
     1322,
-    829,
+    827,
     580,
     530,
     447,
-    429,
-    524.6
+    422,
+    402,
+    408.2
    ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
-   "sample_posts": 9,
-   "unique_authors": 7,
+   "hourly_start": "2026-11-09T01:00:00.000Z",
+   "sample_posts": 2,
+   "unique_authors": 2,
    "sample_engagement": 0,
    "scam_pattern_share": 0.0,
    "contract_address": null,
    "top_posts": [
     {
-     "id": "2119930190625444188",
-     "url": "https://x.com/pea849480/status/2119930190625444188",
-     "text": "@ZenoraNetwork Bangga mendukung Zenora 🙌\n⛏️ Ditambang: 74.45 $ZNR\n🏆 Poin Node: 186.6\n👉 Gabung bersama saya: https://t.co/gQX5V8yo65\n\n#Zenora #ZNR #Crypto #Airdrop",
-     "created_at": "2026-11-09T23:08:38.000Z",
-     "author": "pea849480",
-     "author_name": "Marlon Pea",
-     "followers": 1,
+     "id": "2119945547721199728",
+     "url": "https://x.com/DamitaDaniel/status/2119945547721199728",
+     "text": "Proud to support Zenora 🙌\n⛏️ Mined: 0.05 $ZNR\n🏆 Node Points: 0.5\n👉 Join me: https://t.co/9ezFnpO2PN\n\n#Zenora #ZNR #Crypto #ZenoraMiner https://t.co/wUT4pPXjCr",
+     "created_at": "2026-11-10T00:09:39.000Z",
+     "author": "DamitaDaniel",
+     "author_name": "Damita Daniel",
+     "followers": 0,
      "metrics": {
       "bookmark_count": 0,
       "impression_count": 0,
@@ -1768,67 +1618,13 @@
      "engagement": 0
     },
     {
-     "id": "2119930116125987119",
-     "url": "https://x.com/Undilutedlov/status/2119930116125987119",
-     "text": "Proud to support Zenora 🙌\n⛏️ Mined: 5 $ZNR\n🏆 Node Points: 0.5\n👉 Join me: https://t.co/jHXd3HnaN4\n\n#Zenora #ZNR #Airdrop #Crypto",
-     "created_at": "2026-11-09T23:08:20.000Z",
-     "author": "Undilutedlov",
-     "author_name": "Chinyere🌶️",
-     "followers": 4,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 1,
-      "like_count": 0,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 0
-    },
-    {
-     "id": "2119929853952856452",
-     "url": "https://x.com/qifan359501/status/2119929853952856452",
-     "text": "Zenora 正在打造大事 🔥\n⛏️ 已挖: 51.84 $ZNR\n🏆 节点积分: 44.8\n👉 和我一起: https://t.co/EDkrPDVjDm\n\n#Zenora #ZNR #Crypto #Web3 https://t.co/IYtFu8u2jU",
-     "created_at": "2026-11-09T23:07:18.000Z",
-     "author": "qifan359501",
-     "author_name": "启帆",
-     "followers": 0,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 1,
-      "like_count": 0,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 0
-    },
-    {
-     "id": "2119929692602183968",
-     "url": "https://x.com/DUY1011420/status/2119929692602183968",
-     "text": "Hành trình Zenora của mình 💎\n⛏️ Đã đào: 48.25 $ZNR\n🏆 Điểm Node: 58.8\n👉 Tham gia cùng mình: https://t.co/Eq0g1Rcgx1\n\n#Zenora #ZNR #Web3 #Crypto https://t.co/lIjYS0fYZR",
-     "created_at": "2026-11-09T23:06:39.000Z",
-     "author": "DUY1011420",
-     "author_name": "$TOR",
-     "followers": 6,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 1,
-      "like_count": 0,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 0
-    },
-    {
-     "id": "2119929685933265046",
-     "url": "https://x.com/simeonvincentn/status/2119929685933265046",
-     "text": "Early on Zenora Network ⚡\n⛏️ Mined: 30.67 $ZNR\n🏆 Node Points: 31.7\n👉 Join me: https://t.co/f8bW9PjJl6\n\n#Zenora #ZNR #ZenoraNetwork #Crypto",
-     "created_at": "2026-11-09T23:06:38.000Z",
-     "author": "simeonvincentn",
-     "author_name": "Simeon Vincent nwibo",
-     "followers": 8,
+     "id": "2119945225825034438",
+     "url": "https://x.com/seunboye1/status/2119945225825034438",
+     "text": "Mining $ZNR on Zenora every day 🚀\n⛏️ Mined: 0 $ZNR\n🏆 Node Points: 0\n👉 Join me: https://t.co/Uat09eucyR\n\n#Zenora #ZNR #Crypto #Web3",
+     "created_at": "2026-11-10T00:08:23.000Z",
+     "author": "seunboye1",
+     "author_name": "Oluwaseun",
+     "followers": 116,
      "metrics": {
       "bookmark_count": 0,
       "impression_count": 1,
@@ -1881,19 +1677,21 @@
     "pairs_count": 1,
     "top_pair_liq_share": 1.0
    },
-   "hype_score": 44,
+   "hype_score": 43,
    "risk_flags": [
     "Matched by symbol only - verify contract"
    ],
+   "prev_spike_ratio": 1.06,
+   "prev_snapshot_at": "2026-11-09T23:10:06.000Z",
    "momentum": {
-    "accel": 0.91,
-    "prior_rate_per_h": 488.5,
+    "accel": 0.93,
+    "prior_rate_per_h": 434.5,
     "state": "steady"
    },
    "signal": {
     "code": "neutral",
     "label": "Neutral",
-    "reason": "X 1.1x, steady · 1h +0.0% · buy/sell n/a"
+    "reason": "X 0.9x, steady · 1h +0.0% · buy/sell n/a"
    },
    "risk": {
     "score": 20,
@@ -1906,19 +1704,353 @@
    "is_spiking": false
   },
   {
+   "symbol": "BTC",
+   "kind": "major",
+   "note": null,
+   "count_query": "bitcoin -is:retweet",
+   "mentions_24h": 43350,
+   "mentions_6h": 8725,
+   "mentions_current_hour_partial": 316,
+   "current_hour_minutes": 11,
+   "recent_rate_per_h": 1362.8,
+   "baseline_per_h": 1829.64,
+   "spike_ratio": 0.74,
+   "hourly": [
+    1429,
+    1405,
+    1207,
+    1193,
+    1295,
+    1519,
+    1711,
+    1883,
+    1654,
+    1700,
+    1805,
+    2053,
+    2507,
+    2651,
+    2588,
+    2192,
+    2221,
+    2116,
+    1936,
+    1939,
+    1762,
+    1486,
+    1286,
+    1800.0
+   ],
+   "hourly_start": "2026-11-09T01:00:00.000Z",
+   "sample_posts": 8,
+   "unique_authors": 3,
+   "sample_engagement": 2,
+   "scam_pattern_share": 0.0,
+   "contract_address": null,
+   "top_posts": [
+    {
+     "id": "2119819324328386614",
+     "url": "https://x.com/jnvck_crypto/status/2119819324328386614",
+     "text": "bullish on $BTC send it higher https://t.co/BxXUkfaKQX",
+     "created_at": "2026-11-09T15:48:05.000Z",
+     "author": "jnvck_crypto",
+     "author_name": "JNVCK CRYPTO",
+     "followers": 1894,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 136,
+      "like_count": 2,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 2
+    },
+    {
+     "id": "2119776323002319093",
+     "url": "https://x.com/ASTRAsol4/status/2119776323002319093",
+     "text": "10x gain on $BTC\n\nHGSTgEqamV4Q7aL1D58yXB5rkJz8BPnezEfk5yaWRq4t\n\nEntry still ongoing 🖨️🖨️🖨️\n#solana #memecoin #fomo https://t.co/TaQWuzfQqi https://t.co/27kuGjKnWE",
+     "created_at": "2026-11-09T12:57:13.000Z",
+     "author": "ASTRAsol4",
+     "author_name": "ASTRA",
+     "followers": 1425,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 56,
+      "like_count": 0,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 0
+    },
+    {
+     "id": "2119776709272621241",
+     "url": "https://x.com/ASTRAsol4/status/2119776709272621241",
+     "text": "12.5x on $BTC\n\nHGSTgEqamV4Q7aL1D58yXB5rkJz8BPnezEfk5yaWRq4t\n\nEntry still ongoing 🖨️🖨️\n#solana #memecoin #fomo https://t.co/hjZacaleCJ https://t.co/27kuGjKnWE",
+     "created_at": "2026-11-09T12:58:45.000Z",
+     "author": "ASTRAsol4",
+     "author_name": "ASTRA",
+     "followers": 1425,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 45,
+      "like_count": 0,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 0
+    },
+    {
+     "id": "2119782274455482879",
+     "url": "https://x.com/derinikocall/status/2119782274455482879",
+     "text": "10x gain on $BTC\n\nHGSTgEqamV4Q7aL1D58yXB5rkJz8BPnezEfk5yaWRq4t\n\nEntry still ongoing 🖨️🖨️🖨️\n#solana #memecoin #fomo https://t.co/nHL1PxnpQt https://t.co/K201sFkuQm",
+     "created_at": "2026-11-09T13:20:52.000Z",
+     "author": "derinikocall",
+     "author_name": "DERIN",
+     "followers": 309,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 2,
+      "like_count": 0,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 0
+    },
+    {
+     "id": "2119779149434802601",
+     "url": "https://x.com/ASTRAsol4/status/2119779149434802601",
+     "text": "19x profit  on $BTC\nGamble for now 🔈 \n\nHGSTgEqamV4Q7aL1D58yXB5rkJz8BPnezEfk5yaWRq4t\n\nEntry still ongoing 🖨️🖨️\n#solana #memecoin #fomo https://t.co/zp7JcRrJj3 https://t.co/27kuGjKnWE",
+     "created_at": "2026-11-09T13:08:27.000Z",
+     "author": "ASTRAsol4",
+     "author_name": "ASTRA",
+     "followers": 1425,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 51,
+      "like_count": 0,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 0
+    }
+   ],
+   "market": {
+    "source": "CoinGecko",
+    "match": "coingecko id bitcoin",
+    "price_usd": 75322,
+    "change_24h": 0.77230860512137,
+    "volume_24h": 30591076197.335873,
+    "market_cap": 1514728723402.5352
+   },
+   "hype_score": 42,
+   "risk_flags": [],
+   "prev_spike_ratio": 0.8,
+   "prev_snapshot_at": "2026-11-09T23:10:06.000Z",
+   "momentum": {
+    "accel": 0.84,
+    "prior_rate_per_h": 1624.0,
+    "state": "steady"
+   },
+   "signal": {
+    "code": "neutral",
+    "label": "Neutral",
+    "reason": "X 0.7x, steady · 24h +0.8%"
+   },
+   "risk": {
+    "score": 0,
+    "level": "Low",
+    "reasons": [
+     "Large-cap major (CoinGecko)"
+    ]
+   },
+   "is_spiking": false
+  },
+  {
+   "symbol": "POLARIS",
+   "kind": "emerging",
+   "note": null,
+   "count_query": "POLARIS -is:retweet",
+   "mentions_24h": 1871,
+   "mentions_6h": 351,
+   "mentions_current_hour_partial": 14,
+   "current_hour_minutes": 11,
+   "recent_rate_per_h": 74.8,
+   "baseline_per_h": 77.55,
+   "spike_ratio": 0.96,
+   "hourly": [
+    79,
+    77,
+    86,
+    56,
+    58,
+    25,
+    44,
+    62,
+    53,
+    64,
+    58,
+    87,
+    156,
+    103,
+    106,
+    95,
+    114,
+    120,
+    71,
+    61,
+    59,
+    72,
+    74,
+    79.4
+   ],
+   "hourly_start": "2026-11-09T01:00:00.000Z",
+   "sample_posts": 3,
+   "unique_authors": 2,
+   "sample_engagement": 7,
+   "scam_pattern_share": 0.0,
+   "contract_address": "48GT2bJv1UJhG2mGgJG8VpX1BHeQXiQsBhVQvukrpump",
+   "top_posts": [
+    {
+     "id": "2119783091942068534",
+     "url": "https://x.com/_hillscaller/status/2119783091942068534",
+     "text": "Watch your entry on $POLARIS \n\n48GT2bJv1UJhG2mGgJG8VpX1BHeQXiQsBhVQvukrpump\n\n#solana #memecoin #memecoin1000x #fomo https://t.co/Iz0tseUg3D",
+     "created_at": "2026-11-09T13:24:07.000Z",
+     "author": "_hillscaller",
+     "author_name": "Hills🍀",
+     "followers": 1662,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 150,
+      "like_count": 1,
+      "quote_count": 1,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 3
+    },
+    {
+     "id": "2119782833199677468",
+     "url": "https://x.com/_Shonsol/status/2119782833199677468",
+     "text": "Watch your entry on $POLARIS \nGamble for now🍀\nCA:\n\n48GT2bJv1UJhG2mGgJG8VpX1BHeQXiQsBhVQvukrpump\n#solana #memecoin #memecoin1000x https://t.co/n8OWs3ln6B",
+     "created_at": "2026-11-09T13:23:05.000Z",
+     "author": "_Shonsol",
+     "author_name": "Shon sol",
+     "followers": 1917,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 247,
+      "like_count": 1,
+      "quote_count": 1,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 3
+    },
+    {
+     "id": "2119783337451524478",
+     "url": "https://x.com/_Shonsol/status/2119783337451524478",
+     "text": "Nice 14x up on my call $POLARIS\nTG eating massively \nDm for entry \n\n48GT2bJv1UJhG2mGgJG8VpX1BHeQXiQsBhVQvukrpump\n#solana #memecoin #memecoin1000x https://t.co/63Cn6LJm1Y https://t.co/nPpDeIeAMF",
+     "created_at": "2026-11-09T13:25:05.000Z",
+     "author": "_Shonsol",
+     "author_name": "Shon sol",
+     "followers": 1917,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 192,
+      "like_count": 1,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 1
+    }
+   ],
+   "market": {
+    "source": "DexScreener",
+    "match": "contract address from X posts",
+    "chain": "solana",
+    "dex": "pumpswap",
+    "pair_url": "https://dexscreener.com/solana/3sbfpnqq6z9lnjpcf69uyckn4mkr2hdicwsdkza87a7t",
+    "token_address": "48GT2bJv1UJhG2mGgJG8VpX1BHeQXiQsBhVQvukrpump",
+    "name": "Polaris",
+    "price_usd": 5.748e-06,
+    "change_5m": 0,
+    "change_1h": 3.7,
+    "change_6h": -11.94,
+    "change_24h": -87.26,
+    "volume_5m": 0,
+    "volume_1h": 77.63,
+    "volume_6h": 2314.19,
+    "volume_24h": 239139,
+    "liquidity_usd": 5005.65,
+    "market_cap": 5552,
+    "fdv": 5552,
+    "pair_created_at": 1794230264000,
+    "image": "https://cdn.dexscreener.com/cms/images/rw7LoLcAIAzb0b-p?width=800&height=800&quality=95&format=auto",
+    "txns_5m": {
+     "buys": 0,
+     "sells": 0
+    },
+    "txns_1h": {
+     "buys": 1,
+     "sells": 2
+    },
+    "txns_6h": {
+     "buys": 38,
+     "sells": 52
+    },
+    "txns_24h": {
+     "buys": 3969,
+     "sells": 3048
+    },
+    "pairs_count": 4,
+    "top_pair_liq_share": 0.999
+   },
+   "hype_score": 42,
+   "risk_flags": [
+    "Low liquidity (< $20k)",
+    "Pair < 24h old"
+   ],
+   "momentum": {
+    "accel": 1.14,
+    "prior_rate_per_h": 65.5,
+    "state": "steady"
+   },
+   "signal": {
+    "code": "neutral",
+    "label": "Neutral",
+    "reason": "X 1.0x, steady · 1h +3.7% · buys 42% (6h)"
+   },
+   "risk": {
+    "score": 57,
+    "level": "Medium",
+    "reasons": [
+     "+30 liquidity < $10K",
+     "+15 pair < 24h old",
+     "+8 sells 58% (6h)",
+     "+4 liquidity concentrated in 1 pair"
+    ]
+   },
+   "is_spiking": false
+  },
+  {
    "symbol": "ARB",
    "kind": "emerging",
    "note": null,
    "count_query": "ARB -is:retweet",
-   "mentions_24h": 1605,
-   "mentions_6h": 248,
-   "mentions_current_hour_partial": 3,
+   "mentions_24h": 1615,
+   "mentions_6h": 217,
+   "mentions_current_hour_partial": 10,
    "current_hour_minutes": 10,
-   "recent_rate_per_h": 41.1,
-   "baseline_per_h": 69.82,
-   "spike_ratio": 0.59,
+   "recent_rate_per_h": 29.0,
+   "baseline_per_h": 70.64,
+   "spike_ratio": 0.41,
    "hourly": [
-    27,
     26,
     38,
     40,
@@ -1941,12 +2073,13 @@
     49,
     32,
     45,
-    18.0
+    24,
+    57.5
    ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
+   "hourly_start": "2026-11-09T01:00:00.000Z",
    "sample_posts": 3,
    "unique_authors": 3,
-   "sample_engagement": 82,
+   "sample_engagement": 83,
    "scam_pattern_share": 0.0,
    "contract_address": null,
    "top_posts": [
@@ -1957,16 +2090,16 @@
      "created_at": "2026-11-09T13:39:16.000Z",
      "author": "OG_Branxi",
      "author_name": "Branxi",
-     "followers": 4245,
+     "followers": 4246,
      "metrics": {
-      "bookmark_count": 8,
-      "impression_count": 5143,
-      "like_count": 61,
+      "bookmark_count": 10,
+      "impression_count": 5267,
+      "like_count": 62,
       "quote_count": 0,
       "reply_count": 6,
       "retweet_count": 0
      },
-     "engagement": 67
+     "engagement": 68
     },
     {
      "id": "2119813131023065401",
@@ -1996,7 +2129,7 @@
      "followers": 2361,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 67,
+      "impression_count": 69,
       "like_count": 0,
       "quote_count": 0,
       "reply_count": 0,
@@ -2015,14 +2148,14 @@
     "name": "Arbitrum",
     "price_usd": 0.2073,
     "change_5m": 0,
-    "change_1h": 0,
+    "change_1h": null,
     "change_6h": null,
     "change_24h": null,
     "volume_5m": 0,
-    "volume_1h": 0,
-    "volume_6h": 43009.72,
-    "volume_24h": 265426.02,
-    "liquidity_usd": 206990398.84,
+    "volume_1h": 41597.87,
+    "volume_6h": 84607.6,
+    "volume_24h": 307023.9,
+    "liquidity_usd": 206990403.01,
     "market_cap": 207313876,
     "fdv": 207313876,
     "pair_created_at": 1789729000000,
@@ -2032,33 +2165,35 @@
      "sells": 0
     },
     "txns_1h": {
-     "buys": 0,
-     "sells": 0
+     "buys": 1,
+     "sells": 1
     },
     "txns_6h": {
-     "buys": 5,
-     "sells": 5
+     "buys": 6,
+     "sells": 6
     },
     "txns_24h": {
-     "buys": 20,
-     "sells": 20
+     "buys": 21,
+     "sells": 21
     },
     "pairs_count": 1,
     "top_pair_liq_share": 1.0
    },
-   "hype_score": 43,
+   "hype_score": 40,
    "risk_flags": [
     "Matched by symbol only - verify contract"
    ],
+   "prev_spike_ratio": 0.59,
+   "prev_snapshot_at": "2026-11-09T23:10:06.000Z",
    "momentum": {
-    "accel": 1.01,
-    "prior_rate_per_h": 40.5,
+    "accel": 0.75,
+    "prior_rate_per_h": 38.5,
     "state": "steady"
    },
    "signal": {
     "code": "neutral",
     "label": "Neutral",
-    "reason": "X 0.6x, steady · 1h +0.0% · buys 50% (24h)"
+    "reason": "X 0.4x, steady · market data n/a"
    },
    "risk": {
     "score": 25,
@@ -2071,427 +2206,18 @@
    "is_spiking": false
   },
   {
-   "symbol": "GTA",
-   "kind": "emerging",
-   "note": null,
-   "count_query": "GTA (solana OR pump OR CA OR memecoin OR crypto OR token) -is:retweet",
-   "mentions_24h": 1794,
-   "mentions_6h": 468,
-   "mentions_current_hour_partial": 23,
-   "current_hour_minutes": 10,
-   "recent_rate_per_h": 84.0,
-   "baseline_per_h": 74.27,
-   "spike_ratio": 1.13,
-   "hourly": [
-    36,
-    38,
-    21,
-    24,
-    36,
-    46,
-    43,
-    61,
-    59,
-    60,
-    58,
-    48,
-    81,
-    60,
-    98,
-    233,
-    125,
-    137,
-    110,
-    101,
-    84,
-    75,
-    75,
-    137.8
-   ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
-   "sample_posts": 3,
-   "unique_authors": 3,
-   "sample_engagement": 7,
-   "scam_pattern_share": 0.0,
-   "contract_address": "3xQYoRyycadwD4ZJvFejabeHetva5xDAjggBhFW9pump",
-   "top_posts": [
-    {
-     "id": "2119852680734462044",
-     "url": "https://x.com/solblender99/status/2119852680734462044",
-     "text": "$GTA at $8K 🔎\n\nSuper early. Low cap gem loading📉\nu buying early or chasing later\n\nCA&gt;\nARmzcuHBYXa1LbXsLEsEoPK8uPCRD17ohohqnxRBpump\n\n#Solana #Memecoin https://t.co/pISFlxzeAp",
-     "created_at": "2026-11-09T18:00:38.000Z",
-     "author": "solblender99",
-     "author_name": "📡 Solblender",
-     "followers": 1280,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 62,
-      "like_count": 1,
-      "quote_count": 1,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 3
-    },
-    {
-     "id": "2119858658251346350",
-     "url": "https://x.com/SPCXpump/status/2119858658251346350",
-     "text": "🚨 BREAKING: $GTA did 85x\n\n$140 became $11,677 🔥\n\n3xQYoRyycadwD4ZJvFejabeHetva5xDAjggBhFW9pump\n\nI'm calling the next 100x memecoin.\nYou ready? 🫵 https://t.co/GP55rgM0Gz",
-     "created_at": "2026-11-09T18:24:23.000Z",
-     "author": "SPCXpump",
-     "author_name": "$PUMP",
-     "followers": 1474,
-     "metrics": {
-      "bookmark_count": 1,
-      "impression_count": 44,
-      "like_count": 1,
-      "quote_count": 0,
-      "reply_count": 1,
-      "retweet_count": 0
-     },
-     "engagement": 2
-    },
-    {
-     "id": "2119866340185919978",
-     "url": "https://x.com/cxnowbaba/status/2119866340185919978",
-     "text": "$GTA went 96x from launch\n\n$144 flipped into $13,434 🔥\n\n3xQYoRyycadwD4ZJvFejabeHetva5xDAjggBhFW9pump\n\nNext 100x call drops soon.\nFollow me and turn your notifications ON 🔔 https://t.co/kawVaEcsdF",
-     "created_at": "2026-11-09T18:54:55.000Z",
-     "author": "cxnowbaba",
-     "author_name": "$CXNOW",
-     "followers": 680,
-     "metrics": {
-      "bookmark_count": 1,
-      "impression_count": 6,
-      "like_count": 1,
-      "quote_count": 0,
-      "reply_count": 1,
-      "retweet_count": 0
-     },
-     "engagement": 2
-    }
-   ],
-   "market": {
-    "source": "DexScreener",
-    "match": "contract address from X posts",
-    "chain": "solana",
-    "dex": "pumpswap",
-    "pair_url": "https://dexscreener.com/solana/bkfysyujwx53rjumnbdue7madpe8uoscubfuz4hqtccg",
-    "token_address": "3xQYoRyycadwD4ZJvFejabeHetva5xDAjggBhFW9pump",
-    "name": "Grand Theft Alice",
-    "price_usd": 1.704e-06,
-    "change_5m": 0,
-    "change_1h": 0,
-    "change_6h": -98.42,
-    "change_24h": -96.02,
-    "volume_5m": 0,
-    "volume_1h": 0,
-    "volume_6h": 441484.27,
-    "volume_24h": 484827.72,
-    "liquidity_usd": 1804.01,
-    "market_cap": 1684,
-    "fdv": 1684,
-    "pair_created_at": 1794245849000,
-    "image": "https://cdn.dexscreener.com/cms/images/vFAoge2833G4JadW?width=800&height=800&quality=95&format=auto",
-    "txns_5m": {
-     "buys": 0,
-     "sells": 0
-    },
-    "txns_1h": {
-     "buys": 0,
-     "sells": 0
-    },
-    "txns_6h": {
-     "buys": 12409,
-     "sells": 7569
-    },
-    "txns_24h": {
-     "buys": 13396,
-     "sells": 7843
-    },
-    "pairs_count": 3,
-    "top_pair_liq_share": 1.0
-   },
-   "hype_score": 43,
-   "risk_flags": [
-    "Low liquidity (< $20k)",
-    "Pair < 24h old"
-   ],
-   "momentum": {
-    "accel": 1.06,
-    "prior_rate_per_h": 79.5,
-    "state": "steady"
-   },
-   "signal": {
-    "code": "dump",
-    "label": "DUMP chal raha",
-    "reason": "6h -98% · buys 62% (6h) · X 1.1x, steady"
-   },
-   "risk": {
-    "score": 49,
-    "level": "Medium",
-    "reasons": [
-     "+30 liquidity < $10K",
-     "+15 pair < 24h old",
-     "+4 liquidity concentrated in 1 pair"
-    ]
-   },
-   "is_spiking": false
-  },
-  {
-   "symbol": "UNLOCK",
-   "kind": "emerging",
-   "note": null,
-   "count_query": "UNLOCK -is:retweet",
-   "mentions_24h": 15606,
-   "mentions_6h": 3129,
-   "mentions_current_hour_partial": 72,
-   "current_hour_minutes": 10,
-   "recent_rate_per_h": 475.5,
-   "baseline_per_h": 667.91,
-   "spike_ratio": 0.71,
-   "hourly": [
-    471,
-    386,
-    438,
-    467,
-    493,
-    624,
-    776,
-    698,
-    664,
-    653,
-    753,
-    707,
-    826,
-    850,
-    953,
-    912,
-    756,
-    693,
-    823,
-    641,
-    545,
-    565,
-    483,
-    430.6
-   ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
-   "sample_posts": 2,
-   "unique_authors": 2,
-   "sample_engagement": 0,
-   "scam_pattern_share": 0.0,
-   "contract_address": null,
-   "top_posts": [
-    {
-     "id": "2119899118147391967",
-     "url": "https://x.com/Rogalitto_/status/2119899118147391967",
-     "text": "🔓 $UNLOCK – Unlock Day\n\nNov 11. 6.875B tokens unlocking. Everyone's scared.\nWe're not. We brought the key. 🔑🐱\n\nThe only coin that's happy about unlocks.\nCountdown is on. ⏳\n\n#Solana #memecoin #pumpfun",
-     "created_at": "2026-11-09T21:05:10.000Z",
-     "author": "Rogalitto_",
-     "author_name": "rogal",
-     "followers": 0,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 4,
-      "like_count": 0,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 0
-    },
-    {
-     "id": "2119901653788979462",
-     "url": "https://x.com/ekekoo777/status/2119901653788979462",
-     "text": "PUMP holders on Nov 11: 😰📉\n$UNLOCK holders on Nov 11: 😎🔑\n\n6.875B tokens get unlocked.\nWe're the only ones celebrating.\n\nWhile everyone fears the unlock, we ARE the unlock. 🔒🐱\n\nCountdown is on ⏳\n\n#UNLOCK #Solana #memecoin #pumpfun",
-     "created_at": "2026-11-09T21:15:14.000Z",
-     "author": "ekekoo777",
-     "author_name": "filip S",
-     "followers": 3,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 4,
-      "like_count": 0,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 0
-    }
-   ],
-   "market": {
-    "source": "DexScreener",
-    "match": "symbol search (verify CA before trading)",
-    "chain": "optimism",
-    "dex": "velodrome",
-    "pair_url": "https://dexscreener.com/optimism/0x6e6046e9b5e3d90eac2abba610bca725834ca5b3",
-    "token_address": "0x7aE97042a4A0eB4D1eB370C34BfEC71042a056B7",
-    "name": "Unlock Token",
-    "price_usd": 0.0001186,
-    "change_5m": 0,
-    "change_1h": 0,
-    "change_6h": 0,
-    "change_24h": null,
-    "volume_5m": 0,
-    "volume_1h": 0,
-    "volume_6h": 0,
-    "volume_24h": 0.07,
-    "liquidity_usd": 47.88,
-    "market_cap": 882,
-    "fdv": 882,
-    "pair_created_at": null,
-    "image": null,
-    "txns_5m": {
-     "buys": 0,
-     "sells": 0
-    },
-    "txns_1h": {
-     "buys": 0,
-     "sells": 0
-    },
-    "txns_6h": {
-     "buys": 0,
-     "sells": 0
-    },
-    "txns_24h": {
-     "buys": 1,
-     "sells": 0
-    },
-    "pairs_count": 3,
-    "top_pair_liq_share": 0.746
-   },
-   "hype_score": 43,
-   "risk_flags": [
-    "Low liquidity (< $20k)",
-    "Matched by symbol only - verify contract"
-   ],
-   "momentum": {
-    "accel": 0.86,
-    "prior_rate_per_h": 555.0,
-    "state": "steady"
-   },
-   "signal": {
-    "code": "neutral",
-    "label": "Neutral",
-    "reason": "X 0.7x, steady · 1h +0.0% · buy/sell n/a"
-   },
-   "risk": {
-    "score": 40,
-    "level": "Medium",
-    "reasons": [
-     "+30 liquidity < $10K",
-     "+10 matched by symbol only"
-    ]
-   },
-   "is_spiking": false
-  },
-  {
-   "symbol": "HYPE",
-   "kind": "major",
-   "note": null,
-   "count_query": "(HYPE hyperliquid) -is:retweet",
-   "mentions_24h": 8745,
-   "mentions_6h": 3736,
-   "mentions_current_hour_partial": 6,
-   "current_hour_minutes": 10,
-   "recent_rate_per_h": 200.4,
-   "baseline_per_h": 386.14,
-   "spike_ratio": 0.52,
-   "hourly": [
-    12,
-    20,
-    16,
-    16,
-    27,
-    31,
-    33,
-    37,
-    46,
-    45,
-    36,
-    467,
-    301,
-    336,
-    766,
-    925,
-    939,
-    940,
-    872,
-    920,
-    920,
-    790,
-    228,
-    35.8
-   ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
-   "sample_posts": 1,
-   "unique_authors": 1,
-   "sample_engagement": 1,
-   "scam_pattern_share": 0.0,
-   "contract_address": null,
-   "top_posts": [
-    {
-     "id": "2119850116358267198",
-     "url": "https://x.com/jaredfromsubw8y/status/2119850116358267198",
-     "text": "feels good holding the next 100x + memecoin 3years cooking \n\n$eth $ondo $bitcoin $apu $btc $hype  $pepe https://t.co/Z1AYR4BLw3",
-     "created_at": "2026-11-09T17:50:27.000Z",
-     "author": "jaredfromsubw8y",
-     "author_name": "Jaredfromsubway.eth 🍀 💹🧲",
-     "followers": 250,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 78,
-      "like_count": 1,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 1
-    }
-   ],
-   "market": {
-    "source": "CoinGecko",
-    "match": "coingecko id hyperliquid",
-    "price_usd": 75.06,
-    "change_24h": 0.5152277152939619,
-    "volume_24h": 1098536441.8350294,
-    "market_cap": 17968892667.65797
-   },
-   "hype_score": 40,
-   "risk_flags": [],
-   "momentum": {
-    "accel": 0.23,
-    "prior_rate_per_h": 855.0,
-    "state": "fading"
-   },
-   "signal": {
-    "code": "neutral",
-    "label": "Neutral",
-    "reason": "X 0.5x, fading · 24h +0.5%"
-   },
-   "risk": {
-    "score": 0,
-    "level": "Low",
-    "reasons": [
-     "Large-cap major (CoinGecko)"
-    ]
-   },
-   "is_spiking": false
-  },
-  {
    "symbol": "PEPE",
    "kind": "major",
    "note": null,
    "count_query": "(PEPE (crypto OR coin OR memecoin)) -is:retweet",
-   "mentions_24h": 663,
-   "mentions_6h": 134,
-   "mentions_current_hour_partial": 5,
+   "mentions_24h": 666,
+   "mentions_6h": 122,
+   "mentions_current_hour_partial": 3,
    "current_hour_minutes": 10,
-   "recent_rate_per_h": 18.9,
-   "baseline_per_h": 28.32,
-   "spike_ratio": 0.67,
+   "recent_rate_per_h": 23.0,
+   "baseline_per_h": 28.18,
+   "spike_ratio": 0.82,
    "hourly": [
-    19,
     12,
     26,
     19,
@@ -2506,7 +2232,7 @@
     29,
     27,
     57,
-    56,
+    55,
     43,
     35,
     34,
@@ -2514,15 +2240,34 @@
     22,
     22,
     17,
-    30.1
+    24,
+    17.4
    ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
-   "sample_posts": 5,
-   "unique_authors": 5,
-   "sample_engagement": 17,
+   "hourly_start": "2026-11-09T01:00:00.000Z",
+   "sample_posts": 4,
+   "unique_authors": 4,
+   "sample_engagement": 32,
    "scam_pattern_share": 0.0,
    "contract_address": null,
    "top_posts": [
+    {
+     "id": "2119855626339733698",
+     "url": "https://x.com/texcatwhale/status/2119855626339733698",
+     "text": "We all came here to win. And in the end, only those who truly believe will make it.\n\n$texcat is a VIRAL cat with the potential to go absolutely parabolic when the right conditions align. A hidden gem waiting for its moment, just like $PNUT, $MOODENG, $BRETT, $WIF and $PEPE before",
+     "created_at": "2026-11-09T18:12:20.000Z",
+     "author": "texcatwhale",
+     "author_name": "texcatwhale",
+     "followers": 203,
+     "metrics": {
+      "bookmark_count": 2,
+      "impression_count": 159,
+      "like_count": 9,
+      "quote_count": 1,
+      "reply_count": 2,
+      "retweet_count": 2
+     },
+     "engagement": 17
+    },
     {
      "id": "2119813131023065401",
      "url": "https://x.com/Anonmicheal11/status/2119813131023065401",
@@ -2542,42 +2287,6 @@
      "engagement": 15
     },
     {
-     "id": "2119930188045693244",
-     "url": "https://x.com/reezli_crypto/status/2119930188045693244",
-     "text": "Update on that $PEPE bag:\n\n(1) Sold 75% of it for $ETH. Crypto dumped but $PEPE is still hanging near the local highs somehow. Ended up with roughly 2x more $ETH than what I initially put in.\n\nI’ll re-buy $PEPE if it pulls back or when $ETH starts moving up. Basically just https:",
-     "created_at": "2026-11-09T23:08:37.000Z",
-     "author": "reezli_crypto",
-     "author_name": "Aureum",
-     "followers": 291,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 1,
-      "like_count": 0,
-      "quote_count": 0,
-      "reply_count": 1,
-      "retweet_count": 0
-     },
-     "engagement": 1
-    },
-    {
-     "id": "2119850116358267198",
-     "url": "https://x.com/jaredfromsubw8y/status/2119850116358267198",
-     "text": "feels good holding the next 100x + memecoin 3years cooking \n\n$eth $ondo $bitcoin $apu $btc $hype  $pepe https://t.co/Z1AYR4BLw3",
-     "created_at": "2026-11-09T17:50:27.000Z",
-     "author": "jaredfromsubw8y",
-     "author_name": "Jaredfromsubway.eth 🍀 💹🧲",
-     "followers": 250,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 78,
-      "like_count": 1,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 1
-    },
-    {
      "id": "2119923106571792810",
      "url": "https://x.com/moonmission_1/status/2119923106571792810",
      "text": "Send it $PEPE \n\n48b https://t.co/hc07TGJDXE",
@@ -2587,7 +2296,7 @@
      "followers": 1084,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 17,
+      "impression_count": 22,
       "like_count": 0,
       "quote_count": 0,
       "reply_count": 0,
@@ -2605,7 +2314,7 @@
      "followers": 2361,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 67,
+      "impression_count": 69,
       "like_count": 0,
       "quote_count": 0,
       "reply_count": 0,
@@ -2617,22 +2326,24 @@
    "market": {
     "source": "CoinGecko",
     "match": "coingecko id pepe",
-    "price_usd": 5.13e-06,
-    "change_24h": 3.272026840133161,
-    "volume_24h": 507643262.0174366,
-    "market_cap": 2157559120.476064
+    "price_usd": 5.15e-06,
+    "change_24h": 2.538435170047459,
+    "volume_24h": 501501575.02215725,
+    "market_cap": 2166032440.6423316
    },
-   "hype_score": 37,
+   "hype_score": 40,
    "risk_flags": [],
+   "prev_spike_ratio": 0.67,
+   "prev_snapshot_at": "2026-11-09T23:10:06.000Z",
    "momentum": {
-    "accel": 0.86,
-    "prior_rate_per_h": 22.0,
+    "accel": 1.18,
+    "prior_rate_per_h": 19.5,
     "state": "steady"
    },
    "signal": {
     "code": "neutral",
     "label": "Neutral",
-    "reason": "X 0.7x, steady · 24h +3.3%"
+    "reason": "X 0.8x, steady · 24h +2.5%"
    },
    "risk": {
     "score": 0,
@@ -2644,61 +2355,79 @@
    "is_spiking": false
   },
   {
-   "symbol": "PONS",
+   "symbol": "SEND",
    "kind": "emerging",
    "note": null,
-   "count_query": "PONS -is:retweet",
-   "mentions_24h": 1844,
-   "mentions_6h": 376,
-   "mentions_current_hour_partial": 16,
+   "count_query": "SEND (solana OR pump OR CA OR memecoin OR crypto OR token) -is:retweet",
+   "mentions_24h": 5830,
+   "mentions_6h": 1351,
+   "mentions_current_hour_partial": 33,
    "current_hour_minutes": 10,
-   "recent_rate_per_h": 71.1,
-   "baseline_per_h": 76.5,
-   "spike_ratio": 0.93,
+   "recent_rate_per_h": 153.4,
+   "baseline_per_h": 249.77,
+   "spike_ratio": 0.61,
    "hourly": [
-    52,
-    50,
-    48,
-    40,
-    44,
-    36,
-    48,
-    54,
-    87,
-    87,
-    81,
-    73,
-    137,
+    244,
+    159,
+    122,
+    121,
     117,
-    114,
-    107,
-    105,
-    110,
-    108,
-    65,
-    59,
-    61,
-    67,
-    95.4
+    125,
+    302,
+    157,
+    201,
+    261,
+    257,
+    236,
+    252,
+    432,
+    215,
+    301,
+    410,
+    412,
+    404,
+    244,
+    313,
+    210,
+    147,
+    190.7
    ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
-   "sample_posts": 2,
-   "unique_authors": 2,
-   "sample_engagement": 0,
+   "hourly_start": "2026-11-09T01:00:00.000Z",
+   "sample_posts": 3,
+   "unique_authors": 3,
+   "sample_engagement": 1,
    "scam_pattern_share": 0.0,
-   "contract_address": "0x39dBED3a2bd333467115dE45665cC57F813C4571",
+   "contract_address": "0xa40a9C0e2E9bf7a3b9deb9ebed2b59E77d01e105",
    "top_posts": [
     {
-     "id": "2119929730275164447",
-     "url": "https://x.com/1BTC_2023/status/2119929730275164447",
-     "text": "3   LAUNCHPADS :🚀🚀🚀\n\n​Choose $TORCH if you prefer investing in an all-in-one execution suite (bots + terminal + launchpad).\n\n ( Ticker ±100x) BullMarket\n\n​Choose $PONS if you want to capture early-stage token launches on Robinhood Chain via a proven buyback &amp; burn model.\n\n (",
-     "created_at": "2026-11-09T23:06:48.000Z",
-     "author": "1BTC_2023",
-     "author_name": "1BTC ☄️",
-     "followers": 1310,
+     "id": "2119923587536888277",
+     "url": "https://x.com/joohoo_an/status/2119923587536888277",
+     "text": "@CondoOndo $SEND it.",
+     "created_at": "2026-11-09T22:42:24.000Z",
+     "author": "joohoo_an",
+     "author_name": "jh",
+     "followers": 546,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 5,
+      "impression_count": 7,
+      "like_count": 1,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 1
+    },
+    {
+     "id": "2119832046579146791",
+     "url": "https://x.com/defimaestro90/status/2119832046579146791",
+     "text": "@senderdotfamily $SEND it",
+     "created_at": "2026-11-09T16:38:39.000Z",
+     "author": "defimaestro90",
+     "author_name": "Maestro",
+     "followers": 6467,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 39,
       "like_count": 0,
       "quote_count": 0,
       "reply_count": 0,
@@ -2707,13 +2436,13 @@
      "engagement": 0
     },
     {
-     "id": "2119929766774288489",
-     "url": "https://x.com/Mystic_Ciro6tf/status/2119929766774288489",
-     "text": "📢 Network​ update for​ the $PONS community​ on​ Robinhood EVM..​ The distribution portal is now​ open.\nSeсure your share​ securely here​ 👇​.\nCA: 0x39dBED3a2bd333467115dE45665cC57F813C4571\n#RHOOD #pons\nhttps://t.co/zoYdIWCGZ8",
-     "created_at": "2026-11-09T23:06:57.000Z",
-     "author": "Mystic_Ciro6tf",
-     "author_name": "Le Borgne Sauvage🏴‍☠️🦍",
-     "followers": 1748,
+     "id": "2119852454602740194",
+     "url": "https://x.com/Timothy69405199/status/2119852454602740194",
+     "text": "@MrPepeWorldwide $SEND it!\n\n0xa40a9C0e2E9bf7a3b9deb9ebed2b59E77d01e105 https://t.co/egssfb36Dy",
+     "created_at": "2026-11-09T17:59:44.000Z",
+     "author": "Timothy69405199",
+     "author_name": "Tim Broncosox",
+     "followers": 1790,
      "metrics": {
       "bookmark_count": 0,
       "impression_count": 5,
@@ -2727,211 +2456,248 @@
    ],
    "market": {
     "source": "DexScreener",
-    "match": "contract address from X posts",
-    "chain": "robinhood",
-    "dex": "uniswap",
-    "pair_url": "https://dexscreener.com/robinhood/0x10cc6bd38112cac182db90b6a71d8bb5939526ba",
-    "token_address": "0x39dBED3a2bd333467115dE45665cC57F813C4571",
-    "name": "Pons",
-    "price_usd": 0.1539,
-    "change_5m": 0.03,
-    "change_1h": -1.06,
-    "change_6h": -2.13,
-    "change_24h": -1.88,
-    "volume_5m": 0.16,
-    "volume_1h": 10231.15,
-    "volume_6h": 45572.06,
-    "volume_24h": 272215.44,
-    "liquidity_usd": 1664206.2,
-    "market_cap": 103201184,
-    "fdv": 103201184,
-    "pair_created_at": 1783975341000,
-    "image": "https://cdn.dexscreener.com/cms/images/dkmXs8KYMyMXjuU1?width=800&height=800&quality=95&format=auto",
+    "match": "symbol search (verify CA before trading)",
+    "chain": "base",
+    "dex": "aerodrome",
+    "pair_url": "https://dexscreener.com/base/0x69bc1d350fe13f499c6aeded2c5ea9471b2a599a",
+    "token_address": "0xEab49138BA2Ea6dd776220fE26b7b8E446638956",
+    "name": "Send",
+    "price_usd": 0.01261,
+    "change_5m": 0,
+    "change_1h": -0.04,
+    "change_6h": -0.03,
+    "change_24h": -2.5,
+    "volume_5m": 0,
+    "volume_1h": 100.56,
+    "volume_6h": 105.64,
+    "volume_24h": 7941.81,
+    "liquidity_usd": 1107061.43,
+    "market_cap": 4505708,
+    "fdv": 12324172,
+    "pair_created_at": 1737333519000,
+    "image": "https://cdn.dexscreener.com/cms/images/0ae072f8e5952caef7592541141eccad78f88b3d30578aa81b409027fd8eb6d7?width=800&height=800&quality=95&format=auto",
     "txns_5m": {
      "buys": 0,
-     "sells": 1
+     "sells": 0
     },
     "txns_1h": {
-     "buys": 10,
-     "sells": 59
+     "buys": 0,
+     "sells": 2
     },
     "txns_6h": {
-     "buys": 115,
-     "sells": 231
+     "buys": 1,
+     "sells": 2
     },
     "txns_24h": {
-     "buys": 716,
-     "sells": 668
+     "buys": 2,
+     "sells": 13
+    },
+    "pairs_count": 1,
+    "top_pair_liq_share": 1.0
+   },
+   "hype_score": 39,
+   "risk_flags": [
+    "Matched by symbol only - verify contract"
+   ],
+   "prev_spike_ratio": 0.88,
+   "prev_snapshot_at": "2026-11-09T23:10:06.000Z",
+   "momentum": {
+    "accel": 0.59,
+    "prior_rate_per_h": 261.5,
+    "state": "fading"
+   },
+   "signal": {
+    "code": "neutral",
+    "label": "Neutral",
+    "reason": "X 0.6x, fading · 1h -0.0% · buy/sell n/a"
+   },
+   "risk": {
+    "score": 25,
+    "level": "Low",
+    "reasons": [
+     "+15 huge liquidity but tiny volume (pool may be fake/unverified)",
+     "+10 matched by symbol only"
+    ]
+   },
+   "is_spiking": false
+  },
+  {
+   "symbol": "ANSEM",
+   "kind": "emerging",
+   "note": null,
+   "count_query": "ANSEM -is:retweet",
+   "mentions_24h": 3687,
+   "mentions_6h": 588,
+   "mentions_current_hour_partial": 18,
+   "current_hour_minutes": 10,
+   "recent_rate_per_h": 82.7,
+   "baseline_per_h": 156.55,
+   "spike_ratio": 0.53,
+   "hourly": [
+    90,
+    120,
+    92,
+    116,
+    122,
+    167,
+    183,
+    166,
+    147,
+    180,
+    137,
+    157,
+    269,
+    238,
+    203,
+    238,
+    164,
+    164,
+    145,
+    148,
+    97,
+    101,
+    79,
+    104.0
+   ],
+   "hourly_start": "2026-11-09T01:00:00.000Z",
+   "sample_posts": 4,
+   "unique_authors": 4,
+   "sample_engagement": 20,
+   "scam_pattern_share": 0.25,
+   "contract_address": "9cRCn9rGT8V2imeM2BaKs13yhMEais3ruM3rPvTGpump",
+   "top_posts": [
+    {
+     "id": "2119892675721564580",
+     "url": "https://x.com/raid100x/status/2119892675721564580",
+     "text": "I have given you all multiple 100x \n\nI gave you $ANSEM\n \nI gave you $CATE\n \nI gave you $JIMOTHY\n\nI gave you $MARSCOIN\n\nI HAVE THE NEXT 100x \n\nWHO WANTS CA?",
+     "created_at": "2026-11-09T20:39:34.000Z",
+     "author": "raid100x",
+     "author_name": "raid",
+     "followers": 907796,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 2898,
+      "like_count": 8,
+      "quote_count": 0,
+      "reply_count": 7,
+      "retweet_count": 1
+     },
+     "engagement": 17
+    },
+    {
+     "id": "2119945539651276939",
+     "url": "https://x.com/luzrolkx33/status/2119945539651276939",
+     "text": "🎯 Explore the airdrop buzz around The Black Bull $ANSEM on Solana \n\n Follow this airdrop and explore the crypto coin and memecoin token \n\n Chain: Solana \n\n CA=9cRCn9rGT8V2imeM2BaKs13yhMEais3ruM3rPvTGpump \n\n https://t.co/IQdhNFOrKH",
+     "created_at": "2026-11-10T00:09:37.000Z",
+     "author": "luzrolkx33",
+     "author_name": "Lucero Licona Rossetti",
+     "followers": 3000,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 0,
+      "like_count": 0,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 1
+     },
+     "engagement": 2
+    },
+    {
+     "id": "2119846477002649938",
+     "url": "https://x.com/HayBee2933/status/2119846477002649938",
+     "text": "@Lonewolfobxs Let's send it $ANSEM",
+     "created_at": "2026-11-09T17:35:59.000Z",
+     "author": "HayBee2933",
+     "author_name": "HayBee 🐂🀄️",
+     "followers": 731,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 14,
+      "like_count": 1,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 1
+    },
+    {
+     "id": "2119945140890419349",
+     "url": "https://x.com/fluffycryptbck/status/2119945140890419349",
+     "text": "$TRUMP — I gave it to you, it did 1888x\n\n$ANSEM — I gave it to you, it did 927x\n\n$PONS — I gave it to you, it did 1511x\n\n$CASHCAT — I gave it to you, it did 802x\n\nGot another Memecoin sitting at $10k mcap, comment “CA” and I’ll send it your way. https://t.co/lpuXo9Xx4r",
+     "created_at": "2026-11-10T00:08:02.000Z",
+     "author": "fluffycryptbck",
+     "author_name": "Fluffy (backup)",
+     "followers": 1045,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 0,
+      "like_count": 0,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 0
+    }
+   ],
+   "market": {
+    "source": "DexScreener",
+    "match": "contract address from X posts",
+    "chain": "solana",
+    "dex": "pumpswap",
+    "pair_url": "https://dexscreener.com/solana/fnzky6x7entq1er3d225dqyt7ybfka4pskbmqhb8l3cc",
+    "token_address": "9cRCn9rGT8V2imeM2BaKs13yhMEais3ruM3rPvTGpump",
+    "name": "The Black Bull",
+    "price_usd": 0.05015,
+    "change_5m": -0.02,
+    "change_1h": 1.65,
+    "change_6h": -4.23,
+    "change_24h": -10.41,
+    "volume_5m": 122.69,
+    "volume_1h": 10694.25,
+    "volume_6h": 151469.6,
+    "volume_24h": 594720.09,
+    "liquidity_usd": 1296076.28,
+    "market_cap": 50017943,
+    "fdv": 50017943,
+    "pair_created_at": 1781643948000,
+    "image": "https://cdn.dexscreener.com/cms/images/A8aHRXC8VPrpfPIF?width=800&height=800&quality=95&format=auto",
+    "txns_5m": {
+     "buys": 0,
+     "sells": 13
+    },
+    "txns_1h": {
+     "buys": 67,
+     "sells": 107
+    },
+    "txns_6h": {
+     "buys": 743,
+     "sells": 736
+    },
+    "txns_24h": {
+     "buys": 3757,
+     "sells": 4362
     },
     "pairs_count": 30,
-    "top_pair_liq_share": 0.304
+    "top_pair_liq_share": 0.727
    },
-   "hype_score": 37,
+   "hype_score": 36,
    "risk_flags": [],
    "momentum": {
-    "accel": 1.18,
-    "prior_rate_per_h": 60.0,
+    "accel": 0.84,
+    "prior_rate_per_h": 99.0,
     "state": "steady"
    },
    "signal": {
     "code": "neutral",
     "label": "Neutral",
-    "reason": "X 0.9x, steady · 1h -1.1% · buys 14% (1h)"
+    "reason": "X 0.5x, steady · 1h +1.6% · buys 39% (1h)"
    },
    "risk": {
     "score": 23,
     "level": "Low",
     "reasons": [
-     "+8 FDV/liquidity 62x",
-     "+15 sells 86% (1h)"
-    ]
-   },
-   "is_spiking": false
-  },
-  {
-   "symbol": "PUMPFUN",
-   "kind": "major",
-   "note": "$PUMPFUN on X mostly means the pump.fun launchpad; priced as its token PUMP (CoinGecko pump-fun)",
-   "count_query": "PUMPFUN -is:retweet",
-   "mentions_24h": 12123,
-   "mentions_6h": 3304,
-   "mentions_current_hour_partial": 55,
-   "current_hour_minutes": 10,
-   "recent_rate_per_h": 456.2,
-   "baseline_per_h": 511.68,
-   "spike_ratio": 0.89,
-   "hourly": [
-    361,
-    349,
-    299,
-    297,
-    434,
-    335,
-    439,
-    364,
-    357,
-    412,
-    386,
-    433,
-    404,
-    852,
-    802,
-    665,
-    557,
-    740,
-    818,
-    836,
-    599,
-    518,
-    478,
-    326.7
-   ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
-   "sample_posts": 0,
-   "unique_authors": 0,
-   "sample_engagement": 0,
-   "scam_pattern_share": null,
-   "contract_address": null,
-   "top_posts": [],
-   "market": {
-    "source": "CoinGecko",
-    "match": "coingecko id pump-fun",
-    "price_usd": 0.00360701,
-    "change_24h": 1.3940467200453837,
-    "volume_24h": 118069740.61032364,
-    "market_cap": 1655001906.1802328
-   },
-   "hype_score": 28,
-   "risk_flags": [],
-   "momentum": {
-    "accel": 0.82,
-    "prior_rate_per_h": 558.5,
-    "state": "steady"
-   },
-   "signal": {
-    "code": "neutral",
-    "label": "Neutral",
-    "reason": "X 0.9x, steady · 24h +1.4%"
-   },
-   "risk": {
-    "score": 0,
-    "level": "Low",
-    "reasons": [
-     "Large-cap major (CoinGecko)"
-    ]
-   },
-   "is_spiking": false
-  },
-  {
-   "symbol": "BONK",
-   "kind": "major",
-   "note": null,
-   "count_query": "BONK -is:retweet",
-   "mentions_24h": 2047,
-   "mentions_6h": 604,
-   "mentions_current_hour_partial": 16,
-   "current_hour_minutes": 10,
-   "recent_rate_per_h": 116.4,
-   "baseline_per_h": 82.95,
-   "spike_ratio": 1.4,
-   "hourly": [
-    87,
-    102,
-    85,
-    85,
-    71,
-    75,
-    48,
-    61,
-    64,
-    50,
-    50,
-    55,
-    66,
-    79,
-    69,
-    89,
-    96,
-    125,
-    122,
-    106,
-    117,
-    123,
-    120,
-    95.2
-   ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
-   "sample_posts": 0,
-   "unique_authors": 0,
-   "sample_engagement": 0,
-   "scam_pattern_share": null,
-   "contract_address": null,
-   "top_posts": [],
-   "market": {
-    "source": "CoinGecko",
-    "match": "coingecko id bonk",
-    "price_usd": 2.78e-06,
-    "change_24h": 3.0745065088991548,
-    "volume_24h": 21924709.322183043,
-    "market_cap": 244929151.82743376
-   },
-   "hype_score": 26,
-   "risk_flags": [],
-   "momentum": {
-    "accel": 0.97,
-    "prior_rate_per_h": 120.0,
-    "state": "steady"
-   },
-   "signal": {
-    "code": "neutral",
-    "label": "Neutral",
-    "reason": "X 1.4x, steady · 24h +3.1%"
-   },
-   "risk": {
-    "score": 10,
-    "level": "Low",
-    "reasons": [
-     "+10 market cap < $1B"
+     "+8 FDV/liquidity 39x",
+     "+15 sells 61% (1h)"
     ]
    },
    "is_spiking": false
@@ -2941,15 +2707,14 @@
    "kind": "emerging",
    "note": null,
    "count_query": "VERSEUS -is:retweet",
-   "mentions_24h": 20,
-   "mentions_6h": 7,
+   "mentions_24h": 21,
+   "mentions_6h": 5,
    "mentions_current_hour_partial": 0,
-   "current_hour_minutes": 10,
-   "recent_rate_per_h": 0.0,
+   "current_hour_minutes": 11,
+   "recent_rate_per_h": 0.8,
    "baseline_per_h": 0.91,
-   "spike_ratio": 0.0,
+   "spike_ratio": 0.93,
    "hourly": [
-    0,
     0,
     0,
     0,
@@ -2972,12 +2737,13 @@
     1,
     1,
     0,
+    1,
     0.0
    ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
+   "hourly_start": "2026-11-09T01:00:00.000Z",
    "sample_posts": 2,
    "unique_authors": 2,
-   "sample_engagement": 37,
+   "sample_engagement": 39,
    "scam_pattern_share": 0.0,
    "contract_address": null,
    "top_posts": [
@@ -2988,16 +2754,16 @@
      "created_at": "2026-11-09T21:00:00.000Z",
      "author": "BROKE_RICHY",
      "author_name": "Verseus",
-     "followers": 70,
+     "followers": 71,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 503,
-      "like_count": 11,
+      "impression_count": 559,
+      "like_count": 12,
       "quote_count": 0,
-      "reply_count": 9,
+      "reply_count": 10,
       "retweet_count": 7
      },
-     "engagement": 34
+     "engagement": 36
     },
     {
      "id": "2119883093435617363",
@@ -3019,17 +2785,19 @@
     }
    ],
    "market": null,
-   "hype_score": 23,
+   "hype_score": 32,
    "risk_flags": [],
+   "prev_spike_ratio": 0.0,
+   "prev_snapshot_at": "2026-11-09T23:10:06.000Z",
    "momentum": {
-    "accel": 0.0,
-    "prior_rate_per_h": 1.0,
-    "state": "fading"
+    "accel": 1.6,
+    "prior_rate_per_h": 0.5,
+    "state": "accelerating"
    },
    "signal": {
     "code": "neutral",
     "label": "Neutral",
-    "reason": "X 0.0x, fading · market data n/a"
+    "reason": "X 0.9x, accelerating · market data n/a"
    },
    "risk": {
     "score": 20,
@@ -3041,19 +2809,265 @@
    "is_spiking": false
   },
   {
+   "symbol": "WIF",
+   "kind": "major",
+   "note": null,
+   "count_query": "(WIF dogwifhat) OR dogwifhat -is:retweet",
+   "mentions_24h": 14,
+   "mentions_6h": 2,
+   "mentions_current_hour_partial": 0,
+   "current_hour_minutes": 11,
+   "recent_rate_per_h": 0.8,
+   "baseline_per_h": 0.59,
+   "spike_ratio": 1.44,
+   "hourly": [
+    2,
+    2,
+    1,
+    0,
+    1,
+    0,
+    0,
+    2,
+    0,
+    0,
+    1,
+    0,
+    1,
+    0,
+    1,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0.0
+   ],
+   "hourly_start": "2026-11-09T01:00:00.000Z",
+   "sample_posts": 1,
+   "unique_authors": 1,
+   "sample_engagement": 17,
+   "scam_pattern_share": 0.0,
+   "contract_address": null,
+   "top_posts": [
+    {
+     "id": "2119855626339733698",
+     "url": "https://x.com/texcatwhale/status/2119855626339733698",
+     "text": "We all came here to win. And in the end, only those who truly believe will make it.\n\n$texcat is a VIRAL cat with the potential to go absolutely parabolic when the right conditions align. A hidden gem waiting for its moment, just like $PNUT, $MOODENG, $BRETT, $WIF and $PEPE before",
+     "created_at": "2026-11-09T18:12:20.000Z",
+     "author": "texcatwhale",
+     "author_name": "texcatwhale",
+     "followers": 203,
+     "metrics": {
+      "bookmark_count": 2,
+      "impression_count": 159,
+      "like_count": 9,
+      "quote_count": 1,
+      "reply_count": 2,
+      "retweet_count": 2
+     },
+     "engagement": 17
+    }
+   ],
+   "market": {
+    "source": "CoinGecko",
+    "match": "coingecko id dogwifcoin",
+    "price_usd": 0.157464,
+    "change_24h": 1.2146722107164747,
+    "volume_24h": 25042527.21478594,
+    "market_cap": 157174496.61249268
+   },
+   "hype_score": 32,
+   "risk_flags": [],
+   "prev_spike_ratio": 1.57,
+   "prev_snapshot_at": "2026-11-09T23:10:06.000Z",
+   "momentum": {
+    "accel": 1.6,
+    "prior_rate_per_h": 0.5,
+    "state": "accelerating"
+   },
+   "signal": {
+    "code": "neutral",
+    "label": "Neutral",
+    "reason": "X 1.4x, accelerating · 24h +1.2%"
+   },
+   "risk": {
+    "score": 10,
+    "level": "Low",
+    "reasons": [
+     "+10 market cap < $1B"
+    ]
+   },
+   "is_spiking": false
+  },
+  {
+   "symbol": "PUMPFUN",
+   "kind": "major",
+   "note": "$PUMPFUN on X mostly means the pump.fun launchpad; priced as its token PUMP (CoinGecko pump-fun)",
+   "count_query": "PUMPFUN -is:retweet",
+   "mentions_24h": 12345,
+   "mentions_6h": 3049,
+   "mentions_current_hour_partial": 160,
+   "current_hour_minutes": 11,
+   "recent_rate_per_h": 536.7,
+   "baseline_per_h": 516.05,
+   "spike_ratio": 1.04,
+   "hourly": [
+    348,
+    299,
+    296,
+    434,
+    335,
+    439,
+    363,
+    357,
+    412,
+    386,
+    432,
+    403,
+    851,
+    802,
+    664,
+    557,
+    740,
+    818,
+    834,
+    598,
+    514,
+    471,
+    472,
+    901.4
+   ],
+   "hourly_start": "2026-11-09T01:00:00.000Z",
+   "sample_posts": 0,
+   "unique_authors": 0,
+   "sample_engagement": 0,
+   "scam_pattern_share": null,
+   "contract_address": null,
+   "top_posts": [],
+   "market": {
+    "source": "CoinGecko",
+    "match": "coingecko id pump-fun",
+    "price_usd": 0.00361966,
+    "change_24h": 2.592758328822988,
+    "volume_24h": 110384366.33960666,
+    "market_cap": 1660316109.7538724
+   },
+   "hype_score": 30,
+   "risk_flags": [],
+   "prev_spike_ratio": 0.89,
+   "prev_snapshot_at": "2026-11-09T23:10:06.000Z",
+   "momentum": {
+    "accel": 1.09,
+    "prior_rate_per_h": 492.5,
+    "state": "steady"
+   },
+   "signal": {
+    "code": "neutral",
+    "label": "Neutral",
+    "reason": "X 1.0x, steady · 24h +2.6%"
+   },
+   "risk": {
+    "score": 0,
+    "level": "Low",
+    "reasons": [
+     "Large-cap major (CoinGecko)"
+    ]
+   },
+   "is_spiking": false
+  },
+  {
+   "symbol": "BONK",
+   "kind": "major",
+   "note": null,
+   "count_query": "BONK -is:retweet",
+   "mentions_24h": 2052,
+   "mentions_6h": 575,
+   "mentions_current_hour_partial": 14,
+   "current_hour_minutes": 11,
+   "recent_rate_per_h": 92.6,
+   "baseline_per_h": 84.36,
+   "spike_ratio": 1.1,
+   "hourly": [
+    101,
+    85,
+    85,
+    71,
+    75,
+    48,
+    61,
+    64,
+    50,
+    50,
+    55,
+    66,
+    79,
+    69,
+    89,
+    96,
+    124,
+    122,
+    106,
+    117,
+    123,
+    120,
+    95,
+    79.0
+   ],
+   "hourly_start": "2026-11-09T01:00:00.000Z",
+   "sample_posts": 0,
+   "unique_authors": 0,
+   "sample_engagement": 0,
+   "scam_pattern_share": null,
+   "contract_address": null,
+   "top_posts": [],
+   "market": {
+    "source": "CoinGecko",
+    "match": "coingecko id bonk",
+    "price_usd": 2.79e-06,
+    "change_24h": 3.3026463671203885,
+    "volume_24h": 21871965.735800605,
+    "market_cap": 245863329.89883518
+   },
+   "hype_score": 24,
+   "risk_flags": [],
+   "prev_spike_ratio": 1.4,
+   "prev_snapshot_at": "2026-11-09T23:10:06.000Z",
+   "momentum": {
+    "accel": 0.76,
+    "prior_rate_per_h": 121.5,
+    "state": "steady"
+   },
+   "signal": {
+    "code": "neutral",
+    "label": "Neutral",
+    "reason": "X 1.1x, steady · 24h +3.3%"
+   },
+   "risk": {
+    "score": 10,
+    "level": "Low",
+    "reasons": [
+     "+10 market cap < $1B"
+    ]
+   },
+   "is_spiking": false
+  },
+  {
    "symbol": "PENGU",
    "kind": "major",
    "note": null,
    "count_query": "PENGU -is:retweet",
-   "mentions_24h": 1066,
-   "mentions_6h": 313,
-   "mentions_current_hour_partial": 9,
-   "current_hour_minutes": 10,
-   "recent_rate_per_h": 35.9,
-   "baseline_per_h": 44.36,
-   "spike_ratio": 0.81,
+   "mentions_24h": 1046,
+   "mentions_6h": 282,
+   "mentions_current_hour_partial": 10,
+   "current_hour_minutes": 11,
+   "recent_rate_per_h": 32.3,
+   "baseline_per_h": 42.45,
+   "spike_ratio": 0.76,
    "hourly": [
-    74,
     29,
     23,
     27,
@@ -3069,16 +3083,17 @@
     28,
     56,
     72,
-    63,
+    62,
     29,
     60,
     67,
     61,
     83,
     33,
-    53.5
+    28,
+    56.4
    ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
+   "hourly_start": "2026-11-09T01:00:00.000Z",
    "sample_posts": 0,
    "unique_authors": 0,
    "sample_engagement": 0,
@@ -3088,22 +3103,24 @@
    "market": {
     "source": "CoinGecko",
     "match": "coingecko id pudgy-penguins",
-    "price_usd": 0.00629384,
-    "change_24h": 2.5089300852057033,
-    "volume_24h": 63530397.89886062,
-    "market_cap": 395627882.43087304
+    "price_usd": 0.00631621,
+    "change_24h": 2.909227949976273,
+    "volume_24h": 62864757.78198886,
+    "market_cap": 397160453.7045533
    },
-   "hype_score": 19,
+   "hype_score": 18,
    "risk_flags": [],
+   "prev_spike_ratio": 0.81,
+   "prev_snapshot_at": "2026-11-09T23:10:06.000Z",
    "momentum": {
-    "accel": 0.5,
-    "prior_rate_per_h": 72.0,
+    "accel": 0.56,
+    "prior_rate_per_h": 58.0,
     "state": "fading"
    },
    "signal": {
     "code": "neutral",
     "label": "Neutral",
-    "reason": "X 0.8x, fading · 24h +2.5%"
+    "reason": "X 0.8x, fading · 24h +2.9%"
    },
    "risk": {
     "score": 10,
@@ -3115,44 +3132,44 @@
    "is_spiking": false
   },
   {
-   "symbol": "WIF",
+   "symbol": "HYPE",
    "kind": "major",
    "note": null,
-   "count_query": "(WIF dogwifhat) OR dogwifhat -is:retweet",
-   "mentions_24h": 13,
-   "mentions_6h": 1,
-   "mentions_current_hour_partial": 0,
-   "current_hour_minutes": 10,
-   "recent_rate_per_h": 0.9,
-   "baseline_per_h": 0.55,
-   "spike_ratio": 1.57,
+   "count_query": "(HYPE hyperliquid) -is:retweet",
+   "mentions_24h": 8662,
+   "mentions_6h": 2848,
+   "mentions_current_hour_partial": 11,
+   "current_hour_minutes": 11,
+   "recent_rate_per_h": 27.2,
+   "baseline_per_h": 391.73,
+   "spike_ratio": 0.07,
    "hourly": [
-    0,
-    2,
-    2,
-    1,
-    0,
-    1,
-    0,
-    0,
-    2,
-    0,
-    0,
-    1,
-    0,
-    1,
-    0,
-    1,
-    0,
-    1,
-    0,
-    0,
-    0,
-    0,
-    1,
-    0.0
+    20,
+    16,
+    16,
+    27,
+    31,
+    33,
+    37,
+    46,
+    45,
+    36,
+    467,
+    301,
+    336,
+    763,
+    908,
+    932,
+    928,
+    860,
+    909,
+    910,
+    781,
+    216,
+    21,
+    62.2
    ],
-   "hourly_start": "2026-11-09T00:00:00.000Z",
+   "hourly_start": "2026-11-09T01:00:00.000Z",
    "sample_posts": 0,
    "unique_authors": 0,
    "sample_engagement": 0,
@@ -3161,29 +3178,31 @@
    "top_posts": [],
    "market": {
     "source": "CoinGecko",
-    "match": "coingecko id dogwifcoin",
-    "price_usd": 0.157023,
-    "change_24h": 1.0622420977560747,
-    "volume_24h": 25226500.25211588,
-    "market_cap": 156833283.73012322
+    "match": "coingecko id hyperliquid",
+    "price_usd": 75.23,
+    "change_24h": 0.45062124125944114,
+    "volume_24h": 1066491162.687465,
+    "market_cap": 18014230737.289787
    },
-   "hype_score": 12,
+   "hype_score": 13,
    "risk_flags": [],
+   "prev_spike_ratio": 0.52,
+   "prev_snapshot_at": "2026-11-09T23:10:06.000Z",
    "momentum": {
-    "accel": 1.8,
-    "prior_rate_per_h": 0.0,
-    "state": "accelerating"
+    "accel": 0.05,
+    "prior_rate_per_h": 498.5,
+    "state": "fading"
    },
    "signal": {
     "code": "neutral",
     "label": "Neutral",
-    "reason": "X 1.6x, accelerating · 24h +1.1%"
+    "reason": "X 0.1x, fading · 24h +0.5%"
    },
    "risk": {
-    "score": 10,
+    "score": 0,
     "level": "Low",
     "reasons": [
-     "+10 market cap < $1B"
+     "Large-cap major (CoinGecko)"
     ]
    },
    "is_spiking": false
@@ -3191,22 +3210,22 @@
  ],
  "also_seen": [
   {
+   "symbol": "UNLOCK",
+   "posts": 2,
+   "authors": 2
+  },
+  {
+   "symbol": "CA",
+   "posts": 2,
+   "authors": 2
+  },
+  {
+   "symbol": "GTA",
+   "posts": 2,
+   "authors": 2
+  },
+  {
    "symbol": "MAYA",
-   "posts": 2,
-   "authors": 2
-  },
-  {
-   "symbol": "CCP",
-   "posts": 2,
-   "authors": 2
-  },
-  {
-   "symbol": "ONDO",
-   "posts": 2,
-   "authors": 2
-  },
-  {
-   "symbol": "CUPSEY",
    "posts": 2,
    "authors": 2
   },
@@ -3216,24 +3235,9 @@
    "authors": 2
   },
   {
-   "symbol": "DOPE",
-   "posts": 2,
-   "authors": 2
-  },
-  {
    "symbol": "NVDAX",
    "posts": 2,
    "authors": 2
-  },
-  {
-   "symbol": "NIKOLA",
-   "posts": 6,
-   "authors": 1
-  },
-  {
-   "symbol": "SHEET",
-   "posts": 2,
-   "authors": 1
   },
   {
    "symbol": "RUSH",
@@ -3241,52 +3245,62 @@
    "authors": 1
   },
   {
-   "symbol": "HODLER",
+   "symbol": "HENG",
    "posts": 2,
    "authors": 1
   },
   {
-   "symbol": "FAIR",
+   "symbol": "JITOSOL",
    "posts": 1,
    "authors": 1
   },
   {
-   "symbol": "ANT",
+   "symbol": "BOT",
    "posts": 1,
    "authors": 1
   },
   {
-   "symbol": "STONE",
+   "symbol": "APPLESI",
    "posts": 1,
    "authors": 1
   },
   {
-   "symbol": "HWAN",
+   "symbol": "USDP",
    "posts": 1,
    "authors": 1
   },
   {
-   "symbol": "DACAT",
+   "symbol": "CATO",
    "posts": 1,
    "authors": 1
   },
   {
-   "symbol": "CAT",
+   "symbol": "AMEO",
    "posts": 1,
    "authors": 1
   },
   {
-   "symbol": "UFILL",
+   "symbol": "HYDRA",
    "posts": 1,
    "authors": 1
   },
   {
-   "symbol": "RUNG",
+   "symbol": "OZSHLD",
    "posts": 1,
    "authors": 1
   },
   {
-   "symbol": "TWEEBBO",
+   "symbol": "VALOR",
+   "posts": 1,
+   "authors": 1
+  },
+  {
+   "symbol": "MOGGLES",
+   "posts": 1,
+   "authors": 1
+  },
+  {
+   "symbol": "HEAVYPULP",
    "posts": 1,
    "authors": 1
   },
@@ -3326,17 +3340,22 @@
    "authors": 1
   },
   {
-   "symbol": "VENOM",
-   "posts": 1,
-   "authors": 1
-  },
-  {
    "symbol": "RESPECT",
    "posts": 1,
    "authors": 1
   },
   {
-   "symbol": "MAFIACAT",
+   "symbol": "ROCKP",
+   "posts": 1,
+   "authors": 1
+  },
+  {
+   "symbol": "NEXA",
+   "posts": 1,
+   "authors": 1
+  },
+  {
+   "symbol": "EMOG",
    "posts": 1,
    "authors": 1
   }
