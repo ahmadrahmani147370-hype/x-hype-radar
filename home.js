@@ -163,7 +163,8 @@
     let cum = 0; const pts = [{ t: ts(LED.started_at) || ts(closed[0].entry_at), v: 0 }, ...closed.map((t) => ({ t: ts(t.exit_at), v: (cum += N(t.pnl_usd) || 0) }))];
     const stake = closed.length * 100, p = (cum / stake) * 100;
     pill.textContent = pct(p); pill.className = "pnl-pill " + cls(p);
-    const ctx = setupCanvas(cv), W = cv.clientWidth, H = cv.clientHeight, ax = 34;
+    const ctx = setupCanvas(cv); if (!ctx) return;
+    const W = cv.clientWidth, H = cv.clientHeight, ax = 34;
     const vs = pts.map((x) => x.v), lo = Math.min(0, ...vs), hi = Math.max(0.01, ...vs), t0 = pts[0].t, t1 = Math.max(pts[pts.length - 1].t, t0 + 1);
     const X = (t) => 4 + ((t - t0) / (t1 - t0)) * (W - ax - 10), Y = (v) => 8 + (1 - (v - lo) / (hi - lo || 1)) * (H - 18);
     ctx.font = "9px Outfit,sans-serif"; ctx.fillStyle = C.axis; ctx.strokeStyle = C.grid; ctx.lineWidth = 1;
