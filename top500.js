@@ -62,7 +62,7 @@
     const n = sp.v.length - 1, pts = sp.v.map((y, i) => [(i / n) * w, h - 2 - (y / 100) * (h - 4)]);
     const d = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
     const up = sp.v[sp.v.length - 1] >= sp.v[0];
-    return `<svg class="t5spark ${cls}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="${up ? "#3DC97A" : "#E56E72"}" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+    return `<svg class="t5spark ${cls}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="${up ? "#1F9E58" : "#D4393F"}" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
   }
 
   // ---------- filtering / sorting ----------

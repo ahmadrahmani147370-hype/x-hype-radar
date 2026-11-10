@@ -1,11 +1,11 @@
-/* Ink black dashboard — cool charcoal cards, cream type, muted champagne accent, clear green/red, no neon, no logo */
+/* Ink black dashboard — cool charcoal cards, cream type, muted champagne accent, deep emerald/crimson, no neon, no logo */
 :root{
   --bg:#0A0A0B; --card:#141518; --card2:#1B1D22; --line:#2A2E36; --line2:#3C424C; --line-red:#6B3236;
   --text:#F0EDE8; --text2:#B9B6B0; --muted:#8A8882;
   --gold:#C6B08A; --gold-soft:#1A1916; --gold-line:#4A4538;
   --blue:#7EAFCB; --blue-soft:#141A20; --blue-line:#2E4454;
-  --green:#3DC97A; --green2:#3DC97A; --green-soft:#0F2418; --green-line:#1E5C3A;
-  --red:#E56E72; --red-soft:#261416; --amber:#C6B08A; --amber-soft:#1A1916;
+  --green:#1F9E58; --green2:#1F9E58; --green-soft:#0F2418; --green-line:#1E5C3A;
+  --red:#D4393F; --red-soft:#261416; --amber:#C6B08A; --amber-soft:#1A1916;
   --violet:#8B8FBF;
   --sh:inset 0 1px 0 rgba(240,237,232,.06), 0 8px 24px rgba(0,0,0,.45);
   --r:16px; --safe-b:env(safe-area-inset-bottom,0px)

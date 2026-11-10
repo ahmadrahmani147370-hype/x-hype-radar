@@ -1,12 +1,12 @@
-/* Ink black theme — cool charcoal cards, cream type, muted champagne accent, clear green/red, no neon, no logo. Shared by top500.html and paper.html */
+/* Ink black theme — cool charcoal cards, cream type, muted champagne accent, deep emerald/crimson, no neon, no logo. Shared by top500.html and paper.html */
 :root{
   --bg:#0A0A0B; --bg2:#111318; --card:#141518; --card2:#1B1D22;
   --line:#2A2E36; --line2:#3C424C; --line-red:#6B3236;
   --text:#F0EDE8; --text2:#B9B6B0; --muted:#8A8882; --dim:#6E727A;
   --gold:#C6B08A; --gold2:#A8946A; --gold-soft:#1A1916; --gold-line:#4A4538;
   --blue:#7EAFCB; --blue2:#6A9BB8; --blue-soft:#141A20; --blue-line:#2E4454;
-  --green:#3DC97A; --green-soft:#0F2418; --green-line:#1E5C3A;
-  --red:#E56E72; --red-soft:#261416; --red2:#D45D62;
+  --green:#1F9E58; --green-soft:#0F2418; --green-line:#1E5C3A;
+  --red:#D4393F; --red-soft:#261416; --red2:#D45D62;
   --amber:#C6B08A; --amber-soft:#1A1916; --amber-line:#4A4538;
   --orange:#D4A07A; --orange-soft:#1C1814;
   --r:16px; --vh: var(--tg-viewport-stable-height, 100vh);
@@ -285,7 +285,7 @@ button.btn{font:600 13px Outfit,Inter,system-ui,sans-serif}
 .riskpanel .rk small{font-size:11px;color:var(--muted);margin-left:4px}
 .riskpanel.risk-high .rk{color:var(--red)} .riskpanel.risk-medium .rk{color:var(--amber)} .riskpanel.risk-low .rk{color:var(--green)}
 .riskpanel.risk-low,.riskpanel.risk-medium,.riskpanel.risk-high{background:var(--card)}
-.rmeter{position:relative;height:6px;border-radius:99px;margin:10px 0;background:linear-gradient(90deg,#3DC97A,#C6B08A 50%,#E56E72)}
+.rmeter{position:relative;height:6px;border-radius:99px;margin:10px 0;background:linear-gradient(90deg,#1F9E58,#C6B08A 50%,#D4393F)}
 .rmeter i{position:absolute;top:-4px;width:4px;height:14px;border-radius:2px;background:var(--text);transform:translateX(-50%)}
 .riskpanel ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
 .riskpanel li{font-size:11px;color:var(--text2);background:var(--card2);border:1px solid var(--line);padding:3px 8px;border-radius:8px}

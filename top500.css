@@ -74,8 +74,8 @@
 .k4{grid-template-columns:repeat(4,1fr)}
 .sig-big{font:700 20px Outfit,Inter,sans-serif;margin-top:8px}
 .zchart{width:100%;height:150px;display:block}
-.zband-b{fill:rgba(61,201,122,.16);stroke:rgba(61,201,122,.45);stroke-width:1}
-.zband-s{fill:rgba(229,110,114,.16);stroke:rgba(229,110,114,.45);stroke-width:1}
+.zband-b{fill:rgba(31,158,88,.16);stroke:rgba(31,158,88,.45);stroke-width:1}
+.zband-s{fill:rgba(212,57,63,.16);stroke:rgba(212,57,63,.45);stroke-width:1}
 .pxline{stroke:#8E877C;stroke-width:1;stroke-dasharray:4 4;opacity:.7}
 .lg-b,.lg-s{display:inline-block;width:9px;height:9px;border-radius:2px;margin:0 3px 0 6px;vertical-align:-1px}
 .lg-b{background:var(--green)}.lg-s{background:var(--red)}

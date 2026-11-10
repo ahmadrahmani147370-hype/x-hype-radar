@@ -2,7 +2,7 @@
    or live public exchange APIs (Binance → Bybit → OKX klines). Missing values show "—". */
 (() => {
   "use strict";
-  const VER = "h10";
+  const VER = "h11";
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const N = (v) => (v == null || v === "" || isNaN(+v) ? null : +v);
   const tg = window.Telegram && window.Telegram.WebApp, inTG = !!(tg && tg.initData);
@@ -19,7 +19,7 @@
   const pct = (v, d = 2) => (N(v) == null ? "—" : (v >= 0 ? "+" : "") + (+v).toFixed(d) + "%");
   const usd = (v) => (N(v) == null ? "—" : (v < 0 ? "-$" : "+$") + Math.abs(v).toFixed(2));
   const cls = (v) => (N(v) == null || Math.abs(v) < 0.005 ? "flat" : v > 0 ? "up" : "down");
-  const C = { up: "#3DC97A", down: "#E56E72", accent: "#7EAFCB", accent2: "#C6B08A", grid: "#22262C", axis: "#7A7E86", ink: "#0C0E10", cream: "#F0EDE8" };
+  const C = { up: "#1F9E58", down: "#D4393F", upWick: "#187A44", downWick: "#B22E33", accent: "#7EAFCB", accent2: "#C6B08A", grid: "#22262C", axis: "#7A7E86", ink: "#0C0E10", cream: "#F0EDE8" };
   const listN = () => (window.ListN ? ListN.get() : 20);
 
   // ---------- controls (localStorage, display-only) ----------
@@ -170,7 +170,7 @@
     ctx.font = "9px Outfit,sans-serif"; ctx.fillStyle = C.axis; ctx.strokeStyle = C.grid; ctx.lineWidth = 1;
     for (let i = 0; i <= 3; i++) { const v = lo + ((hi - lo) * i) / 3, y = Y(v); ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W - ax, y); ctx.stroke(); ctx.fillText((v >= 0 ? "+$" : "-$") + Math.abs(v).toFixed(Math.abs(hi - lo) < 5 ? 2 : 0), W - ax + 3, y + 3); }
     const up = cum >= 0, c1 = up ? C.up : C.down;
-    const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, up ? "rgba(61,201,122,.35)" : "rgba(229,110,114,.30)"); g.addColorStop(1, "rgba(10,10,11,0)");
+    const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, up ? "rgba(31,158,88,.35)" : "rgba(212,57,63,.30)"); g.addColorStop(1, "rgba(10,10,11,0)");
     ctx.beginPath(); pts.forEach((p, i) => (i ? ctx.lineTo(X(p.t), Y(p.v)) : ctx.moveTo(X(p.t), Y(p.v)))); ctx.lineTo(X(pts[pts.length - 1].t), H); ctx.lineTo(X(pts[0].t), H); ctx.closePath(); ctx.fillStyle = g; ctx.fill();
     ctx.beginPath(); pts.forEach((p, i) => (i ? ctx.lineTo(X(p.t), Y(p.v)) : ctx.moveTo(X(p.t), Y(p.v)))); ctx.strokeStyle = c1; ctx.lineWidth = 2; ctx.stroke();
     const l = pts[pts.length - 1]; ctx.beginPath(); ctx.arc(X(l.t), Y(l.v), 3.5, 0, 7); ctx.fillStyle = c1; ctx.fill();
@@ -304,9 +304,9 @@
     for (let i = 0; i <= 5; i++) { const p = lo + ((hi - lo) * i) / 5, y = Y(p); ctx.strokeStyle = C.grid; ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W - ax, y); ctx.stroke(); ctx.fillStyle = C.axis; ctx.fillText(fmtP(p), W - ax + 5, y + 3); }
     ctx.strokeStyle = C.grid; ctx.beginPath(); ctx.moveTo(W - ax + 0.5, 0); ctx.lineTo(W - ax + 0.5, H); ctx.stroke();
     const vmax = Math.max(...cs.map((c) => c.v)) || 1;
-    cs.forEach((c, i) => { const up = c.c >= c.o, x = X(i), bw = Math.max(1.8, cw * 0.62), col = up ? C.up : C.down;
-      ctx.fillStyle = up ? "rgba(61,201,122,.30)" : "rgba(229,110,114,.28)"; const vhh = (c.v / vmax) * vh; ctx.fillRect(x - bw / 2, H - vhh, bw, vhh);
-      ctx.strokeStyle = col; ctx.lineWidth = 1.35; ctx.lineCap = "round"; ctx.beginPath(); ctx.moveTo(x, Y(c.h)); ctx.lineTo(x, Y(c.l)); ctx.stroke();
+    cs.forEach((c, i) => { const up = c.c >= c.o, x = X(i), bw = Math.max(1.8, cw * 0.62), col = up ? C.up : C.down, wick = up ? C.upWick : C.downWick;
+      ctx.fillStyle = up ? "rgba(31,158,88,.30)" : "rgba(212,57,63,.30)"; const vhh = (c.v / vmax) * vh; ctx.fillRect(x - bw / 2, H - vhh, bw, vhh);
+      ctx.strokeStyle = wick; ctx.lineWidth = 1.35; ctx.lineCap = "round"; ctx.beginPath(); ctx.moveTo(x, Y(c.h)); ctx.lineTo(x, Y(c.l)); ctx.stroke();
       const y1 = Y(Math.max(c.o, c.c)), y2 = Y(Math.min(c.o, c.c)), bh = Math.max(1.6, y2 - y1);
       ctx.fillStyle = col; ctx.fillRect(x - bw / 2, y1, bw, bh);
       ctx.lineWidth = 1; ctx.strokeRect(x - bw / 2, y1, bw, bh); });
