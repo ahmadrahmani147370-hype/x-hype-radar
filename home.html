@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="icon" href="data:," />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+<meta name="theme-color" content="#eef4fc" />
+<title>Trading Dashboard — real data only</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="home.css?v=h3" />
+</head>
+<body>
+<div class="ptr" id="ptr"><div class="ptr-ring"></div><span id="ptrTxt">Pull to refresh</span></div>
+<div class="app">
+  <header class="hd">
+    <div class="hd-l">
+      <h1>X Hype Radar</h1>
+      <div class="sub">Real-Time Trading Dashboard</div>
+    </div>
+    <div class="hd-r">
+      <div class="status warn" id="status"><span class="dot"></span><span id="statusTxt">Checking…</span></div>
+      <div class="pchip" id="paperChip" role="button" tabindex="0"><span class="pchip-l">Paper</span><b>—</b></div>
+    </div>
+  </header>
+
+  <section class="stats4">
+    <div class="st"><div class="st-ic ic-green"><svg viewBox="0 0 24 24"><path d="M4 18l5-5 3 3 7-8"/><path d="M15 8h4v4"/></svg></div><div><div class="st-l">Market</div><div class="st-v" id="sMarket">—</div><div class="st-s" id="sMarketS"></div></div></div>
+    <div class="st"><div class="st-ic ic-blue"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div><div><div class="st-l">Signals</div><div class="st-v" id="sSignals">—</div><div class="st-s" id="sSignalsS"></div></div></div>
+    <div class="st"><div class="st-ic ic-violet"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg></div><div><div class="st-l">Win Rate</div><div class="st-v" id="sWin">—</div><div class="st-s" id="sWinS"></div></div></div>
+    <div class="st"><div class="st-ic ic-blue2"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></div><div><div class="st-l">P&amp;L (24h)</div><div class="st-v" id="sPnl">—</div><div class="st-s" id="sPnlS"></div></div></div>
+  </section>
+
+  <nav class="pills" id="pills">
+    <button data-v="dashboard" class="on"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>Dashboard</button>
+    <button data-v="signals"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>Signals</button>
+    <button data-v="scanner"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>Scanner</button>
+    <button data-href="paper.html"><svg viewBox="0 0 24 24"><path d="M5 20V11M10 20V6M15 20v-6M20 20V9"/></svg>Trades</button>
+    <button data-v="analysis"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg>Analysis</button>
+  </nav>
+
+  <!-- DASHBOARD -->
+  <main class="view on" id="v-dashboard">
+    <section class="card chart-card">
+      <div class="cc-h">
+        <button class="pair" id="pairBtn"><span class="pair-ic">≋</span><b id="pairName">BTC/USDT</b><span class="caret">▾</span></button>
+        <span class="tag" id="pairTag">Live</span>
+        <div class="tfs" id="tfs"><button data-tf="1m">1m</button><button data-tf="3m">3m</button><button data-tf="5m" class="on">5m</button><button data-tf="15m">15m</button><button data-tf="1h">1h</button><button data-tf="4h">4h</button></div>
+      </div>
+      <div class="chart-wrap"><canvas id="chart"></canvas><div class="chart-msg" id="chartMsg">Candles load ho rahi hain…</div></div>
+      <div class="cc-f"><span id="chartInfo">—</span><span class="leg"><i class="l1"></i>EMA 9 <i class="l2"></i>EMA 21</span></div>
+    </section>
+
+    <div class="grid2">
+      <section class="card mini">
+        <div class="mini-h"><h3><svg viewBox="0 0 24 24" class="hi"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>Live Signals</h3><span class="live"><span class="dot"></span>Live</span></div>
+        <div id="liveSignals" class="ls"><div class="empty">Loading…</div></div>
+      </section>
+      <section class="card mini">
+        <div class="mini-h"><h3><svg viewBox="0 0 24 24" class="hi"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>Controls</h3></div>
+        <div class="toggles" data-toggles></div>
+      </section>
+    </div>
+
+    <div class="grid2">
+      <section class="card mini">
+        <div class="mini-h"><h3><svg viewBox="0 0 24 24" class="hi"><path d="M5 20V11M10 20V6M15 20v-6M20 20V9"/></svg>Performance</h3></div>
+        <div id="perf" class="perf"></div>
+      </section>
+      <section class="card mini">
+        <div class="mini-h"><h3><svg viewBox="0 0 24 24" class="hi"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg>P&amp;L</h3><span class="pnl-pill" id="pnlPill">—</span></div>
+        <div class="pnl-wrap"><canvas id="pnlChart"></canvas><div class="chart-msg" id="pnlMsg"></div></div>
+      </section>
+    </div>
+    <p class="note">Paper trading = virtual $100 per signal, real money nahi. Controls sirf is app ka display/filter hain — koi real trade place nahi hota. Financial advice nahi · DYOR.</p>
+  </main>
+
+  <!-- SIGNALS -->
+  <main class="view" id="v-signals">
+    <section class="card">
+      <div class="mini-h"><h3>Active Signals</h3><span class="muted" id="sigCount"></span></div>
+      <div class="seg" id="sigSeg"><button data-k="all" class="on">All</button><button data-k="long">▲ Long</button><button data-k="short">▼ Short</button><button data-k="top500">Top 500</button><button data-k="meme">Meme</button></div>
+      <div id="sigList" class="rows"></div>
+    </section>
+  </main>
+
+  <!-- SCANNER -->
+  <main class="view" id="v-scanner">
+    <section class="card scan">
+      <div class="mini-h"><h3>Top 500 Scanner</h3><a class="btn" href="top500.html?v=h3">Open list →</a></div>
+      <div id="scanT5"></div>
+    </section>
+    <section class="card scan">
+      <div class="mini-h"><h3>Meme Radar (X hype)</h3><a class="btn" href="index.html?v=h3">Open radar →</a></div>
+      <div id="scanMeme"></div>
+    </section>
+  </main>
+
+  <!-- ANALYSIS -->
+  <main class="view" id="v-analysis">
+    <section class="card">
+      <div class="mini-h"><h3>Coin Research</h3><span class="muted">tap = full report</span></div>
+      <input class="srch" id="aq" type="search" placeholder="Coin search — BTC, solana…" autocomplete="off" />
+      <div id="aList" class="rows"></div>
+    </section>
+  </main>
+
+  <!-- SETTINGS -->
+  <main class="view" id="v-settings">
+    <section class="card">
+      <div class="mini-h"><h3>Controls</h3><span class="muted">is phone par save</span></div>
+      <div class="toggles big" data-toggles></div>
+      <p class="note">Yeh sirf display/filter settings hain. Bot ya app koi real trade place nahi karta.</p>
+    </section>
+    <section class="card">
+      <div class="mini-h"><h3>Data status</h3></div>
+      <div id="dataStatus" class="perf"></div>
+    </section>
+  </main>
+</div>
+
+<nav class="bbar" id="bbar">
+  <button data-v="dashboard" class="on"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>Home</span></button>
+  <button data-v="signals"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg><span>Signals</span></button>
+  <button data-v="scanner"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><span>Scanner</span></button>
+  <button data-href="paper.html"><svg viewBox="0 0 24 24"><path d="M5 20V11M10 20V6M15 20v-6M20 20V9"/></svg><span>Trades</span></button>
+  <button data-v="settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span>Settings</span></button>
+</nav>
+
+<div class="backdrop" id="backdrop"></div>
+<aside class="sheet" id="pairSheet">
+  <div class="sheet-h"><b>Pair chunein</b><button id="pairClose" aria-label="Close">✕</button></div>
+  <input class="srch" id="pq" type="search" placeholder="Search coin…" autocomplete="off" />
+  <div id="pList" class="rows"></div>
+</aside>
+<div class="toast" id="toast"></div>
+<script src="paper-chip.js?v=h3"></script>
+<script src="home.js?v=h3"></script>
+</body>
+</html>

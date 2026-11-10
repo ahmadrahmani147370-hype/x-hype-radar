@@ -321,3 +321,7 @@ button.btn{font:600 13px Inter,system-ui,sans-serif}
 }
 .sp-mult{color:var(--blue)}
 @media (max-width:520px){.controls{flex-wrap:nowrap}.controls>*{min-width:0;max-width:100%}}
+/* paper balance chip (shared with home) */
+.pchip{display:inline-flex;align-items:baseline;gap:5px;margin-top:5px;padding:3px 9px;border-radius:99px;background:#fff;border:1px solid var(--line);font:500 11px Inter,system-ui,sans-serif;cursor:pointer;box-shadow:var(--sh);white-space:nowrap}
+.pchip-l{color:var(--muted)}.pchip b{font-weight:700;color:var(--text)}
+.pchip i{font-style:normal;font-weight:600;font-size:10.5px}.pchip i.up{color:var(--green)}.pchip i.down{color:var(--red)}.pchip i.flat{color:var(--muted)}
