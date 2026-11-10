@@ -2,7 +2,7 @@
    or live public exchange APIs (Binance → Bybit → OKX klines). Missing values show "—". */
 (() => {
   "use strict";
-  const VER = "h5";
+  const VER = "h6";
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const N = (v) => (v == null || v === "" || isNaN(+v) ? null : +v);
   const tg = window.Telegram && window.Telegram.WebApp, inTG = !!(tg && tg.initData);
@@ -41,16 +41,17 @@
   });
 
   // ---------- data ----------
-  let T5 = null, LED = null, liveP = new Map(), lastData = 0;
+  let T5 = null, LED = null, AG = null, liveP = new Map(), lastData = 0;
   async function getJSON(url, ms = 15000) {
     const c = new AbortController(), t = setTimeout(() => c.abort(), ms);
     try { const r = await fetch(url, { cache: "no-store", signal: c.signal }); if (!r.ok) { const e = new Error(r.status); e.status = r.status; throw e; } return await r.json(); }
     finally { clearTimeout(t); }
   }
   async function loadData() {
-    const [a, c] = await Promise.allSettled([getJSON("data/top500.json?t=" + Date.now()), getJSON("data/paper/trades.json?t=" + Date.now())]);
+    const [a, c, g] = await Promise.allSettled([getJSON("data/top500.json?t=" + Date.now()), getJSON("data/paper/trades.json?t=" + Date.now()), getJSON("data/agent.json?t=" + Date.now())]);
     if (a.status === "fulfilled" && Array.isArray(a.value.coins)) T5 = a.value;
     if (c.status === "fulfilled" && c.value.trades) LED = c.value;
+    if (g.status === "fulfilled" && g.value && (g.value.picks || g.value.mood)) AG = g.value;
     lastData = Date.now();
     await livePrices();
   }
@@ -197,9 +198,29 @@
   function renderStatus() {
     const r = (l, v) => `<div class="pr"><span>${l}</span><b>${v}</b></div>`;
     $("#dataStatus").innerHTML = r("Top 500 data", T5 ? pkt(ts(T5.generated_at)) + " (" + ago(ts(T5.generated_at)) + ")" : "—") +
-      r("Paper ledger", LED ? pkt(ts(LED.updated_at)) : "—") + r("Chart", chartAt ? chartSrc + " · " + pktS(chartAt) : "—") + r("App refresh", lastData ? pktS(lastData) : "—");
+      r("Paper ledger", LED ? pkt(ts(LED.updated_at)) : "—") + r("Signal Judge", AG ? pkt(ts(AG.generated_at || AG.data_at)) : "—") + r("Chart", chartAt ? chartSrc + " · " + pktS(chartAt) : "—") + r("App refresh", lastData ? pktS(lastData) : "—");
   }
-  function renderAll() { if (!T5 && !LED) return; renderHeader(); renderStats(); renderLive(); renderPerf(); renderPnl(); renderSignals(); renderScanner(); renderAnalysis(); renderStatus(); }
+  function renderJudge() {
+    const acc = $("#judgeAcc"), mood = $("#judgeMood"), box = $("#judgePicks");
+    if (!acc || !mood || !box) return;
+    if (!AG) { acc.textContent = "—"; mood.innerHTML = '<span class="muted">Signal Judge data abhi load nahi hua</span>'; box.innerHTML = ""; return; }
+    const a4 = (AG.track_record && AG.track_record.agent && AG.track_record.agent["4h"]) || {};
+    const a24 = (AG.track_record && AG.track_record.agent && AG.track_record.agent["24h"]) || {};
+    const accTxt = (slot, lab) => slot.accuracy_pct != null ? lab + " " + slot.accuracy_pct + "% (" + slot.correct + "/" + slot.n + ")" : lab + " —";
+    acc.textContent = (a4.accuracy_pct != null || a24.accuracy_pct != null) ? accTxt(a4, "4h") + " · " + accTxt(a24, "24h") : "Accuracy —";
+    acc.title = (a4.note || "") + " · " + (a24.note || "abhi data kam hai");
+    const m = AG.mood || {}, lab = m.label || "—";
+    const tagC = lab === "BULLISH" ? "mood-bull" : lab === "BEARISH" ? "mood-bear" : "mood-caut";
+    mood.innerHTML = `<span class="mood-tag ${tagC}">${esc(lab)}</span> ${esc(m.summary || "")}`;
+    const col = (title, rows, empty, cls) => {
+      const body = (rows || []).length
+        ? rows.map((j) => `<div class="jp" data-open="top500:${esc(j.id)}"><span class="a">${esc(j.symbol)}<small class="muted"> #${j.rank ?? ""}</small></span><span class="b">score ${j.score ?? "—"}</span><span class="c">${esc((j.reasons && j.reasons[0]) || "")} · 24h ${pct(j.change_24h, 1)}</span></div>`).join("")
+        : `<div class="empty">${empty}</div>`;
+      return `<div class="judge-col"><h4>${title}</h4>${body}</div>`;
+    };
+    box.innerHTML = col("🟢 BUY picks", (AG.picks || {}).buy, "abhi koi strong BUY nahi") + col("🔴 SELL picks", (AG.picks || {}).sell, "abhi koi strong SELL nahi");
+  }
+  function renderAll() { if (!T5 && !LED && !AG) return; renderHeader(); renderStats(); renderLive(); renderJudge(); renderPerf(); renderPnl(); renderSignals(); renderScanner(); renderAnalysis(); renderStatus(); }
   document.addEventListener("click", (e) => {
     const o = e.target.closest("[data-open]"); if (!o) return;
     const [book, id] = o.dataset.open.split(/:(.*)/s);

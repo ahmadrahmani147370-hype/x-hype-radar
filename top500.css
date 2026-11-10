@@ -135,3 +135,19 @@
 .dq li{font:500 12px/1.4 Inter,sans-serif;color:var(--text2);word-break:break-word}
 .dq li b{color:var(--text);font-weight:600;margin-right:4px}
 .dq li.dq-warn{color:#b7791f}
+
+/* Signal Judge on coin detail */
+.judgepanel{margin:10px 0 4px;padding:10px 12px;border-radius:14px;border:1px solid var(--line,#e3ebf6);background:#f7fafe}
+.judgepanel.jv-buy{background:#f3fbf6;border-color:#bfe8cf}
+.judgepanel.jv-sell{background:#fdf6f6;border-color:#f6caca}
+.judgepanel.jv-wait{background:#f7fafe;border-color:#e3ebf6}
+.judgepanel .sp-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.judge-verdict{font:700 18px/1.2 Inter,sans-serif;margin-top:6px}
+.judge-score{font-size:12px;color:#3a4760;margin-top:2px}
+.judge-why{margin:8px 0 0;padding:0 0 0 16px;color:#3a4760;font-size:12.5px;line-height:1.45}
+.judge-why li{margin:0 0 3px}
+.judge-lv{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.judge-lv div{background:#fff;border:1px solid #e3ebf6;border-radius:10px;padding:6px 7px;text-align:center}
+.judge-lv span{display:block;font-size:10px;color:#7a879c}
+.judge-lv b{display:block;font-size:12.5px;margin-top:2px}
+.judge-lv-note{margin:6px 0 0;font-size:11px;color:#7a879c}

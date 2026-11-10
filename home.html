@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="home.css?v=h5" />
+<link rel="stylesheet" href="home.css?v=h6" />
 </head>
 <body>
 <div class="ptr" id="ptr"><div class="ptr-ring"></div><span id="ptrTxt">Pull to refresh</span></div>
@@ -53,6 +53,16 @@
       <div class="cc-f"><span id="chartInfo">—</span><span class="leg"><i class="l1"></i>EMA 9 <i class="l2"></i>EMA 21</span></div>
     </section>
 
+    <section class="card judge-card">
+      <div class="mini-h">
+        <h3><svg viewBox="0 0 24 24" class="hi"><path d="M12 3l2.2 6.6H21l-5.4 4 2.1 6.4L12 16.5 6.3 20l2.1-6.4L3 9.6h6.8z"/></svg>Signal Judge</h3>
+        <span class="muted" id="judgeAcc">—</span>
+      </div>
+      <div class="judge-mood" id="judgeMood"><span class="muted">Loading…</span></div>
+      <div class="judge-cols" id="judgePicks"></div>
+      <p class="judge-note">Score = indicator agreement, jeetne ki probability nahi. Financial advice nahi · DYOR.</p>
+    </section>
+
     <div class="grid2">
       <section class="card mini">
         <div class="mini-h"><h3><svg viewBox="0 0 24 24" class="hi"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>Live Signals</h3><span class="live"><span class="dot"></span>Live</span></div>
@@ -89,7 +99,7 @@
   <!-- SCANNER -->
   <main class="view" id="v-scanner">
     <section class="card scan">
-      <div class="mini-h"><h3>Top 500 Scanner</h3><a class="btn" href="top500.html?v=h5">Open list →</a></div>
+      <div class="mini-h"><h3>Top 500 Scanner</h3><a class="btn" href="top500.html?v=h6">Open list →</a></div>
       <div id="scanT5"></div>
     </section>
   </main>
@@ -132,7 +142,7 @@
   <div id="pList" class="rows"></div>
 </aside>
 <div class="toast" id="toast"></div>
-<script src="paper-chip.js?v=h5"></script>
-<script src="home.js?v=h5"></script>
+<script src="paper-chip.js?v=h6"></script>
+<script src="home.js?v=h6"></script>
 </body>
 </html>

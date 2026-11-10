@@ -5,7 +5,7 @@
   const inTG = !!(tg && tg.platform && tg.platform !== "unknown");
   const $ = (s) => document.querySelector(s);
   const TZ = "Asia/Karachi", REFRESH_MS = 60_000, PAGE = 40;
-  let data = null, kind = "all", sortBy = "rank", query = "", shown = PAGE, openId = null, nextRefresh = Date.now() + REFRESH_MS,
+  let data = null, agent = null, kind = "all", sortBy = "rank", query = "", shown = PAGE, openId = null, nextRefresh = Date.now() + REFRESH_MS,
       refreshPromise = null, pricesAt = null, priceFail = false, firstLoad = true, cgPauseUntil = 0, cgBackoff = 120000, lastFeed = "";
   const reports = new Map();
   const STALE_MS = 10 * 60000; // a price older than 10 min is never shown as live
@@ -222,7 +222,22 @@
   function tvUrl(c) { const ta = c.ta || {}; if (!ta.pair || ta.src === "coingecko") return null;
     const pair = ta.pair.replace(/[-_]/g, ""); const ex = { binance: "BINANCE", bybit: "BYBIT", okx: "OKX", gate: "GATEIO", mexc: "MEXC" }[ta.src];
     return ex ? `https://www.tradingview.com/chart/?symbol=${ex}:${encodeURIComponent(pair)}` : null; }
+  function judgePanel(c) {
+    const j = agent && agent.coins && agent.coins[c.id];
+    if (!j) return `<div class="judgepanel jv-wait"><div class="sp-h"><span class="muted small">SIGNAL JUDGE</span></div><p class="muted small" style="margin:6px 0 0">Is coin ka verdict abhi nahi mila (agle refresh par aayega).</p></div>`;
+    const v = j.verdict || "WAIT", cls = v === "BUY" ? "jv-buy" : v === "SELL" ? "jv-sell" : "jv-wait";
+    const ic = v === "BUY" ? "🟢" : v === "SELL" ? "🔴" : "⚪";
+    const score = j.score != null ? `Score ${j.score}/100 — yeh indicator agreement hai, jeetne ki probability nahi.` : "Score n/a";
+    const why = (j.reasons || []).map((r) => `<li>${esc(r)}</li>`).join("") || (j.skip_reason ? `<li>${esc(j.skip_reason)}</li>` : "");
+    const lv = (v === "BUY" || v === "SELL") && j.entry
+      ? `<div class="judge-lv">${kv("Entry", price(j.entry))}${kv("Stop", j.stop != null ? price(j.stop) : "n/a")}${kv("Target", j.target != null ? price(j.target) : "n/a")}</div>${j.levels_note ? `<p class="judge-lv-note">${esc(j.levels_note)}</p>` : ""}`
+      : "";
+    return `<div class="judgepanel ${cls}"><div class="sp-h"><span class="muted small">SIGNAL JUDGE</span><span class="muted small">${agent.generated_at ? ago(agent.generated_at) : ""}</span></div>
+      <div class="judge-verdict">${ic} ${esc(v)}</div><div class="judge-score">${esc(score)}</div>
+      ${why ? `<ul class="judge-why">${why}</ul>` : ""}${lv}</div>`;
+  }
   function openSheet(id, updating = false) {
+
     const c = data && data.coins.find((x) => x.id === id); if (!c) return;
     openId = id; if (!updating) haptic("medium");
     const sc = $("#sheet").scrollTop, ta = c.ta, s = c.signal || {};
@@ -233,6 +248,7 @@
         <div class="d-px"><b class="mono">${price(c.price)}</b><span>${pct(c.change_24h)} 24h</span></div></div>
       <div class="kv k4">${kv("1h", pct(c.change_1h))}${kv("7d", pct(c.change_7d))}${kv("30d", pct(c.change_30d))}${kv("ATH se", pct(c.ath_change_pct, 0))}</div>
       <div class="sigpanel ${cl}"><div class="sp-h"><span class="muted small">PUMP / DUMP SIGNAL</span>${riskChip(c.risk)}</div><div class="sig-big">${ic} ${esc(s.label || "Neutral")}</div><div class="sig-why big">${esc(s.reason || "")}</div></div>
+      ${judgePanel(c)}
       ${noTA(c) ? `<p class="muted">${c.kind === "yield" ? "Tokenized treasury/credit/yield asset" : "Stablecoin"} hai — trend aur buy/sell zones apply nahi hote.</p>` : ta ? `
       <div class="sec-t">Trend & zones</div>
       <div class="d-chart">${chartSVG(c)}</div>
@@ -328,6 +344,7 @@
       try {
         const r = await fetch("data/top500.json?t=" + Date.now()); if (!r.ok) throw new Error(r.status);
         const d = await r.json(); if (!Array.isArray(d.coins)) throw new Error("bad data");
+        try { const ar = await fetch("data/agent.json?t=" + Date.now()); if (ar.ok) agent = await ar.json(); } catch (e) { /* keep last agent */ }
         if (data) { const old = new Map(data.coins.map((c) => [c.id, c])); const snapAt = d.market_as_of ? new Date(d.market_as_of).getTime() : 0; for (const c of d.coins) { const o = old.get(c.id); if (o && o._px && o._px.at > snapAt && o.price) { c.price = o.price; c.change_24h = o.change_24h; c._px = o._px; zoneDist(c); } } }
         if (data && d.generated_at !== data.generated_at) reports.clear();
         data = d;

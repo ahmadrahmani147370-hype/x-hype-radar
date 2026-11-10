@@ -115,3 +115,22 @@ svg{fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-l
 .ptr.spin .ptr-ring{animation:sp 0.8s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 @media (max-width:370px){.st{padding:7px 5px}.st-v{font-size:12.5px}.hd h1{font-size:20px}}
+
+/* Signal Judge card */
+.judge-card{padding:11px 12px}
+.judge-mood{font-size:12px;color:var(--text2);line-height:1.45;margin:0 0 8px;padding:8px 10px;border-radius:12px;background:#f6f9fe;border:1px solid var(--line)}
+.judge-mood b{font-weight:700}
+.judge-mood .mood-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.02em;padding:1px 7px;border-radius:99px;margin-right:6px;vertical-align:1px}
+.mood-bull{background:var(--green-soft);color:var(--green);border:1px solid var(--green-line)}
+.mood-bear{background:var(--red-soft);color:var(--red);border:1px solid #f6caca}
+.mood-mix,.mood-caut{background:var(--amber-soft);color:var(--amber);border:1px solid #f1dcb0}
+.judge-cols{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.judge-col h4{margin:0 0 4px;font:700 11px/1.2 Inter,sans-serif;color:var(--text2);letter-spacing:-.1px}
+.judge-col .jp{display:grid;grid-template-columns:1fr auto;gap:1px 6px;padding:6px 0;border-bottom:1px solid #f0f4fa;cursor:pointer}
+.judge-col .jp:last-child{border-bottom:0}
+.judge-col .jp .a{font-weight:700;font-size:12px}
+.judge-col .jp .b{font-weight:700;font-size:11px;text-align:right}
+.judge-col .jp .c{grid-column:1/3;color:var(--muted);font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.judge-note{color:var(--muted);font-size:10px;margin:8px 0 0;text-align:center}
+#judgeAcc{font-size:10.5px;text-align:right;max-width:58%;line-height:1.3}
+@media (max-width:390px){.judge-cols{gap:6px}.judge-col .jp .a{font-size:11.5px}}
