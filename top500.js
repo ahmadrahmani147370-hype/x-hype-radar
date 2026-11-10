@@ -114,7 +114,7 @@
     return `<div class="t5row ${["pump", "breakout", "dump", "breakdown"].includes(s.code) ? "hot" : ""}" data-id="${esc(c.id)}" style="animation-delay:${Math.min(i, 12) * 25}ms">
       <div class="r-rank">${c.rank ?? "—"}</div>${avatar(c)}
       <div class="r-id"><div class="r-sym">${esc(c.symbol)} <span>${esc(c.name)}</span></div><div class="r-tags">${trendChip(ta?.trend)}${sigBadge(s)}${x}</div>${s.code && s.code !== "neutral" && s.reason ? `<div class="r-why">↳ ${esc(s.reason)}</div>` : ""}</div>
-      <div class="r-px"><b class="mono ${pxStale(c) ? "px-stale" : ""}" data-px="${esc(c.id)}" title="${esc(pxOf(c).src)} · ${pxOf(c).at ? hm(pxOf(c).at) : "n/a"}">${price(c.price)}${pxStale(c) ? `<small class="stale-tag">⏱ ${pxOf(c).at ? hm(pxOf(c).at).replace(" PKT", "") : "n/a"}</small>` : ""}</b><span>${pct(c.change_24h)} <em>24h</em></span><span class="r-7d">${pct(c.change_7d)} <em>7d</em></span></div>
+      <div class="r-px"><b class="mono ${pxStale(c) ? "px-stale" : ""}" data-px="${esc(c.id)}" title="${esc(pxOf(c).src)} · ${pxOf(c).at ? hm(pxOf(c).at) : "n/a"}">${price(c.price)}${pxStale(c) ? `<small class="stale-tag">⏱ ${pxOf(c).at ? (Date.now() - pxOf(c).at > 864e5 ? new Date(pxOf(c).at).toLocaleDateString("en-GB", { timeZone: TZ, day: "numeric", month: "short" }) : hm(pxOf(c).at).replace(" PKT", "")) : "n/a"}</small>` : ""}</b><span>${pct(c.change_24h)} <em>24h</em></span><span class="r-7d">${pct(c.change_7d)} <em>7d</em></span></div>
       <div class="r-spark">${sparkSVG(ta?.spark)}</div>
       <div class="r-zone">${zone}${riskChip(c.risk)}</div>
     </div>`;
