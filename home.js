@@ -239,7 +239,7 @@
     h += `<div class="wy-h">Quality Gate (qg1)</div><ul>${!g ? li("gate data abhi nahi", "mu") : g.pass ? li("✓ saare checks pass" + (g.rr ? " · R:R " + g.rr : ""), "ok") : g.reasons.map((r) => li("⛔ " + r.t, "no")).join("")}</ul>`;
     h += `<div class="wy-h">Signal Judge (Strict)</div><ul>${!j ? li("Judge data abhi nahi", "mu") : li("Verdict " + j.verdict + " · agreement score " + (j.score ?? "—") + (j.skip_reason ? " · " + j.skip_reason : "")) + (j.reasons || []).slice(0, 4).map((r) => li(r)).join("")}</ul>`;
     const uc = (UL?.candidates || []).find((u) => u.key === d.id);
-    if (uc) h += `<div class="wy-h">Ultra score ${esc(uc.score)}/100</div><ul>${(uc.why_not || []).length ? uc.why_not.slice(0, 3).map((w) => li("• " + w, "mu")).join("") : li("eligible", "ok")}</ul>`;
+    if (uc) h += `<div class="wy-h">Ultra score ${esc(uc.score)}/100</div><ul>${(uc.why_not || []).length ? uc.why_not.slice(0, 3).map((w) => li(w, "mu")).join("") : li("eligible", "ok")}</ul>`;
     return h + `<p class="wy-n">Score = indicators kitna agree karte hain, jeetne ka chance nahi. Pichle results guarantee nahi.</p></div>`;
   }
   function card(d) {
