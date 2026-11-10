@@ -62,7 +62,7 @@
     const n = sp.v.length - 1, pts = sp.v.map((y, i) => [(i / n) * w, h - 2 - (y / 100) * (h - 4)]);
     const d = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
     const up = sp.v[sp.v.length - 1] >= sp.v[0];
-    return `<svg class="t5spark ${cls}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="${up ? "#8FBEA0" : "#D08A8A"}" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+    return `<svg class="t5spark ${cls}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="${up ? "#3DC97A" : "#E56E72"}" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
   }
 
   // ---------- filtering / sorting ----------
@@ -154,8 +154,8 @@
     const d = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
     const band = (z, cl) => { if (!z) return ""; const y1 = Math.max(0, Math.min(H, Y(z[1]))), y2 = Math.max(0, Math.min(H, Y(z[0]))); return y2 - y1 > 0.5 ? `<rect class="${cl}" x="0" y="${y1}" width="${W}" height="${y2 - y1}"/>` : ""; };
     return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" class="zchart">${band(ta.sell_zone, "zband-s")}${band(ta.buy_zone, "zband-b")}
-      <defs><linearGradient id="zg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(196,165,116,.28)"/><stop offset="1" stop-color="rgba(196,165,116,0)"/></linearGradient></defs>
-      <path d="${d} L ${W} ${H} L 0 ${H} Z" fill="url(#zg)"/><path d="${d}" fill="none" stroke="#C4A574" stroke-width="2" stroke-linejoin="round"/>
+      <defs><linearGradient id="zg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(126,175,203,.28)"/><stop offset="1" stop-color="rgba(126,175,203,0)"/></linearGradient></defs>
+      <path d="${d} L ${W} ${H} L 0 ${H} Z" fill="url(#zg)"/><path d="${d}" fill="none" stroke="#7EAFCB" stroke-width="2" stroke-linejoin="round"/>
       ${c.price ? `<line x1="0" x2="${W}" y1="${Y(c.price)}" y2="${Y(c.price)}" class="pxline"/>` : ""}</svg>
       <div class="axis"><span>${sp.v.length} din pehle</span><span><i class="lg-b"></i> buy zone <i class="lg-s"></i> sell zone</span><span>aaj</span></div>`;
   }
@@ -363,7 +363,7 @@
     })().finally(() => { refreshPromise = null; $("#reloadBtn").classList.remove("spinning"); updateCountdown(); updatePill(); });
     return refreshPromise;
   }
-  document.body.insertAdjacentHTML("beforeend", '<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="ringG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D4BC8E"/><stop offset="1" stop-color="#C4A574"/></linearGradient></defs></svg>');
+  document.body.insertAdjacentHTML("beforeend", '<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="ringG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D4C09A"/><stop offset="1" stop-color="#C6B08A"/></linearGradient></defs></svg>');
   if (window.ListN) ListN.fill();
   addEventListener("listn-change", () => { shown = PAGE(); renderList(); });
   load();

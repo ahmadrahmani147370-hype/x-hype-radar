@@ -92,7 +92,7 @@
   $("#bookSeg").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; book = b.dataset.book; document.querySelectorAll("#bookSeg button").forEach((x) => x.classList.toggle("on", x === b)); render(); };
   $("#statusSeg").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; st = b.dataset.st; document.querySelectorAll("#statusSeg button").forEach((x) => x.classList.toggle("on", x === b)); render(); };
   $("#reloadBtn").onclick = () => load(true);
-  document.body.insertAdjacentHTML("beforeend", '<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="ringG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D4BC8E"/><stop offset="1" stop-color="#C4A574"/></linearGradient></defs></svg>');
+  document.body.insertAdjacentHTML("beforeend", '<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="ringG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D4C09A"/><stop offset="1" stop-color="#C6B08A"/></linearGradient></defs></svg>');
   load();
   setInterval(() => { const left = Math.max(0, Math.ceil((nextRefresh - Date.now()) / 1000)); $("#countdown").style.setProperty("--remaining", left / 60); $("#countdownNumber").textContent = busy ? "↻" : left;
     if (!document.hidden && !busy && Date.now() >= nextRefresh) load(); }, 1000);
