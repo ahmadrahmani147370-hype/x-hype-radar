@@ -7,13 +7,14 @@
   let snap = null, kind = "all", sortBy = "default", openSymbol = null;
   const REFRESH_MS = 60_000;
   let refreshPromise = null, nextRefresh = Date.now() + REFRESH_MS;
+  let cgPauseUntil = 0, cgBackoff = 120000;
   let pricesAsOf = null, snapshotFailed = false, firstLoad = true;
   const marketCache = new Map();
   const cgId = (t) => { const m = t.market || {}; return m.coingecko_id || t.coingecko_id || (/coingecko id ([a-z0-9-]+)/i.exec(m.match || "") || [])[1]; };
   const marketKey = (t) => [t.symbol, t.market?.chain || t.chain || "", t.market?.token_address || t.contract_address || "", cgId(t) || ""].join(":");
   const clock = (iso, seconds = false) => new Date(iso).toLocaleTimeString("en-GB", { timeZone: TZ, hour: "2-digit", minute: "2-digit", ...(seconds ? { second: "2-digit" } : {}), hour12: false });
   const priceClass = (m) => m._direction > 0 ? "price-up" : m._direction < 0 ? "price-down" : "";
-  const marketState = (m) => `<span class="market-state ${m._stale ? "is-stale" : ""}">${m._stale ? "Last known · stale" : "Live market"}</span>`;
+  const marketState = (m) => `<span class="market-state ${m._stale ? "is-stale" : ""}" title="${m._asOf ? new Date(m._asOf).toLocaleTimeString("en-GB", { timeZone: "Asia/Karachi" }) + " PKT" : ""}">${m._stale ? "Last known · stale" + (m._asOf ? " · " + new Date(m._asOf).toLocaleTimeString("en-GB", { timeZone: "Asia/Karachi", hour: "2-digit", minute: "2-digit" }) : "") : "Live" + (m._via && /Binance/.test(m._via) ? " · Binance fallback" : "") + " · " + (m.source || "market")}</span>`;
 
   // ---------- Telegram integration ----------
   if (inTG) {
@@ -438,11 +439,20 @@
     }
     if (cgTokens.length) jobs.push((async () => {
       const ids = [...new Set(cgTokens.map(cgId))].join(",");
-      const data = await fetchJSON(`https://api.coingecko.com/api/v3/simple/price?ids=${encodeURIComponent(ids)}&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=true`);
+      let data = null;
+      if (Date.now() >= cgPauseUntil) {
+        try { data = await fetchJSON(`https://api.coingecko.com/api/v3/simple/price?ids=${encodeURIComponent(ids)}&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=true`); cgBackoff = 120000; }
+        catch (e) { cgPauseUntil = Date.now() + cgBackoff; cgBackoff = Math.min(cgBackoff * 2, 600000); } // 429 arrives as a CORS error: back off
+      }
       for (const t of cgTokens) {
-        const q = data[cgId(t)];
-        if (!q || !finite(q.usd) || Number(q.usd) <= 0) continue;
-        applyMarket(t, { price_usd: q.usd, change_24h: q.usd_24h_change, market_cap: q.usd_market_cap, volume_24h: q.usd_24h_vol }, q.last_updated_at ? q.last_updated_at * 1000 : Date.now());
+        const q = data && data[cgId(t)];
+        if (q && finite(q.usd) && Number(q.usd) > 0) { t.market._via = "CoinGecko"; applyMarket(t, { price_usd: q.usd, change_24h: q.usd_24h_change, market_cap: q.usd_market_cap, volume_24h: q.usd_24h_vol }, q.last_updated_at ? q.last_updated_at * 1000 : Date.now()); continue; }
+        // fallback: Binance <SYMBOL>USDT, accepted only if within 15% of the snapshot's CoinGecko price (guards against ticker collisions)
+        try {
+          const pair = t.symbol.toUpperCase() + "USDT", ref = N(t.market.price_usd);
+          const x = await fetchJSON(`https://data-api.binance.vision/api/v3/ticker/24hr?symbol=${pair}`);
+          if (ref && finite(x.lastPrice) && Math.abs(x.lastPrice / ref - 1) < 0.15) { t.market._via = "Binance " + pair + " (fallback)"; applyMarket(t, { price_usd: x.lastPrice, change_24h: x.priceChangePercent }, N(x.closeTime) || Date.now()); }
+        } catch (e) { /* stays stale */ }
       }
     })());
     await Promise.allSettled(jobs);

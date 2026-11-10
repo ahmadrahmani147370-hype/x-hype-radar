@@ -297,7 +297,11 @@
           const q = await getJSON("https://api.coingecko.com/api/v3/simple/price?vs_currencies=usd&include_24hr_change=true&include_last_updated_at=true&ids=" + ch.join(","));
           for (const c of live) { const v = q[c.id]; if (v && setPx(c, v.usd, v.usd_24h_change, "CoinGecko live", v.last_updated_at ? v.last_updated_at * 1000 : Date.now())) got.add(c.id); }
           cgOk = true; cgBackoff = 120000;
-        } catch (e) { if (e.rate) { cgLimited = true; cgPauseUntil = Date.now() + cgBackoff; cgBackoff = Math.min(cgBackoff * 2, 600000); break; } }
+        } catch (e) {
+          // A real CoinGecko 429 arrives WITHOUT CORS headers, so the browser reports it as a network/CORS error, not a status.
+          // Treat any failure as "rate-limited": back off 2 → 4 → 8 → 10 min and use the Binance fallback meanwhile.
+          cgLimited = true; cgPauseUntil = Date.now() + cgBackoff; cgBackoff = Math.min(cgBackoff * 2, 600000); break;
+        }
       }
     } else cgLimited = true;
     // 2) Fallback: Binance 24h ticker for coins whose candles come from a verified Binance USDT pair.
