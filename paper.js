@@ -38,15 +38,15 @@
       } catch (e) { cgPauseUntil = Date.now() + cgBackoff; cgBackoff = Math.min(cgBackoff * 2, 600000); } // 429 = CORS error: back off
     }
     const bn = t5.filter((t) => t.binance_pair && !(live.get(t.id) && Date.now() - live.get(t.id).at < 120000));
-    if (bn.length) { try { const rows = await getJSON("https://data-api.binance.vision/api/v3/ticker/price?symbols=" + encodeURIComponent(JSON.stringify([...new Set(bn.map((t) => t.binance_pair))])));
-      const m = new Map(rows.map((r) => [r.symbol, +r.price])); bn.forEach((t) => { const p = m.get(t.binance_pair); if (p > 0) live.set(t.id, { p, src: "Binance " + t.binance_pair, at: Date.now() }); }); } catch (e) {} }
+    if (bn.length) { try { const rows = await getJSON(bn.length === 1 ? "https://data-api.binance.vision/api/v3/ticker/price?symbol=" + bn[0].binance_pair : "https://data-api.binance.vision/api/v3/ticker/price", 20000); const arr = Array.isArray(rows) ? rows : [rows];
+      const m = new Map(arr.map((r) => [r.symbol, +r.price])); bn.forEach((t) => { const p = m.get(t.binance_pair); if (p > 0) live.set(t.id, { p, src: "Binance " + t.binance_pair, at: Date.now() }); }); } catch (e) {} }
     const dex = open.filter((t) => t.book === "meme" && t.market_ref && t.market_ref.chain && t.market_ref.token_address);
     for (const t of dex) { try { const ps = await getJSON(`https://api.dexscreener.com/tokens/v1/${encodeURIComponent(t.market_ref.chain)}/${encodeURIComponent(t.market_ref.token_address)}`);
       const p = (ps || []).find((x) => x.url === t.market_ref.pair_url) || (ps || [])[0]; if (p && N(p.priceUsd) > 0) live.set(t.id, { p: +p.priceUsd, src: "DexScreener", at: Date.now() }); } catch (e) {} }
     feed = cg.size && !cgOk ? "CoinGecko busy — Binance/box prices" : "";
   }
   function stats(trs) {
-    const cl = trs.filter((t) => t.status === "closed"), op = trs.filter((t) => t.status === "open");
+    const cl = trs.filter((t) => t.status === "closed" && !t.void), op = trs.filter((t) => t.status === "open");
     const w = cl.filter((t) => t.pnl_usd > 0), real = cl.reduce((a, t) => a + t.pnl_usd, 0);
     const unr = op.reduce((a, t) => { const m = mark(t); return a + (m.p ? pnl(t, m.p)[0] : 0); }, 0);
     const best = cl.length ? cl.reduce((a, t) => (t.pnl_pct > a.pnl_pct ? t : a)) : null, worst = cl.length ? cl.reduce((a, t) => (t.pnl_pct < a.pnl_pct ? t : a)) : null;
@@ -59,10 +59,10 @@
     const stale = isOpen && (!m.at || Date.now() - m.at > STALE_MS);
     const link = t.book === "top500" ? `top500.html#coin=${encodeURIComponent(t.key)}` : `index.html?token=${encodeURIComponent(t.symbol)}`;
     return `<a class="t5row pp-row ${isOpen ? "" : "closed"}" href="${link}">
-      <div class="pp-l"><div class="r-sym">${esc(t.symbol)} <span class="pp-side ${t.side === "LONG" ? "long" : "short"}">${t.side}</span> <span class="sig ${tag[1]}">${tag[0]}</span></div>
+      <div class="pp-l"><div class="r-sym">${esc(t.symbol)} <span class="pp-side ${t.side === "LONG" ? "long" : "short"}">${t.side}</span> <span class="sig ${tag[1]}">${tag[0]}</span>${t.void ? ' <span class="sig sig-neutral">VOID · stats se bahar</span>' : ""}</div>
         <div class="r-why">↳ ${esc(t.signal_label)}: ${esc(t.signal_reason || "")}</div>
         <div class="pp-meta">Entry ${price(t.entry_price)} · ${pkt(t.entry_at)} · ${esc(t.entry_src)}</div>
-        <div class="pp-meta">${isOpen ? `TP ${price(t.tp)} <em>(${esc(t.tp_basis)})</em> · SL ${price(t.sl)} <em>(${esc(t.sl_basis)})</em> · expiry ${pkt(t.expires_at)}`
+        <div class="pp-meta">${t.levels_note ? `<em>${esc(t.levels_note)}</em><br>` : ""}${isOpen ? `TP ${price(t.tp)} <em>(${esc(t.tp_basis)})</em> · SL ${price(t.sl)} <em>(${esc(t.sl_basis)})</em> · expiry ${pkt(t.expires_at)}`
           : `Exit ${price(t.exit_price)} · ${pkt(t.exit_at)} · <b>${esc(t.exit_reason)}</b> · hold ${hold(t.hold_h)}`}</div></div>
       <div class="pp-r"><b>${usd(pu)}</b><span>${pc(pp)}</span>${isOpen ? `<small class="${stale ? "stale-tag" : "muted"}">${m.p ? price(m.p) : "n/a"} · ${m.at ? hm(m.at) : "n/a"}${stale ? " · purani" : ""}</small>` : ""}</div></a>`;
   }

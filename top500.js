@@ -307,11 +307,14 @@
     // 2) Fallback: Binance 24h ticker for coins whose candles come from a verified Binance USDT pair.
     const need = live.filter((c) => !got.has(c.id) && c.ta && c.ta.src === "binance" && c.ta.pair), byPair = new Map(need.map((c) => [c.ta.pair, c]));
     let bnOk = false;
-    for (let i = 0; i < need.length; i += 100) {
-      const syms = need.slice(i, i + 100).map((c) => c.ta.pair);
+    if (need.length && Date.now() - (window.__bnAt || 0) > 110000) {
+      window.__bnAt = Date.now();
+      // one request for ALL Binance tickers (a multi-symbol request fails entirely if a single pair was delisted)
       try {
-        const rows = await getJSON("https://data-api.binance.vision/api/v3/ticker/24hr?symbols=" + encodeURIComponent(JSON.stringify(syms)));
-        for (const x of rows || []) { const c = byPair.get(x.symbol); if (c && setPx(c, x.lastPrice, x.priceChangePercent, "Binance " + x.symbol + " (fallback)", N(x.closeTime) || Date.now())) { got.add(c.id); bnOk = true; } }
+        const rows = await getJSON("https://data-api.binance.vision/api/v3/ticker/24hr?type=MINI", 20000);
+        for (const x of rows || []) { const c = byPair.get(x.symbol); if (!c) continue;
+          const o = N(x.openPrice), l = N(x.lastPrice);
+          if (setPx(c, l, o > 0 && l != null ? (l / o - 1) * 100 : null, "Binance " + x.symbol + " (fallback)", N(x.closeTime) || Date.now())) { got.add(c.id); bnOk = true; } }
       } catch (e) { /* keep last known prices, marked stale */ }
     }
     priceFail = !cgOk && !bnOk;

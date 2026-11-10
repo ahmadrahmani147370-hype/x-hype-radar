@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css?v=soft-2" />
 <link rel="stylesheet" href="top500.css?v=soft-2" />
-<link rel="stylesheet" href="paper.css?v=p1" />
+<link rel="stylesheet" href="paper.css?v=p2" />
 </head>
 <body class="t5 paper">
 <header class="topbar">
@@ -50,13 +50,14 @@
     <div class="panel-h"><h3>Rules (simple)</h3><span class="muted small">Har trade ka data ledger mein public hai</span></div>
     <p><b>Entry:</b> Top 500 — 🚀 Pump/Breakout = LONG, 🩸 Dump/Breakdown = SHORT. Meme radar — PUMP shuru = LONG, DUMP chal raha = SHORT (sirf contract ya CoinGecko se confirmed market). Alag tag: ↩ <b>Mean-reversion</b> — 🧊 Oversold = LONG, 🔥 Overbought = SHORT. Sirf jab signal <b>naya</b> shuru ho (ledger start par pehle se chal rahe signals par trade nahi). Wohi signal 6 ghante ke andar wapas aaye to duplicate trade nahi. Ek coin par ek waqt mein ek hi trade.</p>
     <p><b>Size:</b> $100, qty = 100 / entry price. Entry price = signal milte hi fetch ki gayi live quote (CoinGecko, warna Binance; meme ke liye DexScreener).</p>
-    <p><b>Exit (jo pehle ho):</b> ulta signal · take-profit · stop-loss · 7 din. Trend LONG: TP = sell zone (resistance), warna +2 ATR; SL = −1.5 ATR. SHORT ulta (TP = buy zone/support). Mean-reversion: TP 1.5 ATR, SL 1.5 ATR. Candles/ATR na hon: TP 12%, SL 8%. Meme: TP 20%, SL 10%.</p>
+    <p><b>Exit (jo pehle ho):</b> ulta signal · take-profit · stop-loss · 7 din. Trend LONG: TP = sell zone (resistance), warna +2 ATR; SL = −1.5 ATR. SHORT ulta (TP = buy zone/support). Mean-reversion: TP 1.5 ATR, SL 1.5 ATR. ATR distance ki hadd: SL max 15%, TP max 25%. Candles/ATR na hon: TP 12%, SL 8%. Meme: TP 20%, SL 10%.</p>
+    <p><b>Void:</b> agar baad mein data-quality check se signal hi invalid nikle (jaise pegged/wrapped ya low-volatility token), trade "VOID" band hoti hai aur stats mein shamil nahi hoti — record phir bhi dikhta hai.</p>
     <p><b>Check:</b> har ~15 min box par live price se. Exit price = us check ki price, is liye TP/SL level se thori behtar ya buri ho sakti hai. App mein open trades ka P&amp;L har 60 s live price se.</p>
     <p class="red"><b>Financial advice nahi.</b> Paper results future profit ki guarantee nahi.</p>
   </section>
   <footer class="foot"><span>Ledger: data/paper/trades.json · prices: CoinGecko · Binance · DexScreener</span><span>Paper trading. Not financial advice.</span></footer>
 </main>
 <div class="toast" id="toast"></div>
-<script src="paper.js?v=p1"></script>
+<script src="paper.js?v=p2"></script>
 </body>
 </html>
