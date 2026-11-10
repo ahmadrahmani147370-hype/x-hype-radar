@@ -1,8 +1,8 @@
-/* Home dashboard — every number comes from data/top500.json, data/snapshot.json, data/paper/trades.json
+/* Home dashboard — every number comes from data/top500.json, data/paper/trades.json
    or live public exchange APIs (Binance → Bybit → OKX klines). Missing values show "—". */
 (() => {
   "use strict";
-  const VER = "h4";
+  const VER = "h5";
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const N = (v) => (v == null || v === "" || isNaN(+v) ? null : +v);
   const tg = window.Telegram && window.Telegram.WebApp, inTG = !!(tg && tg.initData);
@@ -23,9 +23,7 @@
   // ---------- controls (localStorage, display-only) ----------
   const TOG = [
     ["auto", "Auto Refresh", "Data har 60 s, chart har 10 s", true],
-    ["meme", "Meme Signals", "Meme radar ke signals bhi dikhayein", true],
     ["risk", "Risk Filter", "High-risk coins ke signals chhupayein", true],
-    ["rug", "Rug Check", "Scam/fake-pool flag wale meme tokens chhupayein", true],
     ["vib", "Vibrate Alert", "Naya paper signal aaye to vibrate + note", true],
   ];
   const prefs = (() => { try { return JSON.parse(localStorage.getItem("hr_prefs") || "{}"); } catch (e) { return {}; } })();
@@ -43,16 +41,15 @@
   });
 
   // ---------- data ----------
-  let T5 = null, SNAP = null, LED = null, liveP = new Map(), lastData = 0;
+  let T5 = null, LED = null, liveP = new Map(), lastData = 0;
   async function getJSON(url, ms = 15000) {
     const c = new AbortController(), t = setTimeout(() => c.abort(), ms);
     try { const r = await fetch(url, { cache: "no-store", signal: c.signal }); if (!r.ok) { const e = new Error(r.status); e.status = r.status; throw e; } return await r.json(); }
     finally { clearTimeout(t); }
   }
   async function loadData() {
-    const [a, b, c] = await Promise.allSettled([getJSON("data/top500.json?t=" + Date.now()), getJSON("data/snapshot.json?t=" + Date.now()), getJSON("data/paper/trades.json?t=" + Date.now())]);
+    const [a, c] = await Promise.allSettled([getJSON("data/top500.json?t=" + Date.now()), getJSON("data/paper/trades.json?t=" + Date.now())]);
     if (a.status === "fulfilled" && Array.isArray(a.value.coins)) T5 = a.value;
-    if (b.status === "fulfilled" && b.value.tokens) SNAP = b.value;
     if (c.status === "fulfilled" && c.value.trades) LED = c.value;
     lastData = Date.now();
     await livePrices();
@@ -77,8 +74,6 @@
 
   // ---------- signals ----------
   const T5DIR = { pump: "LONG", breakout: "LONG", oversold: "LONG", dump: "SHORT", breakdown: "SHORT", overbought: "SHORT", hype: "HYPE" };
-  const MDIR = { pump: "LONG", early: "LONG", dump: "SHORT", overheated: "SHORT" };
-  const BAD_FLAG = /scam|airdrop|claim|fake|shill|symbol only/i;
   function allSignals() {
     const out = [];
     for (const c of T5?.coins || []) {
@@ -86,22 +81,16 @@
       if (P("risk") && (c.risk || {}).level === "High") continue;
       out.push({ book: "top500", code: s.code, id: c.id, sym: c.symbol, name: c.name, dir, label: s.label, reason: s.reason, ch: N(c.change_24h), chL: "24h", risk: c.risk, rank: c.rank });
     }
-    if (P("meme")) for (const t of SNAP?.tokens || []) {
-      const s = t.signal || {}; const dir = MDIR[s.code]; if (!dir) continue;
-      if (P("risk") && (t.risk || {}).level === "High") continue;
-      if (P("rug") && ((t.risk_flags || []).some((f) => BAD_FLAG.test(f)) || (t.risk || {}).score >= 60)) continue;
-      out.push({ book: "meme", code: s.code, id: t.symbol, sym: t.symbol, name: "meme · X " + (N(t.spike_ratio) != null ? t.spike_ratio.toFixed(1) + "x" : "—"), dir, label: s.label, reason: s.reason, ch: N((t.market || {}).change_1h), chL: "1h", risk: t.risk });
-    }
     return out;
   }
 
   // ---------- render ----------
   function renderHeader() {
-    const t5At = ts(T5?.generated_at), snAt = ts(SNAP?.generated_at), ledAt = ts(LED?.updated_at);
-    const fresh = t5At && Date.now() - t5At < 40 * 60000 && snAt && Date.now() - snAt < 3 * 3600000;
+    const t5At = ts(T5?.generated_at), ledAt = ts(LED?.updated_at);
+    const fresh = t5At && Date.now() - t5At < 40 * 60000;
     const st = $("#status"); st.classList.toggle("warn", !fresh);
     $("#statusTxt").textContent = !T5 ? "Data load fail" : fresh ? "Bot Running" : "Data stale";
-    st.title = `Top 500 data: ${t5At ? pkt(t5At) : "—"} · Meme X scan: ${snAt ? pkt(snAt) : "—"} · Paper ledger: ${ledAt ? pkt(ledAt) : "—"}`;
+    st.title = `Top 500 data: ${t5At ? pkt(t5At) : "—"} · Paper ledger: ${ledAt ? pkt(ledAt) : "—"}`;
     PaperChip.render($("#paperChip"), LED, livePx);
   }
   function renderStats() {
@@ -136,8 +125,8 @@
   function renderLive() {
     const rows = [];
     for (const t of trades().filter((t) => t.status !== "closed").sort((a, b) => ts(b.entry_at) - ts(a.entry_at))) {
-      if (!P("meme") && t.book === "meme") continue;
-      const r = tradePnlPct(t); rows.push({ sym: t.symbol, dir: t.side, v: r.v, sub: "paper · " + pkt(ts(t.entry_at)) + " se", id: t.book === "meme" ? t.symbol : t.key, book: t.book });
+      if (t.book === "meme") continue;
+      const r = tradePnlPct(t); rows.push({ sym: t.symbol, dir: t.side, v: r.v, sub: "paper · " + pkt(ts(t.entry_at)) + " se", id: t.key, book: t.book });
     }
     // fill with current signals (24h / 1h change, no entry → not "since signal")
     const strong = { pump: 0, breakout: 0, dump: 0, breakdown: 0, early: 1, overheated: 1, overbought: 2, oversold: 2, hype: 3 };
@@ -183,7 +172,7 @@
   }
   function rowSig(s) {
     return `<div class="row" data-open="${esc(s.book)}:${esc(s.id)}"><div class="a">${esc(s.sym)}<small>${esc(s.name || "")}</small><span class="badge ${s.dir === "LONG" ? "b-long" : s.dir === "SHORT" ? "b-short" : "b-info"}">${s.dir === "LONG" ? "▲ LONG" : s.dir === "SHORT" ? "▼ SHORT" : "◆ HYPE"}</span></div>
-      <div class="b ${cls(s.ch)}">${pct(s.ch)} <small class="muted">${s.chL}</small></div><div class="c">${esc(s.label)} · ${esc(s.reason || "")}${s.risk ? " · risk " + esc(s.risk.score) + " (" + esc(s.risk.level) + ")" : ""} · ${s.book === "meme" ? "Meme radar" : "Top 500 #" + s.rank}</div></div>`;
+      <div class="b ${cls(s.ch)}">${pct(s.ch)} <small class="muted">${s.chL}</small></div><div class="c">${esc(s.label)} · ${esc(s.reason || "")}${s.risk ? " · risk " + esc(s.risk.score) + " (" + esc(s.risk.level) + ")" : ""} · "Top 500 #" + s.rank</div></div>`;
   }
   let sigK = "all";
   function renderSignals() {
@@ -196,9 +185,6 @@
     $("#scanT5").innerHTML = T5 ? `<div class="kv"><div><b>${cnt((c) => ["pump", "breakout"].includes((c.signal || {}).code))}</b>Pump / Breakout</div><div><b>${cnt((c) => ["dump", "breakdown"].includes((c.signal || {}).code))}</b>Dump / Breakdown</div><div><b>${cnt(code("hype"))}</b>X Hype</div>
       <div><b>${cnt(code("oversold"))}</b>Oversold</div><div><b>${cnt(code("overbought"))}</b>Overbought</div><div><b>${cnt((c) => (c.ta || {}).trend === "Uptrend")}</b>Uptrend</div></div>
       <div class="muted">Data: ${pkt(ts(T5.generated_at))} · ${T5.coverage?.zones ?? "—"} coins ke zones ready</div>` : '<div class="empty">Data load nahi hua</div>';
-    const tk = (SNAP?.tokens || []).slice().sort((a, b) => (b.spike_ratio || 0) - (a.spike_ratio || 0)).slice(0, 5);
-    $("#scanMeme").innerHTML = SNAP ? `<div class="rows">${tk.map((t) => `<div class="row" data-open="meme:${esc(t.symbol)}"><div class="a">${esc(t.symbol)}<small>${esc((t.signal || {}).label || "")}</small></div><div class="b">${N(t.spike_ratio) != null ? t.spike_ratio.toFixed(2) + "x" : "—"}</div><div class="c">${(t.mentions_24h ?? "—")} X mentions 24h · risk ${esc((t.risk || {}).score ?? "—")}</div></div>`).join("")}</div>
-      <div class="muted">X scan: ${pkt(ts(SNAP.x_data_as_of || SNAP.generated_at))}</div>` : '<div class="empty">Data load nahi hua</div>';
   }
   function renderAnalysis() {
     const q = $("#aq").value.trim().toLowerCase();
@@ -210,14 +196,14 @@
   }
   function renderStatus() {
     const r = (l, v) => `<div class="pr"><span>${l}</span><b>${v}</b></div>`;
-    $("#dataStatus").innerHTML = r("Top 500 data", T5 ? pkt(ts(T5.generated_at)) + " (" + ago(ts(T5.generated_at)) + ")" : "—") + r("Meme X scan", SNAP ? pkt(ts(SNAP.x_data_as_of || SNAP.generated_at)) : "—") +
+    $("#dataStatus").innerHTML = r("Top 500 data", T5 ? pkt(ts(T5.generated_at)) + " (" + ago(ts(T5.generated_at)) + ")" : "—") +
       r("Paper ledger", LED ? pkt(ts(LED.updated_at)) : "—") + r("Chart", chartAt ? chartSrc + " · " + pktS(chartAt) : "—") + r("App refresh", lastData ? pktS(lastData) : "—");
   }
-  function renderAll() { if (!T5 && !SNAP && !LED) return; renderHeader(); renderStats(); renderLive(); renderPerf(); renderPnl(); renderSignals(); renderScanner(); renderAnalysis(); renderStatus(); }
+  function renderAll() { if (!T5 && !LED) return; renderHeader(); renderStats(); renderLive(); renderPerf(); renderPnl(); renderSignals(); renderScanner(); renderAnalysis(); renderStatus(); }
   document.addEventListener("click", (e) => {
     const o = e.target.closest("[data-open]"); if (!o) return;
     const [book, id] = o.dataset.open.split(/:(.*)/s);
-    location.href = book === "meme" ? "index.html?v=" + VER + "#token=" + encodeURIComponent(id) : "top500.html?v=" + VER + "#coin=" + encodeURIComponent(id);
+    location.href = "top500.html?v=" + VER + "#coin=" + encodeURIComponent(id);
   });
   $("#sigSeg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; sigK = b.dataset.k; $$("#sigSeg button").forEach((x) => x.classList.toggle("on", x === b)); renderSignals(); });
   $("#aq").addEventListener("input", renderAnalysis);

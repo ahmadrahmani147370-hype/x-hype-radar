@@ -2,99 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<link rel="icon" href="data:," />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
-<meta name="theme-color" content="#f2f6fc" />
-<title>X Hype Radar — catch the hype before the move</title>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=h3" />
-<link rel="stylesheet" href="top500.css?v=h3" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="refresh" content="0; url=home.html?v=h5" />
+<title>X Hype Radar</title>
+<script>location.replace("home.html?v=h5");</script>
 </head>
-<body>
-
-<header class="topbar">
-  <div class="brand">
-    <div>
-      <div class="brand-name">Meme Radar</div>
-      <div class="brand-sub">X hype · pump/dump · live prices</div>
-    </div>
-  </div>
-  <div class="top-actions">
-    <div class="live-pill" id="livePill"><span class="dot"></span><div class="feed-times"><span id="priceAge">Prices · connecting…</span><span id="snapAge">X data: —</span><span id="feedStatus" role="status"></span></div></div>
-    <div class="countdown" id="countdown" style="--remaining:1" aria-label="60 second auto refresh"><svg viewBox="0 0 36 36"><circle class="count-track" cx="18" cy="18" r="15"/><circle class="count-progress" cx="18" cy="18" r="15"/></svg><span id="countdownNumber">60</span></div>
-    <button class="icon-btn" id="reloadBtn" title="Refresh prices and X snapshot" aria-label="Refresh prices and X snapshot">
-      <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 4a8 8 0 0 1 7.75 6h-2.1A6 6 0 1 0 18 14h2.05A8 8 0 1 1 12 4Zm5 0h4v4h-1.5V6.56l-2.2 2.2-1.06-1.06 2.2-2.2H17V4Z"/></svg>
-    </button>
-  </div>
-</header>
-<nav class="tabs" aria-label="Sections"><a href="home.html?v=h4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>Home</span></a><a href="top500.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Top 500</span></a><a href="index.html" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg><span>Meme Radar</span></a><a href="paper.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 15l3-3 2 2 4-5"/></svg><span>Paper</span></a></nav>
-
-<main class="wrap">
-  <section class="hero">
-    <div class="hero-copy">
-      <div class="eyebrow">Live X mention velocity · Solana &amp; majors</div>
-      <h1>Tokens jin ki <span class="red">X chatter</span> abhi phat rahi hai</h1>
-      <p class="muted" id="heroLine">Loading snapshot…</p>
-    </div>
-    <div class="spotlight" id="spotlight"></div>
-  </section>
-
-  <section class="stats" id="stats"></section>
-
-  <section class="sigboard" id="sigBoard"></section>
-
-  <section class="controls">
-    <div class="seg" id="kindSeg" role="tablist">
-      <button data-kind="all" class="on">All</button>
-      <button data-kind="spiking">Spiking</button>
-      <button data-kind="pump">🚀 Pump</button>
-      <button data-kind="dump">🩸 Dump</button>
-      <button data-kind="early">👀 Early</button>
-      <button data-kind="emerging">Emerging</button>
-      <button data-kind="major">Majors</button>
-    </div>
-    <div class="sort">
-      <label for="sortSel">Sort</label>
-      <select id="sortSel">
-        <option value="default">Radar rank</option>
-        <option value="pump">Pump signal</option>
-        <option value="dump">Dump signal</option>
-        <option value="risk">Risk (safest first)</option>
-        <option value="accel">Hype momentum</option>
-        <option value="spike">Spike ratio</option>
-        <option value="score">Hype score</option>
-        <option value="rate">Mentions / hour</option>
-        <option value="m24">Mentions 24h</option>
-      </select>
-    </div>
-  </section>
-
-  <section class="list" id="list"></section>
-
-  <section class="panel" id="alsoPanel">
-    <div class="panel-h"><h3>Also seen on X</h3><span class="muted small">Cashtags in the sample without a velocity check yet</span></div>
-    <div class="chips" id="also"></div>
-  </section>
-
-  <section class="panel method" id="method"></section>
-
-  <footer class="foot">
-    <span>Data: X public search (Grok Bot) · DexScreener · CoinGecko</span>
-    <span>Not financial advice. Hype ≠ safety — rugs bhi hype karte hain.</span>
-  </footer>
-</main>
-
-<div class="sheet-backdrop" id="backdrop"></div>
-<aside class="sheet" id="sheet" aria-hidden="true">
-  <div class="sheet-handle"></div>
-  <button class="icon-btn sheet-close" id="sheetClose" aria-label="Close">✕</button>
-  <div id="sheetBody"></div>
-</aside>
-<div class="toast" id="toast"></div>
-
-<script src="app.js?v=h4"></script>
+<body style="font-family:Inter,system-ui,sans-serif;padding:24px;background:#eef4fc;color:#14213d">
+<p>Meme radar band ho gaya hai. <a href="home.html?v=h5">Dashboard kholein</a>.</p>
 </body>
 </html>

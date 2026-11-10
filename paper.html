@@ -30,7 +30,7 @@
     </button>
   </div>
 </header>
-<nav class="tabs" aria-label="Sections"><a href="home.html?v=h4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>Home</span></a><a href="top500.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Top 500</span></a><a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg><span>Meme Radar</span></a><a href="paper.html" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 15l3-3 2 2 4-5"/></svg><span>Paper</span></a></nav>
+<nav class="tabs" aria-label="Sections"><a href="home.html?v=h5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>Home</span></a><a href="top500.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Top 500</span></a><a href="paper.html" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 15l3-3 2 2 4-5"/></svg><span>Paper</span></a></nav>
 <main class="wrap">
   <section class="hero">
     <div class="hero-copy">
@@ -42,15 +42,15 @@
   </section>
   <section class="stats pp-stats" id="stats"></section>
   <section class="controls pp-controls">
-    <div class="seg" id="bookSeg"><button data-book="all" class="on">All</button><button data-book="top500:trend">🏆 Top 500 trend</button><button data-book="top500:mean-reversion">↩ Mean-reversion</button><button data-book="meme:trend">🔴 Meme</button></div>
+    <div class="seg" id="bookSeg"><button data-book="all" class="on">All</button><button data-book="top500:trend">🏆 Top 500 trend</button><button data-book="top500:mean-reversion">↩ Mean-reversion</button></div>
     <div class="seg" id="statusSeg"><button data-st="open" class="on">Open</button><button data-st="closed">Closed</button></div>
   </section>
   <section class="t5list" id="list"></section>
   <section class="panel method">
     <div class="panel-h"><h3>Rules (simple)</h3><span class="muted small">Har trade ka data ledger mein public hai</span></div>
-    <p><b>Entry:</b> Top 500 — 🚀 Pump/Breakout = LONG, 🩸 Dump/Breakdown = SHORT. Meme radar — PUMP shuru = LONG, DUMP chal raha = SHORT (sirf contract ya CoinGecko se confirmed market). Alag tag: ↩ <b>Mean-reversion</b> — 🧊 Oversold = LONG, 🔥 Overbought = SHORT. Sirf jab signal <b>naya</b> shuru ho (ledger start par pehle se chal rahe signals par trade nahi). Wohi signal 6 ghante ke andar wapas aaye to duplicate trade nahi. Ek coin par ek waqt mein ek hi trade.</p>
+    <p><b>Entry:</b> Top 500 — 🚀 Pump/Breakout = LONG, 🩸 Dump/Breakdown = SHORT. Alag tag: ↩ <b>Mean-reversion</b> — 🧊 Oversold = LONG, 🔥 Overbought = SHORT. Sirf jab signal <b>naya</b> shuru ho (ledger start par pehle se chal rahe signals par trade nahi). Wohi signal 6 ghante ke andar wapas aaye to duplicate trade nahi. Ek coin par ek waqt mein ek hi trade.</p>
     <p><b>Size:</b> $100, qty = 100 / entry price. Entry price = signal milte hi fetch ki gayi live quote (CoinGecko, warna Binance; meme ke liye DexScreener). 20 min se purani quote kabhi use nahi hoti.</p>
-    <p><b>Exit (jo pehle ho):</b> ulta signal · take-profit · stop-loss · 7 din. Trend LONG: TP = sell zone (resistance), warna +2 ATR; SL = −1.5 ATR. SHORT ulta (TP = buy zone/support). Mean-reversion: TP 1.5 ATR, SL 1.5 ATR. ATR distance ki hadd: SL max 15%, TP max 25%. Candles/ATR na hon: TP 12%, SL 8%. Meme: TP 20%, SL 10%.</p>
+    <p><b>Exit (jo pehle ho):</b> ulta signal · take-profit · stop-loss · 7 din. Trend LONG: TP = sell zone (resistance), warna +2 ATR; SL = −1.5 ATR. SHORT ulta (TP = buy zone/support). Mean-reversion: TP 1.5 ATR, SL 1.5 ATR. ATR distance ki hadd: SL max 15%, TP max 25%. Candles/ATR na hon: TP 12%, SL 8%.</p>
     <p><b>Void:</b> agar baad mein data-quality check se signal hi invalid nikle (jaise pegged/wrapped ya low-volatility token, ya source ki price 20 min se purani thi), trade "VOID" band hoti hai aur stats mein shamil nahi hoti — record phir bhi dikhta hai.</p>
     <p><b>Check:</b> har ~15 min box par live price se. Exit price = us check ki price, is liye TP/SL level se thori behtar ya buri ho sakti hai. App mein open trades ka P&amp;L har 60 s live price se.</p>
     <p class="red"><b>Financial advice nahi.</b> Paper results future profit ki guarantee nahi.</p>

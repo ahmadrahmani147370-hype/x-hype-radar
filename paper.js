@@ -57,7 +57,7 @@
     const tag = TAG[t.book + ":" + t.strategy] || ["", ""], m = mark(t), isOpen = t.status === "open";
     const [pu, pp] = isOpen ? (m.p ? pnl(t, m.p) : [null, null]) : [t.pnl_usd, t.pnl_pct];
     const stale = isOpen && (!m.at || Date.now() - m.at > STALE_MS);
-    const link = t.book === "top500" ? `top500.html#coin=${encodeURIComponent(t.key)}` : `index.html?token=${encodeURIComponent(t.symbol)}`;
+    const link = t.book === "top500" ? `top500.html#coin=${encodeURIComponent(t.key)}` : "home.html";
     return `<a class="t5row pp-row ${isOpen ? "" : "closed"}" href="${link}">
       <div class="pp-l"><div class="r-sym">${esc(t.symbol)} <span class="pp-side ${t.side === "LONG" ? "long" : "short"}">${t.side}</span> <span class="sig ${tag[1]}">${tag[0]}</span>${t.void ? ' <span class="sig sig-neutral">VOID · stats se bahar</span>' : ""}</div>
         <div class="r-why">↳ ${esc(t.signal_label)}: ${esc(t.signal_reason || "")}</div>
