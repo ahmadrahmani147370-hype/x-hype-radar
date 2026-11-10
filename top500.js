@@ -11,7 +11,7 @@
 
   if (inTG) {
     tg.ready(); tg.expand();
-    try { tg.setHeaderColor("#050505"); tg.setBackgroundColor("#050505"); tg.setBottomBarColor && tg.setBottomBarColor("#050505"); } catch (e) {}
+    try { tg.setHeaderColor("#f2f6fc"); tg.setBackgroundColor("#f2f6fc"); tg.setBottomBarColor && tg.setBottomBarColor("#ffffff"); } catch (e) {}
     const setVh = () => document.documentElement.style.setProperty("--tg-viewport-stable-height", (tg.viewportStableHeight || window.innerHeight) + "px");
     setVh(); tg.onEvent("viewportChanged", setVh); tg.BackButton.onClick(() => closeSheet());
     document.documentElement.classList.add("tg");
@@ -57,7 +57,7 @@
     const n = sp.v.length - 1, pts = sp.v.map((y, i) => [(i / n) * w, h - 2 - (y / 100) * (h - 4)]);
     const d = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
     const up = sp.v[sp.v.length - 1] >= sp.v[0];
-    return `<svg class="t5spark ${cls}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="${up ? "#33d69f" : "#ff2a3d"}" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+    return `<svg class="t5spark ${cls}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="${up ? "#1f9d63" : "#d9534f"}" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
   }
 
   // ---------- filtering / sorting ----------
@@ -90,12 +90,12 @@
     const btc = cs.find((c) => c.id === "bitcoin"), eth = cs.find((c) => c.id === "ethereum");
     $("#heroLine").innerHTML = `${cs.length} coins · trend/zones ${cov.zones} · reports ${cov.reports} · X hype ${cov.x_hype} — market data ${data.market_as_of ? pkt(data.market_as_of) : "n/a"}. <b class="red">Financial advice nahi, DYOR.</b>`;
     const mini = (c) => c ? `<div class="bmini" data-id="${esc(c.id)}">${avatar(c, "sm")}<div><b>${esc(c.symbol)}</b> <span class="mono">${price(c.price)}</span><div>${pct(c.change_24h)} · ${trendChip(c.ta?.trend)}</div></div></div>` : "";
-    $("#breadth").innerHTML = `<span class="sp-tag">● Market breadth · daily trend</span>
+    $("#breadth").innerHTML = `<span class="sp-tag">Market breadth · daily trend</span>
       <div class="bbar"><i class="b-up" style="width:${tr.Uptrend / tot * 100}%"></i><i class="b-range" style="width:${tr.Range / tot * 100}%"></i><i class="b-down" style="width:${tr.Downtrend / tot * 100}%"></i></div>
       <div class="blegend"><span><b class="pos">${tr.Uptrend}</b> Uptrend</span><span><b class="gold">${tr.Range}</b> Range</span><span><b class="neg">${tr.Downtrend}</b> Downtrend</span></div>
       <div class="bminis">${mini(btc)}${mini(eth)}</div>`;
     const cnt = (k) => cs.filter(KIND[k]).length;
-    $("#stats").innerHTML = [[cs.length, "Coins tracked (top 500)"], [cov.zones, "Trend + buy/sell zones"], [cov.reports, "Research reports"], [cov.x_hype, "X hype checked (26h)"]]
+    $("#stats").innerHTML = [[cs.length, "Coins"], [cov.zones, "Zones ready"], [cov.reports, "Reports"], [cov.x_hype, "X hype (26h)"]]
       .map(([b, s]) => `<div class="stat"><b>${b ?? 0}</b><span>${s}</span></div>`).join("");
     $("#sigBoard").innerHTML = [["pump", "🚀", "Pump / Breakout", "sig-pump"], ["dump", "🩸", "Dump / Breakdown", "sig-dump"], ["overbought", "🔥", "Overbought", "sig-hot"],
       ["oversold", "🧊", "Oversold", "sig-cold"], ["hype", "👀", "X Hype", "sig-early"], ["buyzone", "🟢", "Buy zone mein", "sig-pump"]]
@@ -147,8 +147,8 @@
     const d = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
     const band = (z, cl) => { if (!z) return ""; const y1 = Math.max(0, Math.min(H, Y(z[1]))), y2 = Math.max(0, Math.min(H, Y(z[0]))); return y2 - y1 > 0.5 ? `<rect class="${cl}" x="0" y="${y1}" width="${W}" height="${y2 - y1}"/>` : ""; };
     return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" class="zchart">${band(ta.sell_zone, "zband-s")}${band(ta.buy_zone, "zband-b")}
-      <defs><linearGradient id="zg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(255,42,61,.35)"/><stop offset="1" stop-color="rgba(255,42,61,0)"/></linearGradient></defs>
-      <path d="${d} L ${W} ${H} L 0 ${H} Z" fill="url(#zg)"/><path d="${d}" fill="none" stroke="#ff4a5b" stroke-width="2" stroke-linejoin="round"/>
+      <defs><linearGradient id="zg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(59,125,221,.20)"/><stop offset="1" stop-color="rgba(59,125,221,0)"/></linearGradient></defs>
+      <path d="${d} L ${W} ${H} L 0 ${H} Z" fill="url(#zg)"/><path d="${d}" fill="none" stroke="#3b7ddd" stroke-width="2" stroke-linejoin="round"/>
       ${c.price ? `<line x1="0" x2="${W}" y1="${Y(c.price)}" y2="${Y(c.price)}" class="pxline"/>` : ""}</svg>
       <div class="axis"><span>${sp.v.length} din pehle</span><span><i class="lg-b"></i> buy zone <i class="lg-s"></i> sell zone</span><span>aaj</span></div>`;
   }
@@ -302,7 +302,7 @@
     })().finally(() => { refreshPromise = null; $("#reloadBtn").classList.remove("spinning"); updateCountdown(); updatePill(); });
     return refreshPromise;
   }
-  document.body.insertAdjacentHTML("beforeend", '<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="ringG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5a68"/><stop offset="1" stop-color="#b80018"/></linearGradient></defs></svg>');
+  document.body.insertAdjacentHTML("beforeend", '<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="ringG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7fb0f2"/><stop offset="1" stop-color="#3b7ddd"/></linearGradient></defs></svg>');
   load();
   setInterval(() => { updateCountdown(); if (!document.hidden && !refreshPromise && Date.now() >= nextRefresh) load(); }, 1000);
   setInterval(updatePill, 30000);

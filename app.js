@@ -18,7 +18,7 @@
   // ---------- Telegram integration ----------
   if (inTG) {
     tg.ready(); tg.expand();
-    try { tg.setHeaderColor("#050505"); tg.setBackgroundColor("#050505"); tg.setBottomBarColor && tg.setBottomBarColor("#050505"); } catch (e) {}
+    try { tg.setHeaderColor("#f2f6fc"); tg.setBackgroundColor("#f2f6fc"); tg.setBottomBarColor && tg.setBottomBarColor("#ffffff"); } catch (e) {}
     const setVh = () => document.documentElement.style.setProperty("--tg-viewport-stable-height", (tg.viewportStableHeight || window.innerHeight) + "px");
     setVh(); tg.onEvent("viewportChanged", setVh);
     tg.BackButton.onClick(closeSheet);
@@ -64,14 +64,14 @@
     const d = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
     const last = pts[pts.length - 1];
     return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" class="spark-svg" width="100%" height="100%">
-      <defs><linearGradient id="g${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff2a3d" stop-opacity=".45"/><stop offset="1" stop-color="#ff2a3d" stop-opacity="0"/></linearGradient></defs>
+      <defs><linearGradient id="g${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b7ddd" stop-opacity=".18"/><stop offset="1" stop-color="#3b7ddd" stop-opacity="0"/></linearGradient></defs>
       <path d="${d} L${w} ${h} L0 ${h} Z" fill="url(#g${id})"/>
-      <path d="${d}" fill="none" stroke="#ff2a3d" stroke-width="1.8" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
-      <circle cx="${last[0]}" cy="${last[1]}" r="3" fill="#fff" stroke="#ff2a3d" stroke-width="2"/></svg>`;
+      <path d="${d}" fill="none" stroke="#3b7ddd" stroke-width="1.8" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+      <circle cx="${last[0]}" cy="${last[1]}" r="3" fill="#fff" stroke="#3b7ddd" stroke-width="2"/></svg>`;
   }
   function ring(score) {
     const r = 20, c = 2 * Math.PI * r, off = c * (1 - score / 100);
-    return `<div class="ring" title="Hype score"><svg width="48" height="48"><circle cx="24" cy="24" r="${r}" stroke="rgba(255,255,255,.07)" stroke-width="4" fill="none"/>
+    return `<div class="ring" title="Hype score"><svg width="48" height="48"><circle cx="24" cy="24" r="${r}" stroke="#e7f0fd" stroke-width="4" fill="none"/>
       <circle cx="24" cy="24" r="${r}" stroke="url(#ringG)" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${off}"/></svg><b>${score}</b></div>`;
   }
   const avatar = (t) => { const img = t.market && t.market.image; return img ? `<div class="avatar" style="background-image:url('${esc(safeUrl(img))}')"></div>` : `<div class="avatar">${esc(t.symbol.slice(0, 2))}</div>`; };
@@ -185,12 +185,12 @@
     const gen = snap.x_data_as_of || snap.generated_at;
     updatePill();
     const spiking = toks.filter((t) => t.is_spiking);
-    $("#heroLine").innerHTML = `${s.posts_analyzed} real X posts scanned · ${s.tokens_tracked} tokens checked for hourly mention velocity. <b style="color:#fff">${spiking.length}</b> token${spiking.length === 1 ? "" : "s"} abhi normal se zyada discuss ho rahe hain.`;
+    $("#heroLine").innerHTML = `${s.posts_analyzed} real X posts scanned · ${s.tokens_tracked} tokens checked for hourly mention velocity. <b class="hl">${spiking.length}</b> token${spiking.length === 1 ? "" : "s"} abhi normal se zyada discuss ho rahe hain.`;
 
     const top = spiking[0] || toks[0];
     if (top) {
       const m = top.market || {};
-      $("#spotlight").innerHTML = `<div class="sp-tags"><span class="sp-tag">🔥 Top spike right now</span>${sigBadge(top)}</div>
+      $("#spotlight").innerHTML = `<div class="sp-tags"><span class="sp-tag">Top spike right now</span>${sigBadge(top)}</div>
         <div class="sp-row"><div><div class="sp-sym">$${esc(top.symbol)}</div><div class="sp-name">${tokenName(top)}${m.chain ? " · " + esc(m.chain) : ""}</div></div>
         <div class="sp-mult">${mult(top.spike_ratio)}<small>×</small></div></div>
         <div class="sp-chart">${sparkSVG(top.hourly, 300, 64, "hero")}</div>
@@ -204,8 +204,8 @@
 
     const maxSpike = toks.reduce((a, t) => Math.max(a, t.spike_ratio), 0);
     $("#stats").innerHTML = [
-      [s.posts_analyzed, "X posts analyzed"], [s.tokens_tracked, "Tokens velocity-checked"],
-      [mult(maxSpike) + "×", "Biggest mention spike"], [num(s.mentions_24h_tracked), "Mentions tracked (24h)"],
+      [s.posts_analyzed, "X posts"], [s.tokens_tracked, "Tokens checked"],
+      [mult(maxSpike) + "×", "Top spike"], [num(s.mentions_24h_tracked), "Mentions 24h"],
     ].map(([b, l]) => `<div class="stat"><b>${b}</b><span>${l}</span></div>`).join("");
 
     const cnt = (c) => toks.filter((t) => c.includes(t.signal?.code)).length;
@@ -216,12 +216,12 @@
     $("#also").innerHTML = (snap.also_seen || []).map((a) =>
       `<a class="chip" href="https://x.com/search?q=${encodeURIComponent("$" + a.symbol)}&f=live" data-link>$${esc(a.symbol)}<em>${a.posts}p · ${a.authors}a</em></a>`).join("") || '<span class="muted">—</span>';
     $("#method").innerHTML = `<div class="panel-h"><h3>How the radar works</h3><span class="muted small">Source: ${esc(snap.source)}</span></div>
-      <p><b style="color:#fff">Spike ratio</b> — ${esc(snap.method.spike_ratio)}.</p>
-      <p><b style="color:#fff">Hype score</b> — ${esc(snap.method.hype_score)}.</p>
-      <p><b style="color:#fff">Pump/Dump signal</b> — ${esc(snap.method.signal || "")}. Live prices se har minute dobara calculate hota hai.</p>
-      <p><b style="color:#fff">Risk score</b> — ${esc(snap.method.risk || "")}. Yeh sirf automatic andaza hai — DYOR.</p>
-      <p><b style="color:#fff">Momentum</b> — ▲ tez = mentions/h abhi pichle 2 ghante se 1.5× zyada; ▼ thanda = 0.7× se kam ya spike pichle scan se kafi gira.</p>
-      <p><b style="color:#fff">Spiking</b> = spike ≥ 1.5× and ≥ 5 mentions/hour. Counts come from X's full post-count endpoint; top posts, authors and engagement come from the scanned sample. Prices refresh every 60 seconds while visible via DexScreener / CoinGecko. X mentions update hourly, independently. Missing values stay n/a; failed market refreshes keep last known values and show stale. Symbol-search matches are unverified: check the contract before trading.</p>`;
+      <p><b class="hl">Spike ratio</b> — ${esc(snap.method.spike_ratio)}.</p>
+      <p><b class="hl">Hype score</b> — ${esc(snap.method.hype_score)}.</p>
+      <p><b class="hl">Pump/Dump signal</b> — ${esc(snap.method.signal || "")}. Live prices se har minute dobara calculate hota hai.</p>
+      <p><b class="hl">Risk score</b> — ${esc(snap.method.risk || "")}. Yeh sirf automatic andaza hai — DYOR.</p>
+      <p><b class="hl">Momentum</b> — ▲ tez = mentions/h abhi pichle 2 ghante se 1.5× zyada; ▼ thanda = 0.7× se kam ya spike pichle scan se kafi gira.</p>
+      <p><b class="hl">Spiking</b> = spike ≥ 1.5× and ≥ 5 mentions/hour. Counts come from X's full post-count endpoint; top posts, authors and engagement come from the scanned sample. Prices refresh every 60 seconds while visible via DexScreener / CoinGecko. X mentions update hourly, independently. Missing values stay n/a; failed market refreshes keep last known values and show stale. Symbol-search matches are unverified: check the contract before trading.</p>`;
   }
 
   function updatePill() {
@@ -379,7 +379,7 @@
   $("#reloadBtn").onclick = () => { const b = $("#reloadBtn"); b.classList.remove("spin"); void b.offsetWidth; b.classList.add("spin"); load(true); };
 
   // ring gradient defs
-  document.body.insertAdjacentHTML("beforeend", '<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="ringG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5a68"/><stop offset="1" stop-color="#b80018"/></linearGradient></defs></svg>');
+  document.body.insertAdjacentHTML("beforeend", '<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="ringG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7fb0f2"/><stop offset="1" stop-color="#3b7ddd"/></linearGradient></defs></svg>');
 
   async function fetchJSON(url) {
     const controller = new AbortController();
