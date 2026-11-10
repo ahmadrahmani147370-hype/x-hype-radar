@@ -4,13 +4,13 @@
 <meta charset="utf-8" />
 <link rel="icon" href="data:," />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
-<meta name="theme-color" content="#eef4fc" />
+<meta name="theme-color" content="#0A0A0B" />
 <title>Trading Dashboard — real data only</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="home.css?v=h7" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="home.css?v=h8" />
 </head>
 <body>
 <div class="ptr" id="ptr"><div class="ptr-ring"></div><span id="ptrTxt">Pull to refresh</span></div>
@@ -70,6 +70,10 @@
       </section>
       <section class="card mini">
         <div class="mini-h"><h3><svg viewBox="0 0 24 24" class="hi"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>Controls</h3></div>
+        <div class="listn-row">
+          <div class="listn-cap">List size<small>20 ya 30 items</small></div>
+          <div data-listn-host data-label="Show"></div>
+        </div>
         <div class="toggles" data-toggles></div>
       </section>
     </div>
@@ -90,7 +94,7 @@
   <!-- SIGNALS -->
   <main class="view" id="v-signals">
     <section class="card">
-      <div class="mini-h"><h3>Active Signals</h3><span class="muted" id="sigCount"></span></div>
+      <div class="mini-h"><h3>Active Signals</h3><div style="display:flex;align-items:center;gap:8px"><span class="muted" id="sigCount"></span><div data-listn-host data-label="Show"></div></div></div>
       <div class="seg" id="sigSeg"><button data-k="all" class="on">All</button><button data-k="long">▲ Long</button><button data-k="short">▼ Short</button></div>
       <div id="sigList" class="rows"></div>
     </section>
@@ -99,7 +103,7 @@
   <!-- SCANNER -->
   <main class="view" id="v-scanner">
     <section class="card scan">
-      <div class="mini-h"><h3>Top 500 Scanner</h3><a class="btn" href="top500.html?v=h7">Open list →</a></div>
+      <div class="mini-h"><h3>Top 500 Scanner</h3><div style="display:flex;align-items:center;gap:8px"><div data-listn-host data-label="Show"></div><a class="btn" href="top500.html?v=h8">Open list →</a></div></div>
       <div id="scanT5"></div>
     </section>
   </main>
@@ -115,6 +119,14 @@
 
   <!-- SETTINGS -->
   <main class="view" id="v-settings">
+    <section class="card">
+      <div class="mini-h"><h3>List size</h3><span class="muted">is phone par save</span></div>
+      <div class="listn-row" style="border:0;margin:0;padding:2px 0 8px">
+        <div class="listn-cap">Signals aur lists<small>Live Signals, Scanner, Judge, Top 500</small></div>
+        <div data-listn-host data-label="Show"></div>
+      </div>
+      <p class="note">Yeh sirf display setting hai. Hourly X-hype scan 30 coins par hi rehta hai.</p>
+    </section>
     <section class="card">
       <div class="mini-h"><h3>Controls</h3><span class="muted">is phone par save</span></div>
       <div class="toggles big" data-toggles></div>
@@ -142,7 +154,7 @@
   <div id="pList" class="rows"></div>
 </aside>
 <div class="toast" id="toast"></div>
-<script src="paper-chip.js?v=h7"></script>
-<script src="home.js?v=h7"></script>
+<script src="paper-chip.js?v=h8"></script>
+<script src="home.js?v=h8"></script>
 </body>
 </html>

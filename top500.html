@@ -4,14 +4,14 @@
 <meta charset="utf-8" />
 <link rel="icon" href="data:," />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
-<meta name="theme-color" content="#f2f6fc" />
+<meta name="theme-color" content="#0A0A0B" />
 <title>Top 500 Research — trend, zones, pump/dump, X hype</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=h7" />
-<link rel="stylesheet" href="top500.css?v=h7" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css?v=h8" />
+<link rel="stylesheet" href="top500.css?v=h8" />
 </head>
 <body class="t5">
 
@@ -31,7 +31,7 @@
     </button>
   </div>
 </header>
-<nav class="tabs" aria-label="Sections"><a href="home.html?v=h7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>Home</span></a><a href="top500.html" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Top 500</span></a><a href="paper.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 15l3-3 2 2 4-5"/></svg><span>Paper</span></a></nav>
+<nav class="tabs" aria-label="Sections"><a href="home.html?v=h8"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>Home</span></a><a href="top500.html" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Top 500</span></a><a href="paper.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 15l3-3 2 2 4-5"/></svg><span>Paper</span></a></nav>
 
 <main class="wrap">
   <section class="hero">
@@ -61,6 +61,7 @@
       <button data-kind="up">Uptrend</button>
       <button data-kind="down">Downtrend</button>
     </div>
+    <div class="listn-row" data-listn-host data-label="Show" title="Kitne coins ek page par"></div>
     <div class="sort">
       <label for="sortSel">Sort</label>
       <select id="sortSel">
@@ -107,8 +108,8 @@
 </aside>
 <div class="toast" id="toast"></div>
 
-<script src="paper-chip.js?v=h7"></script>
-<script src="top500.js?v=h7"></script>
+<script src="paper-chip.js?v=h8"></script>
+<script src="top500.js?v=h8"></script>
 <script>PaperChip.mount(document.getElementById("paperChip"));</script>
 </body>
 </html>

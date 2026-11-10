@@ -2,11 +2,11 @@
    or live public exchange APIs (Binance → Bybit → OKX klines). Missing values show "—". */
 (() => {
   "use strict";
-  const VER = "h7";
+  const VER = "h8";
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const N = (v) => (v == null || v === "" || isNaN(+v) ? null : +v);
   const tg = window.Telegram && window.Telegram.WebApp, inTG = !!(tg && tg.initData);
-  if (tg) { try { tg.ready(); tg.expand(); tg.setHeaderColor("#eef4fc"); tg.setBackgroundColor("#eef4fc"); tg.setBottomBarColor && tg.setBottomBarColor("#ffffff"); } catch (e) {} }
+  if (tg) { try { tg.ready(); tg.expand(); tg.setHeaderColor("#0A0A0B"); tg.setBackgroundColor("#0A0A0B"); tg.setBottomBarColor && tg.setBottomBarColor("#0A0A0B"); } catch (e) {} }
   const haptic = (k) => { try { tg && tg.HapticFeedback && tg.HapticFeedback.impactOccurred(k || "light"); } catch (e) {} };
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const toast = (m) => { const t = $("#toast"); t.textContent = m; t.classList.add("on"); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("on"), 2600); };
@@ -19,6 +19,8 @@
   const pct = (v, d = 2) => (N(v) == null ? "—" : (v >= 0 ? "+" : "") + (+v).toFixed(d) + "%");
   const usd = (v) => (N(v) == null ? "—" : (v < 0 ? "-$" : "+$") + Math.abs(v).toFixed(2));
   const cls = (v) => (N(v) == null || Math.abs(v) < 0.005 ? "flat" : v > 0 ? "up" : "down");
+  const C = { up: "#8FBEA0", down: "#D08A8A", accent: "#C4A574", accent2: "#7A6A52", grid: "#22211E", axis: "#6B665E", ink: "#1A1610", cream: "#F3EEE6" };
+  const listN = () => (window.ListN ? ListN.get() : 20);
 
   // ---------- controls (localStorage, display-only) ----------
   const TOG = [
@@ -132,9 +134,10 @@
     // fill with current signals (24h / 1h change, no entry → not "since signal")
     const strong = { pump: 0, breakout: 0, dump: 0, breakdown: 0, early: 1, overheated: 1, overbought: 2, oversold: 2, hype: 3 };
     const sg = allSignals().filter((s) => !rows.some((r) => r.sym === s.sym)).sort((a, b) => (strong[a.code] ?? 1) - (strong[b.code] ?? 1) || Math.abs(b.ch || 0) - Math.abs(a.ch || 0));
-    for (const s of sg) { if (rows.length >= 4) break; rows.push({ sym: s.sym, dir: s.dir, v: s.ch, sub: s.label + " · " + s.chL + " change", id: s.id, book: s.book }); }
-    const col = (d) => (d === "LONG" ? "#22c55e" : d === "SHORT" ? "#e5484d" : "#3b82f6");
-    $("#liveSignals").innerHTML = rows.length ? rows.slice(0, 4).map((r) => `<div class="r" data-open="${esc(r.book)}:${esc(r.id)}"><i class="bul" style="background:${col(r.dir)}33;border:1.5px solid ${col(r.dir)}"></i><span class="sym">${esc(r.sym)}</span>
+    for (const s of sg) { if (rows.length >= listN()) break; rows.push({ sym: s.sym, dir: s.dir, v: s.ch, sub: s.label + " · " + s.chL + " change", id: s.id, book: s.book }); }
+    const col = (d) => (d === "LONG" ? C.up : d === "SHORT" ? C.down : C.accent);
+    const n = listN();
+    $("#liveSignals").innerHTML = rows.length ? rows.slice(0, n).map((r) => `<div class="r" data-open="${esc(r.book)}:${esc(r.id)}"><i class="bul" style="background:${col(r.dir)}33;border:1.5px solid ${col(r.dir)}"></i><span class="sym">${esc(r.sym)}</span>
       <span class="dir" style="color:${col(r.dir)}">${r.dir === "LONG" ? "▲ LONG" : r.dir === "SHORT" ? "▼ SHORT" : "◆ HYPE"}</span><span class="pc ${cls(r.v)}">${pct(r.v)}</span><span class="src">${esc(r.sub)}</span></div>`).join("")
       : '<div class="empty">Abhi koi active signal nahi</div>';
   }
@@ -163,10 +166,10 @@
     const ctx = setupCanvas(cv), W = cv.clientWidth, H = cv.clientHeight, ax = 34;
     const vs = pts.map((x) => x.v), lo = Math.min(0, ...vs), hi = Math.max(0.01, ...vs), t0 = pts[0].t, t1 = Math.max(pts[pts.length - 1].t, t0 + 1);
     const X = (t) => 4 + ((t - t0) / (t1 - t0)) * (W - ax - 10), Y = (v) => 8 + (1 - (v - lo) / (hi - lo || 1)) * (H - 18);
-    ctx.font = "9px Inter,sans-serif"; ctx.fillStyle = "#7a879c"; ctx.strokeStyle = "#eef2f8"; ctx.lineWidth = 1;
+    ctx.font = "9px Outfit,sans-serif"; ctx.fillStyle = C.axis; ctx.strokeStyle = C.grid; ctx.lineWidth = 1;
     for (let i = 0; i <= 3; i++) { const v = lo + ((hi - lo) * i) / 3, y = Y(v); ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W - ax, y); ctx.stroke(); ctx.fillText((v >= 0 ? "+$" : "-$") + Math.abs(v).toFixed(Math.abs(hi - lo) < 5 ? 2 : 0), W - ax + 3, y + 3); }
-    const up = cum >= 0, c1 = up ? "#22c55e" : "#e5484d";
-    const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, up ? "rgba(34,197,94,.35)" : "rgba(229,72,77,.3)"); g.addColorStop(1, "rgba(255,255,255,0)");
+    const up = cum >= 0, c1 = up ? C.up : C.down;
+    const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, up ? "rgba(143,190,160,.35)" : "rgba(208,138,138,.30)"); g.addColorStop(1, "rgba(10,10,11,0)");
     ctx.beginPath(); pts.forEach((p, i) => (i ? ctx.lineTo(X(p.t), Y(p.v)) : ctx.moveTo(X(p.t), Y(p.v)))); ctx.lineTo(X(pts[pts.length - 1].t), H); ctx.lineTo(X(pts[0].t), H); ctx.closePath(); ctx.fillStyle = g; ctx.fill();
     ctx.beginPath(); pts.forEach((p, i) => (i ? ctx.lineTo(X(p.t), Y(p.v)) : ctx.moveTo(X(p.t), Y(p.v)))); ctx.strokeStyle = c1; ctx.lineWidth = 2; ctx.stroke();
     const l = pts[pts.length - 1]; ctx.beginPath(); ctx.arc(X(l.t), Y(l.v), 3.5, 0, 7); ctx.fillStyle = c1; ctx.fill();
@@ -178,18 +181,32 @@
   let sigK = "all";
   function renderSignals() {
     const sg = allSignals().filter((s) => sigK === "all" || (sigK === "long" ? s.dir === "LONG" : sigK === "short" ? s.dir === "SHORT" : s.book === sigK));
-    $("#sigCount").textContent = sg.length + " signals";
-    $("#sigList").innerHTML = sg.length ? sg.map(rowSig).join("") : '<div class="empty">Is filter mein koi signal nahi</div>';
+    const n = listN(), shown = sg.slice(0, n);
+    $("#sigCount").textContent = sg.length ? shown.length + " / " + sg.length + " signals" : "0 signals";
+    $("#sigList").innerHTML = shown.length ? shown.map(rowSig).join("") : '<div class="empty">Is filter mein koi signal nahi</div>';
   }
   function renderScanner() {
     const cs = T5?.coins || [], cnt = (f) => cs.filter(f).length, code = (k) => (c) => (c.signal || {}).code === k;
+    const n = listN();
+    const strong = { pump: 0, breakout: 0, dump: 0, breakdown: 0, early: 1, overheated: 1, overbought: 2, oversold: 2, hype: 3 };
+    const rows = cs.filter((c) => !c.kind).slice()
+      .sort((a, b) => (strong[(a.signal || {}).code] ?? 9) - (strong[(b.signal || {}).code] ?? 9) || Math.abs(N(b.change_24h) || 0) - Math.abs(N(a.change_24h) || 0))
+      .slice(0, n);
+    const list = rows.map((c) => {
+      const s = c.signal || {}, ta = c.ta || {}, dir = T5DIR[s.code];
+      const badge = dir ? `<span class="badge ${dir === "LONG" ? "b-long" : dir === "SHORT" ? "b-short" : "b-info"}">${esc(s.label || dir)}</span>` : (ta.trend ? `<span class="badge ${ta.trend === "Uptrend" ? "b-long" : ta.trend === "Downtrend" ? "b-short" : "b-info"}">${esc(ta.trend)}</span>` : "");
+      return `<div class="row" data-open="top500:${esc(c.id)}"><div class="a">#${c.rank ?? "—"} ${esc(c.symbol)}<small>${esc(c.name || "")}</small>${badge}</div>
+        <div class="b">$${fmtP(c.price)} <span class="${cls(c.change_24h)}">${pct(c.change_24h, 1)}</span></div>
+        <div class="c">${esc(s.label || ta.trend || "—")} · RSI ${N(ta.rsi) != null ? ta.rsi.toFixed(0) : "—"} · 24h ${pct(c.change_24h, 1)}</div></div>`;
+    }).join("");
     $("#scanT5").innerHTML = T5 ? `<div class="kv"><div><b>${cnt((c) => ["pump", "breakout"].includes((c.signal || {}).code))}</b>Pump / Breakout</div><div><b>${cnt((c) => ["dump", "breakdown"].includes((c.signal || {}).code))}</b>Dump / Breakdown</div><div><b>${cnt(code("hype"))}</b>X Hype</div>
       <div><b>${cnt(code("oversold"))}</b>Oversold</div><div><b>${cnt(code("overbought"))}</b>Overbought</div><div><b>${cnt((c) => (c.ta || {}).trend === "Uptrend")}</b>Uptrend</div></div>
-      <div class="muted">Data: ${pkt(ts(T5.generated_at))} · ${T5.coverage?.zones ?? "—"} coins ke zones ready</div>` : '<div class="empty">Data load nahi hua</div>';
+      <div class="muted">Data: ${pkt(ts(T5.generated_at))} · ${T5.coverage?.zones ?? "—"} coins ke zones ready · list ${rows.length}/${n}</div>
+      <div class="rows">${list || '<div class="empty">Is list mein koi coin nahi</div>'}</div>` : '<div class="empty">Data load nahi hua</div>';
   }
   function renderAnalysis() {
     const q = $("#aq").value.trim().toLowerCase();
-    const cs = (T5?.coins || []).filter((c) => !q || c.symbol.toLowerCase().includes(q) || c.name.toLowerCase().includes(q) || c.id.includes(q)).slice(0, q ? 60 : 30);
+    const cs = (T5?.coins || []).filter((c) => !q || c.symbol.toLowerCase().includes(q) || c.name.toLowerCase().includes(q) || c.id.includes(q)).slice(0, listN());
     $("#aList").innerHTML = cs.map((c) => { const ta = c.ta || {};
       return `<div class="row" data-open="top500:${esc(c.id)}"><div class="a">#${c.rank} ${esc(c.symbol)}<small>${esc(c.name)}</small>${ta.trend ? `<span class="badge ${ta.trend === "Uptrend" ? "b-long" : ta.trend === "Downtrend" ? "b-short" : "b-info"}">${esc(ta.trend)}</span>` : ""}</div>
       <div class="b">$${fmtP(c.price)} <span class="${cls(c.change_24h)}">${pct(c.change_24h, 1)}</span></div>
@@ -212,9 +229,11 @@
     const m = AG.mood || {}, lab = m.label || "—";
     const tagC = lab === "BULLISH" ? "mood-bull" : lab === "BEARISH" ? "mood-bear" : "mood-caut";
     mood.innerHTML = `<span class="mood-tag ${tagC}">${esc(lab)}</span> ${esc(m.summary || "")}`;
-    const col = (title, rows, empty, cls) => {
-      const body = (rows || []).length
-        ? rows.map((j) => `<div class="jp" data-open="top500:${esc(j.id)}"><span class="a">${esc(j.symbol)}<small class="muted"> #${j.rank ?? ""}</small></span><span class="b">score ${j.score ?? "—"}</span><span class="c">${esc((j.reasons && j.reasons[0]) || "")} · 24h ${pct(j.change_24h, 1)}</span></div>`).join("")
+    const n = listN();
+    const col = (title, rows, empty) => {
+      const xs = (rows || []).slice(0, n);
+      const body = xs.length
+        ? xs.map((j) => `<div class="jp" data-open="top500:${esc(j.id)}"><span class="a">${esc(j.symbol)}<small class="muted"> #${j.rank ?? ""}</small></span><span class="b">score ${j.score ?? "—"}</span><span class="c">${esc((j.reasons && j.reasons[0]) || "")} · 24h ${pct(j.change_24h, 1)}</span></div>`).join("")
         : `<div class="empty">${empty}</div>`;
       return `<div class="judge-col"><h4>${title}</h4>${body}</div>`;
     };
@@ -280,19 +299,19 @@
     const pad = (hi - lo) * 0.06 || hi * 0.001; lo -= pad; hi += pad;
     const cw = (W - ax - 4) / n, Y = (p) => 4 + (1 - (p - lo) / (hi - lo)) * (ph - 8), X = (i) => 2 + i * cw + cw / 2;
     ctx.clearRect(0, 0, W, H);
-    ctx.font = "9.5px Inter,sans-serif"; ctx.lineWidth = 1;
-    for (let i = 0; i <= 5; i++) { const p = lo + ((hi - lo) * i) / 5, y = Y(p); ctx.strokeStyle = "#eef2f8"; ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W - ax, y); ctx.stroke(); ctx.fillStyle = "#6b788c"; ctx.fillText(fmtP(p), W - ax + 5, y + 3); }
-    ctx.strokeStyle = "#e3ebf6"; ctx.beginPath(); ctx.moveTo(W - ax + 0.5, 0); ctx.lineTo(W - ax + 0.5, H); ctx.stroke();
+    ctx.font = "9.5px Outfit,sans-serif"; ctx.lineWidth = 1;
+    for (let i = 0; i <= 5; i++) { const p = lo + ((hi - lo) * i) / 5, y = Y(p); ctx.strokeStyle = C.grid; ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W - ax, y); ctx.stroke(); ctx.fillStyle = C.axis; ctx.fillText(fmtP(p), W - ax + 5, y + 3); }
+    ctx.strokeStyle = C.grid; ctx.beginPath(); ctx.moveTo(W - ax + 0.5, 0); ctx.lineTo(W - ax + 0.5, H); ctx.stroke();
     const vmax = Math.max(...cs.map((c) => c.v)) || 1;
     cs.forEach((c, i) => { const up = c.c >= c.o, x = X(i), bw = Math.max(1.5, cw * 0.62);
-      ctx.fillStyle = up ? "rgba(34,197,94,.28)" : "rgba(229,72,77,.26)"; const vhh = (c.v / vmax) * vh; ctx.fillRect(x - bw / 2, H - vhh, bw, vhh);
-      ctx.strokeStyle = ctx.fillStyle = up ? "#22b35e" : "#e5484d"; ctx.beginPath(); ctx.moveTo(x, Y(c.h)); ctx.lineTo(x, Y(c.l)); ctx.stroke();
+      ctx.fillStyle = up ? "rgba(143,190,160,.28)" : "rgba(208,138,138,.26)"; const vhh = (c.v / vmax) * vh; ctx.fillRect(x - bw / 2, H - vhh, bw, vhh);
+      ctx.strokeStyle = ctx.fillStyle = up ? C.up : C.down; ctx.beginPath(); ctx.moveTo(x, Y(c.h)); ctx.lineTo(x, Y(c.l)); ctx.stroke();
       const y1 = Y(Math.max(c.o, c.c)), y2 = Y(Math.min(c.o, c.c)); ctx.fillRect(x - bw / 2, y1, bw, Math.max(1, y2 - y1)); });
-    [[e21, "#a5c8fa"], [e9, "#3b82f6"]].forEach(([e, col]) => { ctx.strokeStyle = col; ctx.lineWidth = 1.6; ctx.beginPath(); for (let i = 0; i < n; i++) { const y = Y(e[s0 + i]); i ? ctx.lineTo(X(i), y) : ctx.moveTo(X(i), y); } ctx.stroke(); });
-    const last = cs[cs.length - 1], ly = Math.min(Math.max(Y(last.c), 8), ph - 6), lc = last.c >= last.o ? "#22b35e" : "#e5484d";
+    [[e21, C.accent2], [e9, C.accent]].forEach(([e, col]) => { ctx.strokeStyle = col; ctx.lineWidth = 1.6; ctx.beginPath(); for (let i = 0; i < n; i++) { const y = Y(e[s0 + i]); i ? ctx.lineTo(X(i), y) : ctx.moveTo(X(i), y); } ctx.stroke(); });
+    const last = cs[cs.length - 1], ly = Math.min(Math.max(Y(last.c), 8), ph - 6), lc = last.c >= last.o ? C.up : C.down;
     ctx.setLineDash([3, 3]); ctx.strokeStyle = lc; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0, ly); ctx.lineTo(W - ax, ly); ctx.stroke(); ctx.setLineDash([]);
     ctx.fillStyle = lc; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(W - ax + 1, ly - 8, ax - 2, 16, 4) : ctx.rect(W - ax + 1, ly - 8, ax - 2, 16); ctx.fill();
-    ctx.fillStyle = "#fff"; ctx.font = "600 9.5px Inter,sans-serif"; ctx.fillText(fmtP(last.c), W - ax + 4, ly + 3.5);
+    ctx.fillStyle = C.ink; ctx.font = "600 9.5px Outfit,sans-serif"; ctx.fillText(fmtP(last.c), W - ax + 4, ly + 3.5);
     const first = candles[0], ch = (last.c / cs[0].o - 1) * 100;
     $("#chartInfo").innerHTML = `${chartSrc} live · <span class="${cls(ch)}">${pct(ch)}</span> · ${pktS(chartAt)}`;
   }
@@ -322,6 +341,8 @@
     return busy;
   }
   renderToggles();
+  if (window.ListN) ListN.fill();
+  addEventListener("listn-change", () => { renderAll(); });
   go((location.hash || "").replace("#", "") || "dashboard", false);
   drawChart(); refresh();
   setInterval(() => { if (!document.hidden && P("auto")) loadChart(); }, 10000);

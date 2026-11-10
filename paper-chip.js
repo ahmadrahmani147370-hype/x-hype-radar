@@ -58,3 +58,50 @@
   }
   window.PaperChip = { calc, render, mount, START };
 })();
+
+
+/* Shared 20/30 display-size setting (localStorage). Does not change server X-hype ingest. */
+(function () {
+  const KEY = "hr_list_n";
+  function get() {
+    try { return +localStorage.getItem(KEY) === 30 ? 30 : 20; } catch (e) { return 20; }
+  }
+  function syncButtons() {
+    const n = get();
+    document.querySelectorAll("[data-listn]").forEach((b) => {
+      const on = +b.dataset.listn === n;
+      b.classList.toggle("on", on);
+      b.setAttribute("aria-pressed", String(on));
+    });
+  }
+  function html(opts) {
+    const n = get();
+    const lab = (opts && opts.label) || "Show";
+    return '<div class="listn" role="group" aria-label="List size">' +
+      (lab ? '<span class="listn-l">' + lab + "</span>" : "") +
+      '<button type="button" data-listn="20" class="' + (n === 20 ? "on" : "") + '" aria-pressed="' + (n === 20) + '">20</button>' +
+      '<button type="button" data-listn="30" class="' + (n === 30 ? "on" : "") + '" aria-pressed="' + (n === 30) + '">30</button></div>';
+  }
+  function fill() {
+    document.querySelectorAll("[data-listn-host]").forEach((el) => {
+      el.innerHTML = html({ label: el.getAttribute("data-label") || "Show" });
+    });
+  }
+  function set(n) {
+    n = +n === 30 ? 30 : 20;
+    try { localStorage.setItem(KEY, String(n)); } catch (e) {}
+    syncButtons();
+    try { window.dispatchEvent(new CustomEvent("listn-change", { detail: n })); } catch (e) {}
+    return n;
+  }
+  if (!window.__listnBound) {
+    window.__listnBound = true;
+    document.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-listn]");
+      if (!b) return;
+      e.preventDefault();
+      set(+b.dataset.listn);
+    });
+  }
+  window.ListN = { get, set, html, fill, sync: syncButtons, KEY };
+})();

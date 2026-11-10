@@ -3,7 +3,7 @@
 (() => {
   const tg = window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData !== undefined ? window.Telegram.WebApp : null;
   const inTG = !!(tg && tg.platform && tg.platform !== "unknown");
-  if (inTG) { tg.ready(); tg.expand(); try { tg.setHeaderColor("#f2f6fc"); tg.setBackgroundColor("#f2f6fc"); } catch (e) {} document.documentElement.classList.add("tg"); }
+  if (inTG) { tg.ready(); tg.expand(); try { tg.setHeaderColor("#0A0A0B"); tg.setBackgroundColor("#0A0A0B"); tg.setBottomBarColor && tg.setBottomBarColor("#0A0A0B"); } catch (e) {} document.documentElement.classList.add("tg"); }
   const $ = (s) => document.querySelector(s), TZ = "Asia/Karachi", REFRESH_MS = 60000, STALE_MS = 10 * 60000;
   let led = null, book = "all", st = "open", nextRefresh = Date.now() + REFRESH_MS, busy = null, cgPauseUntil = 0, cgBackoff = 120000, feed = "";
   const live = new Map(); // trade id -> {p, src, at}
@@ -92,7 +92,7 @@
   $("#bookSeg").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; book = b.dataset.book; document.querySelectorAll("#bookSeg button").forEach((x) => x.classList.toggle("on", x === b)); render(); };
   $("#statusSeg").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; st = b.dataset.st; document.querySelectorAll("#statusSeg button").forEach((x) => x.classList.toggle("on", x === b)); render(); };
   $("#reloadBtn").onclick = () => load(true);
-  document.body.insertAdjacentHTML("beforeend", '<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="ringG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7fb0f2"/><stop offset="1" stop-color="#3b7ddd"/></linearGradient></defs></svg>');
+  document.body.insertAdjacentHTML("beforeend", '<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="ringG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D4BC8E"/><stop offset="1" stop-color="#C4A574"/></linearGradient></defs></svg>');
   load();
   setInterval(() => { const left = Math.max(0, Math.ceil((nextRefresh - Date.now()) / 1000)); $("#countdown").style.setProperty("--remaining", left / 60); $("#countdownNumber").textContent = busy ? "↻" : left;
     if (!document.hidden && !busy && Date.now() >= nextRefresh) load(); }, 1000);

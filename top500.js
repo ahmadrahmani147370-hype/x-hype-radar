@@ -4,8 +4,9 @@
   const tg = window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData !== undefined ? window.Telegram.WebApp : null;
   const inTG = !!(tg && tg.platform && tg.platform !== "unknown");
   const $ = (s) => document.querySelector(s);
-  const TZ = "Asia/Karachi", REFRESH_MS = 60_000, PAGE = 40;
-  let data = null, agent = null, kind = "all", sortBy = "rank", query = "", shown = PAGE, openId = null, nextRefresh = Date.now() + REFRESH_MS,
+  const TZ = "Asia/Karachi", REFRESH_MS = 60_000;
+  const PAGE = () => (window.ListN ? ListN.get() : 20);
+  let data = null, agent = null, kind = "all", sortBy = "rank", query = "", shown = PAGE(), openId = null, nextRefresh = Date.now() + REFRESH_MS,
       refreshPromise = null, pricesAt = null, priceFail = false, firstLoad = true, cgPauseUntil = 0, cgBackoff = 120000, lastFeed = "";
   const reports = new Map();
   const STALE_MS = 10 * 60000; // a price older than 10 min is never shown as live
@@ -15,7 +16,7 @@
 
   if (inTG) {
     tg.ready(); tg.expand();
-    try { tg.setHeaderColor("#f2f6fc"); tg.setBackgroundColor("#f2f6fc"); tg.setBottomBarColor && tg.setBottomBarColor("#ffffff"); } catch (e) {}
+    try { tg.setHeaderColor("#0A0A0B"); tg.setBackgroundColor("#0A0A0B"); tg.setBottomBarColor && tg.setBottomBarColor("#0A0A0B"); } catch (e) {}
     const setVh = () => document.documentElement.style.setProperty("--tg-viewport-stable-height", (tg.viewportStableHeight || window.innerHeight) + "px");
     setVh(); tg.onEvent("viewportChanged", setVh); tg.BackButton.onClick(() => closeSheet());
     document.documentElement.classList.add("tg");
@@ -61,7 +62,7 @@
     const n = sp.v.length - 1, pts = sp.v.map((y, i) => [(i / n) * w, h - 2 - (y / 100) * (h - 4)]);
     const d = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
     const up = sp.v[sp.v.length - 1] >= sp.v[0];
-    return `<svg class="t5spark ${cls}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="${up ? "#1f9d63" : "#d9534f"}" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+    return `<svg class="t5spark ${cls}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="${up ? "#8FBEA0" : "#D08A8A"}" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
   }
 
   // ---------- filtering / sorting ----------
@@ -153,8 +154,8 @@
     const d = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
     const band = (z, cl) => { if (!z) return ""; const y1 = Math.max(0, Math.min(H, Y(z[1]))), y2 = Math.max(0, Math.min(H, Y(z[0]))); return y2 - y1 > 0.5 ? `<rect class="${cl}" x="0" y="${y1}" width="${W}" height="${y2 - y1}"/>` : ""; };
     return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" class="zchart">${band(ta.sell_zone, "zband-s")}${band(ta.buy_zone, "zband-b")}
-      <defs><linearGradient id="zg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(59,125,221,.20)"/><stop offset="1" stop-color="rgba(59,125,221,0)"/></linearGradient></defs>
-      <path d="${d} L ${W} ${H} L 0 ${H} Z" fill="url(#zg)"/><path d="${d}" fill="none" stroke="#3b7ddd" stroke-width="2" stroke-linejoin="round"/>
+      <defs><linearGradient id="zg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(196,165,116,.28)"/><stop offset="1" stop-color="rgba(196,165,116,0)"/></linearGradient></defs>
+      <path d="${d} L ${W} ${H} L 0 ${H} Z" fill="url(#zg)"/><path d="${d}" fill="none" stroke="#C4A574" stroke-width="2" stroke-linejoin="round"/>
       ${c.price ? `<line x1="0" x2="${W}" y1="${Y(c.price)}" y2="${Y(c.price)}" class="pxline"/>` : ""}</svg>
       <div class="axis"><span>${sp.v.length} din pehle</span><span><i class="lg-b"></i> buy zone <i class="lg-s"></i> sell zone</span><span>aaj</span></div>`;
   }
@@ -288,12 +289,12 @@
   });
   $("#backdrop").onclick = closeSheet; $("#sheetClose").onclick = closeSheet;
   document.addEventListener("keydown", (e) => e.key === "Escape" && closeSheet());
-  const setKind = (k) => { kind = k; shown = PAGE; document.querySelectorAll("#kindSeg button, #sigBoard .sb").forEach((x) => x.classList.toggle("on", x.dataset.kind === k)); renderList(); };
+  const setKind = (k) => { kind = k; shown = PAGE(); document.querySelectorAll("#kindSeg button, #sigBoard .sb").forEach((x) => x.classList.toggle("on", x.dataset.kind === k)); renderList(); };
   $("#kindSeg").onclick = (e) => { const b = e.target.closest("button"); if (b) { haptic(); setKind(b.dataset.kind); } };
   $("#sigBoard").onclick = (e) => { const b = e.target.closest(".sb"); if (b) { haptic(); setKind(b.dataset.kind); document.querySelector(".t5controls").scrollIntoView({ behavior: "smooth" }); } };
-  $("#sortSel").onchange = (e) => { sortBy = e.target.value; shown = PAGE; renderList(); };
-  let qt; $("#q").oninput = (e) => { clearTimeout(qt); qt = setTimeout(() => { query = e.target.value; shown = PAGE; renderList(); }, 120); };
-  $("#moreBtn").onclick = () => { shown += PAGE; renderList(); };
+  $("#sortSel").onchange = (e) => { sortBy = e.target.value; shown = PAGE(); renderList(); };
+  let qt; $("#q").oninput = (e) => { clearTimeout(qt); qt = setTimeout(() => { query = e.target.value; shown = PAGE(); renderList(); }, 120); };
+  $("#moreBtn").onclick = () => { shown += PAGE(); renderList(); };
   $("#reloadBtn").onclick = () => { haptic("medium"); load(true); };
 
   // ---------- data ----------
@@ -362,7 +363,9 @@
     })().finally(() => { refreshPromise = null; $("#reloadBtn").classList.remove("spinning"); updateCountdown(); updatePill(); });
     return refreshPromise;
   }
-  document.body.insertAdjacentHTML("beforeend", '<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="ringG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7fb0f2"/><stop offset="1" stop-color="#3b7ddd"/></linearGradient></defs></svg>');
+  document.body.insertAdjacentHTML("beforeend", '<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="ringG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D4BC8E"/><stop offset="1" stop-color="#C4A574"/></linearGradient></defs></svg>');
+  if (window.ListN) ListN.fill();
+  addEventListener("listn-change", () => { shown = PAGE(); renderList(); });
   load();
   setInterval(() => { updateCountdown(); if (!document.hidden && !refreshPromise && Date.now() >= nextRefresh) load(); }, 1000);
   setInterval(updatePill, 30000);
