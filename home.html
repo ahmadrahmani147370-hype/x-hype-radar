@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="home.css?v=h12" />
-<link rel="stylesheet" href="qgate.css?v=h12" />
+<link rel="stylesheet" href="home.css?v=h13" />
+<link rel="stylesheet" href="qgate.css?v=h13" />
 </head>
 <body>
 <div class="ptr" id="ptr"><div class="ptr-ring"></div><span id="ptrTxt">Pull to refresh</span></div>
@@ -44,6 +44,14 @@
 
   <!-- DASHBOARD -->
   <main class="view on" id="v-dashboard">
+    <section class="card us-card" id="usCard">
+      <div class="mini-h">
+        <h3><svg viewBox="0 0 24 24" class="hi"><path d="M12 3c1 3.2 4.5 5 4.5 9.2A4.5 4.5 0 0 1 12 17a4.5 4.5 0 0 1-4.5-4.8C7.5 9.8 9.6 8.6 10 6c1.3 1 2 2.2 2 3.4"/><path d="M7 21h10"/></svg>Ultra Strong <span class="judge-mode" id="usVer" title="Sab se zyada conviction, max 5 per din">us1</span></h3>
+        <span class="muted">max 5 / din</span>
+      </div>
+      <div class="qg" id="usBody"><div class="qg-empty">Loading…</div></div>
+    </section>
+
     <section class="card chart-card">
       <div class="cc-h">
         <button class="pair" id="pairBtn"><span class="pair-ic">≋</span><b id="pairName">BTC/USDT</b><span class="caret">▾</span></button>
@@ -67,7 +75,7 @@
     <section class="card qg-card" id="qgCard">
       <div class="mini-h">
         <h3><svg viewBox="0 0 24 24" class="hi"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></svg>Quality Gate <span class="judge-mode" id="qgVer" title="Fixed filters, kam trades par tune nahi kiye">qg1</span></h3>
-        <a class="muted" href="paper.html?v=h12#quality" id="qgMore">Details →</a>
+        <a class="muted" href="paper.html?v=h13#quality" id="qgMore">Details →</a>
       </div>
       <div class="qg" id="qgBody"><div class="qg-empty">Loading…</div></div>
     </section>
@@ -112,7 +120,7 @@
   <!-- SCANNER -->
   <main class="view" id="v-scanner">
     <section class="card scan">
-      <div class="mini-h"><h3>Top 500 Scanner</h3><div style="display:flex;align-items:center;gap:8px"><div data-listn-host data-label="Show"></div><a class="btn" href="top500.html?v=h12">Open list →</a></div></div>
+      <div class="mini-h"><h3>Top 500 Scanner</h3><div style="display:flex;align-items:center;gap:8px"><div data-listn-host data-label="Show"></div><a class="btn" href="top500.html?v=h13">Open list →</a></div></div>
       <div id="scanT5"></div>
     </section>
   </main>
@@ -163,8 +171,9 @@
   <div id="pList" class="rows"></div>
 </aside>
 <div class="toast" id="toast"></div>
-<script src="paper-chip.js?v=h12"></script>
-<script src="qgate.js?v=h12"></script>
-<script src="home.js?v=h12"></script>
+<script src="paper-chip.js?v=h13"></script>
+<script src="qgate.js?v=h13"></script>
+<script src="ultra.js?v=h13"></script>
+<script src="home.js?v=h13"></script>
 </body>
 </html>

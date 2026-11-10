@@ -31,3 +31,17 @@
 .qg-mini{display:inline-block;font:600 10px Outfit,sans-serif;padding:1px 6px;border-radius:99px;margin-left:4px;vertical-align:1px}
 .qg-mini.ok{color:#1F9E58;background:#0F2418;border:1px solid #1E5C3A}.qg-mini.no{color:#B9B6B0;background:#1A1916;border:1px solid #4A4538}
 .qg-why{display:block;font:500 10.5px/1.35 Outfit,sans-serif;color:#8A8882;margin-top:2px}
+/* Ultra Strong card */
+.us-card{border-color:#4A4538!important}
+.us-cnt{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.us-big{display:flex;align-items:baseline;gap:4px}.us-big b{font:650 26px/1 Fraunces,Georgia,serif;color:#C6B08A}.us-big span{font:500 12px Outfit,sans-serif;color:#8A8882}
+.us-bar{display:flex;gap:4px}.us-bar i{width:16px;height:6px;border-radius:3px;background:#22262C;border:1px solid #2A2E36}.us-bar i.on{background:#C6B08A;border-color:#C6B08A}
+.us-cnt small{flex:1 1 100%;font:500 10.5px/1.35 Outfit,sans-serif;color:#8A8882}
+.us-list{margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.us-row{padding:9px 11px;border-radius:12px;background:#141518;border:1px solid #4A4538;cursor:pointer}
+.us-l{display:flex;align-items:baseline;gap:8px}.us-l b{font:700 14px Outfit,sans-serif;color:#F0EDE8}.us-l span{font:700 11px Outfit,sans-serif}
+.us-sc{margin-left:auto;color:#C6B08A!important;font-weight:600!important}
+.us-lv{font:500 11.5px Outfit,sans-serif;color:#F0EDE8;margin-top:3px}.us-why{font:500 10.5px/1.35 Outfit,sans-serif;color:#8A8882;margin-top:2px}
+.us-ft{display:flex;justify-content:space-between;font:500 10.5px Outfit,sans-serif;color:#8A8882;margin-top:4px}
+.us-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.us-grid .qg-st b{font-size:15px}
+.qg-mini.ul{color:#C6B08A;background:#1A1916;border:1px solid #C6B08A}

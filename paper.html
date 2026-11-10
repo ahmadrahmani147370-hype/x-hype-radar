@@ -10,10 +10,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=h12" />
-<link rel="stylesheet" href="top500.css?v=h12" />
-<link rel="stylesheet" href="paper.css?v=h12" />
-<link rel="stylesheet" href="qgate.css?v=h12" />
+<link rel="stylesheet" href="styles.css?v=h13" />
+<link rel="stylesheet" href="top500.css?v=h13" />
+<link rel="stylesheet" href="paper.css?v=h13" />
+<link rel="stylesheet" href="qgate.css?v=h13" />
 </head>
 <body class="t5 paper">
 <header class="topbar">
@@ -31,7 +31,7 @@
     </button>
   </div>
 </header>
-<nav class="tabs" aria-label="Sections"><a href="home.html?v=h12"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>Home</span></a><a href="top500.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Top 500</span></a><a href="paper.html" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 15l3-3 2 2 4-5"/></svg><span>Paper</span></a></nav>
+<nav class="tabs" aria-label="Sections"><a href="home.html?v=h13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>Home</span></a><a href="top500.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Top 500</span></a><a href="paper.html" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 15l3-3 2 2 4-5"/></svg><span>Paper</span></a></nav>
 <main class="wrap">
   <section class="hero">
     <div class="hero-copy">
@@ -43,7 +43,7 @@
   </section>
   <section class="stats pp-stats" id="stats"></section>
   <section class="controls pp-controls">
-    <div class="seg" id="bookSeg"><button data-book="all" class="on">All</button><button data-book="top500:trend">🏆 Top 500 trend</button><button data-book="top500:mean-reversion">↩ Mean-reversion</button></div>
+    <div class="seg" id="bookSeg"><button data-book="all" class="on">All</button><button data-book="top500:trend">🏆 Top 500 trend</button><button data-book="top500:mean-reversion">↩ Mean-reversion</button><button data-book="top500:ultra">🔥 Ultra</button></div>
     <div class="seg" id="statusSeg"><button data-st="open" class="on">Open</button><button data-st="closed">Closed</button></div>
   </section>
   <section class="t5list" id="list"></section>
@@ -55,6 +55,7 @@
     <div class="panel-h"><h3>Rules (simple)</h3><span class="muted small">Har trade ka data ledger mein public hai</span></div>
     <p><b>Entry:</b> Top 500 — 🚀 Pump/Breakout = LONG, 🩸 Dump/Breakdown = SHORT. Alag tag: ↩ <b>Mean-reversion</b> — 🧊 Oversold = LONG, 🔥 Overbought = SHORT. Sirf jab signal <b>naya</b> shuru ho (ledger start par pehle se chal rahe signals par trade nahi). Wohi signal 6 ghante ke andar wapas aaye to duplicate trade nahi. Ek coin par ek waqt mein ek hi trade.</p>
     <p><b>Quality Gate (qg1, 10 Nov 2026 se):</b> naya signal tab hi trade kholta hai jab saare gate filters pass hon (upar list). Blocked signal ka episode 12 ghante tak har run par dobara check hota hai. Gate trades: SL 1.5 ATR (max 15%), TP 2.5 ATR (max 25%) ya qareebi ulta zone, R:R ≥ 1.5, +1R par SL entry par (breakeven). Purani (gate se pehle) trades apne purane rules par chalti rehti hain — is liye "pehle vs baad" alag dikhaya jata hai.</p>
+    <p><b>🔥 Ultra Strong (us1):</b> Quality Gate pass signals mein se sirf sab se zyada conviction score (≥ 70/100) wale, din mein max 5 (PKT), usi coin par 24h mein dobara nahi. Har Ultra ki apni alag $100 paper trade (tag "ultra") — is ka win rate alag track hota hai, guarantee nahi.</p>
     <p><b>Size:</b> $100, qty = 100 / entry price. Entry price = signal milte hi fetch ki gayi live quote (CoinGecko, warna Binance). 20 min se purani quote kabhi use nahi hoti.</p>
     <p><b>Exit (jo pehle ho):</b> ulta signal · take-profit · stop-loss · 7 din. Trend LONG: TP = sell zone (resistance), warna +2 ATR; SL = −1.5 ATR. SHORT ulta (TP = buy zone/support). Mean-reversion: TP 1.5 ATR, SL 1.5 ATR. ATR distance ki hadd: SL max 15%, TP max 25%. Candles/ATR na hon: TP 12%, SL 8%.</p>
     <p><b>Void:</b> agar baad mein data-quality check se signal hi invalid nikle (jaise pegged/wrapped ya low-volatility token, ya source ki price 20 min se purani thi), trade "VOID" band hoti hai aur stats mein shamil nahi hoti — record phir bhi dikhta hai.</p>
@@ -64,7 +65,7 @@
   <footer class="foot"><span>Ledger: data/paper/trades.json · prices: CoinGecko · Binance</span><span>Paper trading. Not financial advice.</span></footer>
 </main>
 <div class="toast" id="toast"></div>
-<script src="qgate.js?v=h12"></script>
-<script src="paper.js?v=h12"></script>
+<script src="qgate.js?v=h13"></script>
+<script src="paper.js?v=h13"></script>
 </body>
 </html>
