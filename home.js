@@ -2,7 +2,7 @@
    or live public exchange APIs (Binance → Bybit → OKX klines). Missing values show "—". */
 (() => {
   "use strict";
-  const VER = "h14";
+  const VER = "h15";
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const N = (v) => (v == null || v === "" || isNaN(+v) ? null : +v);
   const tg = window.Telegram && window.Telegram.WebApp, inTG = !!(tg && tg.initData);
@@ -65,7 +65,7 @@
       one("ul", "data/ultra.json", (v) => v && v.version, (v) => (UL = v)),
     ]);
     lastData = Date.now();
-    livePrices().then(() => { safe(renderHeader); safe(renderStats); safe(renderLive); });  // background, never blocks cards
+    livePrices().then(() => { safe(renderHeader); safe(renderStats); safe(renderLive); safe(renderTop); });  // background, never blocks cards
   }
   async function livePrices() {
     // live Binance price for open paper trades + BTC (one small request)
@@ -113,6 +113,8 @@
     const st = $("#status"); st.classList.toggle("warn", !fresh);
     $("#statusTxt").textContent = !T5 ? (FAIL.t5 ? "Data load fail" : "Loading…") : fresh ? "Bot Running" : "Data stale";
     st.title = `Top 500 data: ${t5At ? pkt(t5At) : "—"} · Paper ledger: ${ledAt ? pkt(ledAt) : "—"}`;
+    const dot = $("#lvDot"); if (dot) dot.className = "lv-dot " + (!T5 ? "" : fresh ? "ok" : "warn");
+    const stt = $("#statusTxt"); if (stt) stt.title = st.title;
     PaperChip.render($("#paperChip"), LED, livePx);
   }
   function renderStats() {
@@ -198,31 +200,92 @@
     return `<div class="row" data-open="${esc(s.book)}:${esc(s.id)}"><div class="a">${esc(s.sym)}<small>${esc(s.name || "")}</small>${s.ultra ? '<span class="qg-mini ul">🔥 Ultra</span>' : ""}${gateTag(s.gate)}<span class="badge ${s.dir === "LONG" ? "b-long" : s.dir === "SHORT" ? "b-short" : "b-info"}">${s.dir === "LONG" ? "▲ LONG" : s.dir === "SHORT" ? "▼ SHORT" : "◆ HYPE"}</span></div>
       <div class="b ${cls(s.ch)}">${pct(s.ch)} <small class="muted">${s.chL}</small></div><div class="c">${esc(s.label)} · ${esc(s.reason || "")}${s.risk ? " · risk " + esc(s.risk.score) + " (" + esc(s.risk.level) + ")" : ""} · Top 500 #${s.rank ?? "—"}${gateWhy(s.gate)}</div></div>`;
   }
-  let sigK = "all";
-  function renderSignals() {
-    const sg = allSignals().filter((s) => sigK === "all" || (sigK === "long" ? s.dir === "LONG" : sigK === "short" ? s.dir === "SHORT" : s.book === sigK));
-    const n = listN(), shown = sg.slice(0, n);
-    $("#sigCount").textContent = sg.length ? shown.length + " / " + sg.length + " signals" : "0 signals";
-    $("#sigList").innerHTML = shown.length ? shown.map(rowSig).join("") : '<div class="empty">Is filter mein koi signal nahi</div>';
+  // ---------- Live signal cards (h15) ----------
+  let fK = "all";
+  const favs = (() => { try { return new Set(JSON.parse(localStorage.getItem("hr_fav") || "[]")); } catch (e) { return new Set(); } })();
+  const openWhy = new Set();
+  const STRONG_MIN = 62; // = Signal Judge strict min agreement score (agent.py), not a win chance
+  const PD = { pump: 1, dump: 1, breakout: 1, breakdown: 1 };
+  const fmtV = (v) => { v = N(v); if (v == null) return "—"; return v >= 1e9 ? (v / 1e9).toFixed(1) + "B" : v >= 1e6 ? Math.round(v / 1e6) + "M" : v >= 1e3 ? Math.round(v / 1e3) + "K" : Math.round(v) + ""; };
+  function judgeOf(id) { return AG && AG.coins ? AG.coins[id] || null : null; }
+  function cardData() {
+    const byId = coinById();
+    return allSignals().filter((s) => s.dir === "LONG" || s.dir === "SHORT").map((s) => {
+      const c = byId.get(s.id) || {}, j = judgeOf(s.id), x = c.x || {};
+      const opp = j && j.verdict === (s.dir === "LONG" ? "SELL" : "BUY");
+      const jsc = j && N(j.score) != null ? N(j.score) : null;
+      return Object.assign({}, s, { c, j, score: jsc, strong: jsc != null && jsc >= STRONG_MIN && !opp, xs: x.fresh ? N(x.spike) : null, vol: N(c.volume_24h), price: N(c.price) });
+    });
   }
-  function renderScanner() {
-    const cs = T5?.coins || [], cnt = (f) => cs.filter(f).length, code = (k) => (c) => (c.signal || {}).code === k;
-    const n = listN();
-    const strong = { pump: 0, breakout: 0, dump: 0, breakdown: 0, early: 1, overheated: 1, overbought: 2, oversold: 2, hype: 3 };
-    const rows = cs.filter((c) => !c.kind).slice()
-      .sort((a, b) => (strong[(a.signal || {}).code] ?? 9) - (strong[(b.signal || {}).code] ?? 9) || Math.abs(N(b.change_24h) || 0) - Math.abs(N(a.change_24h) || 0))
-      .slice(0, n);
-    const list = rows.map((c) => {
-      const s = c.signal || {}, ta = c.ta || {}, dir = T5DIR[s.code];
-      const badge = dir ? `<span class="badge ${dir === "LONG" ? "b-long" : dir === "SHORT" ? "b-short" : "b-info"}">${esc(s.label || dir)}</span>` : (ta.trend ? `<span class="badge ${ta.trend === "Uptrend" ? "b-long" : ta.trend === "Downtrend" ? "b-short" : "b-info"}">${esc(ta.trend)}</span>` : "");
-      return `<div class="row" data-open="top500:${esc(c.id)}"><div class="a">#${c.rank ?? "—"} ${esc(c.symbol)}<small>${esc(c.name || "")}</small>${badge}</div>
-        <div class="b">$${fmtP(c.price)} <span class="${cls(c.change_24h)}">${pct(c.change_24h, 1)}</span></div>
-        <div class="c">${esc(s.label || ta.trend || "—")} · RSI ${N(ta.rsi) != null ? ta.rsi.toFixed(0) : "—"} · 24h ${pct(c.change_24h, 1)}</div></div>`;
-    }).join("");
-    $("#scanT5").innerHTML = T5 ? `<div class="kv"><div><b>${cnt((c) => ["pump", "breakout"].includes((c.signal || {}).code))}</b>Pump / Breakout</div><div><b>${cnt((c) => ["dump", "breakdown"].includes((c.signal || {}).code))}</b>Dump / Breakdown</div><div><b>${cnt(code("hype"))}</b>X Hype</div>
-      <div><b>${cnt(code("oversold"))}</b>Oversold</div><div><b>${cnt(code("overbought"))}</b>Overbought</div><div><b>${cnt((c) => (c.ta || {}).trend === "Uptrend")}</b>Uptrend</div></div>
-      <div class="muted">Data: ${pkt(ts(T5.generated_at))} · ${T5.coverage?.zones ?? "—"} coins ke zones ready · list ${rows.length}/${n}</div>
-      <div class="rows">${list || '<div class="empty">Is list mein koi coin nahi</div>'}</div>` : '<div class="empty">Data load nahi hua</div>';
+  function passF(d) {
+    switch (fK) { case "gate": return d.gate && d.gate.pass; case "ultra": return d.ultra; case "strong": return d.strong; case "long": return d.dir === "LONG"; case "short": return d.dir === "SHORT";
+      case "pd": return !!PD[d.code]; case "x": return d.xs != null && d.xs >= 1.8; default: return true; }
+  }
+  function ring(score, dir) {
+    const v = score == null ? 0 : Math.max(0, Math.min(100, score)), r = 17, cf = 2 * Math.PI * r, col = dir === "LONG" ? C.up : C.down;
+    return `<div class="lv-ring" title="Indicator agreement score (Signal Judge) — jeetne ka chance nahi"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="${r}" class="rg-bg"/><circle cx="22" cy="22" r="${r}" class="rg-fg" style="stroke:${col};stroke-dasharray:${(cf * v / 100).toFixed(1)} ${cf.toFixed(1)}"/></svg><b>${score == null ? "—" : score}</b><small>score</small></div>`;
+  }
+  function levels(d) {
+    const g = d.gate || {}, ta = d.c.ta || {};
+    if (N(g.tp) != null && N(g.sl) != null) return { e: N(g.price) ?? d.price, tp: N(g.tp), sl: N(g.sl), src: g.pass ? "qg1 gate levels" : "qg1 levels (signal gate-blocked)", rr: g.rr };
+    // no gate levels: show existing zones only (never invented)
+    const bz = ta.buy_zone, sz = ta.sell_zone;
+    if (bz || sz) return { e: d.price, zb: bz, zs: sz, src: "support / resistance zones" };
+    return null;
+  }
+  function whyHtml(d) {
+    const g = d.gate, j = d.j, li = (t, cls) => `<li class="${cls || ""}">${esc(t)}</li>`;
+    let h = `<div class="lv-why"><div class="wy-h">Signal</div><ul>${li(d.label + (d.reason ? " · " + d.reason : ""))}${li("Top 500 #" + (d.rank ?? "—") + (d.risk ? " · risk " + d.risk.score + " (" + d.risk.level + ")" : ""))}</ul>`;
+    h += `<div class="wy-h">Quality Gate (qg1)</div><ul>${!g ? li("gate data abhi nahi", "mu") : g.pass ? li("✓ saare checks pass" + (g.rr ? " · R:R " + g.rr : ""), "ok") : g.reasons.map((r) => li("⛔ " + r.t, "no")).join("")}</ul>`;
+    h += `<div class="wy-h">Signal Judge (Strict)</div><ul>${!j ? li("Judge data abhi nahi", "mu") : li("Verdict " + j.verdict + " · agreement score " + (j.score ?? "—") + (j.skip_reason ? " · " + j.skip_reason : "")) + (j.reasons || []).slice(0, 4).map((r) => li(r)).join("")}</ul>`;
+    const uc = (UL?.candidates || []).find((u) => u.key === d.id);
+    if (uc) h += `<div class="wy-h">Ultra score ${esc(uc.score)}/100</div><ul>${(uc.why_not || []).length ? uc.why_not.slice(0, 3).map((w) => li("• " + w, "mu")).join("") : li("eligible", "ok")}</ul>`;
+    return h + `<p class="wy-n">Score = indicators kitna agree karte hain, jeetne ka chance nahi. Pichle results guarantee nahi.</p></div>`;
+  }
+  function card(d) {
+    const up = d.dir === "LONG", col = up ? "lg" : "sh", lv = levels(d), fav = favs.has(d.id), init = esc((d.sym || "?").slice(0, 1).toUpperCase());
+    const box = (k, v, c2) => `<span class="lv-box ${c2 || ""}"><i>${k}</i>${esc(v)}</span>`;
+    const lvl = !lv ? "" : lv.tp != null ? `<div class="lv-lvls" title="${esc(lv.src)}">${box("E", fmtP(lv.e))}${box("TP", fmtP(lv.tp))}${box("SL", fmtP(lv.sl))}</div>`
+      : `<div class="lv-lvls" title="${esc(lv.src)}">${lv.zb ? box("BZ", fmtP(lv.zb[0]) + "–" + fmtP(lv.zb[1])) : ""}${lv.zs ? box("SZ", fmtP(lv.zs[0]) + "–" + fmtP(lv.zs[1])) : ""}</div>`;
+    const tags = (d.ultra ? '<span class="lv-tag t-ul">🔥 ULTRA</span>' : "") + (d.gate && d.gate.pass ? '<span class="lv-tag t-gp">✓ GATE PASS</span>' : "") + (d.strong ? '<span class="lv-tag t-st">✦ STRONG</span>' : "")
+      + (d.gate && !d.gate.pass ? '<span class="lv-tag t-bl">⛔ filtered</span>' : "") + (d.xs != null && d.xs >= 1.8 ? `<span class="lv-tag t-x">X ${d.xs.toFixed(1)}x</span>` : "");
+    return `<article class="lv-card ${col}${d.ultra ? " ul" : ""}">
+      <div class="lv-top"><button class="lv-star ${fav ? "on" : ""}" data-fav="${esc(d.id)}" aria-label="Watch">${fav ? "★" : "☆"}</button><span class="lv-av">${init}</span>
+        <div class="lv-id"><div class="lv-sym">${esc(d.sym)}<small>USDT</small></div><div class="lv-side ${col}">${up ? "↗ LONG" : "↘ SHORT"} <span>· vol ${fmtV(d.vol)}</span></div></div>${ring(d.score, d.dir)}</div>
+      ${tags ? `<div class="lv-tags">${tags}</div>` : ""}
+      <div class="lv-mid"><div class="lv-px"><b>$${fmtP(d.price)}</b><span class="${cls(d.ch)}">${pct(d.ch)}</span></div>${lvl}</div>
+      <div class="lv-act"><button class="lv-go ${col}" data-open="top500:${esc(d.id)}">View ${up ? "LONG" : "SHORT"} setup →</button><button class="lv-whyb ${openWhy.has(d.id) ? "on" : ""}" data-why="${esc(d.id)}">WHY?</button></div>
+      ${openWhy.has(d.id) ? whyHtml(d) : ""}
+    </article>`;
+  }
+  function renderCards() {
+    const box = $("#cards"); if (!box) return;
+    if (!T5) { if (FAIL.t5) box.innerHTML = UNAV(FAIL.t5); return; }
+    const all = cardData(), q = ($("#lq").value || "").trim().toLowerCase();
+    const rows = all.filter(passF).filter((d) => !q || d.sym.toLowerCase().includes(q) || (d.name || "").toLowerCase().includes(q) || d.id.includes(q))
+      .sort((a, b) => favs.has(b.id) - favs.has(a.id) || b.ultra - a.ultra || !!(b.gate && b.gate.pass) - !!(a.gate && a.gate.pass) || b.strong - a.strong || (b.score ?? -1) - (a.score ?? -1) || Math.abs(b.ch || 0) - Math.abs(a.ch || 0));
+    const n = listN(), shown = rows.slice(0, n);
+    const cnt = (f) => all.filter(f).length;
+    $("#countLine").innerHTML = `<b>${all.length}</b> signals · <b>${cnt((d) => d.dir === "LONG")}</b> long · <b>${cnt((d) => d.dir === "SHORT")}</b> short · <b>${cnt((d) => d.gate && d.gate.pass)}</b> gate pass · <b>${cnt((d) => d.ultra)}</b> ultra · <b>${cnt((d) => d.strong)}</b> strong` + (rows.length > n ? ` <span class="mu">· showing ${n}/${rows.length}</span>` : "");
+    box.innerHTML = shown.length ? shown.map(card).join("") : '<div class="lv-empty">Is filter mein abhi koi signal nahi.</div>';
+  }
+  function marketMood() {
+    const cs = (T5?.coins || []).filter((c) => !c.kind && N(c.change_24h) != null), btc = (T5?.coins || []).find((c) => c.id === "bitcoin");
+    if (!cs.length || !btc) return null;
+    const up = cs.filter((c) => c.change_24h > 0).length, br = (up / cs.length) * 100, b24 = N(btc.change_24h), t4 = (btc.ta || {}).trend_4h;
+    let m = "NEUTRAL"; if (br >= 60 && b24 > 0 && t4 !== "Downtrend") m = "BULLISH"; else if (br <= 40 && b24 < 0 && t4 !== "Uptrend") m = "BEARISH";
+    return { m, br, up, n: cs.length, btc, b24, t4 };
+  }
+  function renderTop() {
+    const mm = marketMood(), el = $("#regime"); if (!el) return;
+    if (!mm) { el.innerHTML = `<span class="rg-pill">${T5 ? "BTC data n/a" : FAIL.t5 ? "data unavailable" : "Loading…"}</span>`; return; }
+    const ta = mm.btc.ta || {}, lp = liveP.get("BTCUSDT"), bp = lp && Date.now() - lp.at < 180000 ? lp.p : N(mm.btc.price);
+    const tr = (lab, t) => { const k = t === "Uptrend" ? "up" : t === "Downtrend" ? "down" : "flat"; return `<span class="rg-pill"><i>${lab}</i><b class="${k}">${t === "Uptrend" ? "UP" : t === "Downtrend" ? "DOWN" : t ? "RANGE" : "n/a"}</b></span>`; };
+    const c1 = N(mm.btc.change_1h);
+    el.innerHTML = `<span class="rg-pill rg-m ${mm.m === "BULLISH" ? "up" : mm.m === "BEARISH" ? "down" : "flat"}">${mm.m === "BULLISH" ? "▲" : mm.m === "BEARISH" ? "▼" : "◆"} ${mm.m}</span>
+      <span class="rg-pill"><i>BTC</i><b>${fmtP(bp)}</b><b class="${cls(mm.b24)}">${pct(mm.b24)}</b><i>24H</i></span>
+      <span class="rg-pill"><i>1H</i><b class="${cls(c1)}">${pct(c1, 1)}</b></span>${tr("4H", ta.trend_4h)}${tr("1D", ta.trend)}`;
+    const b = $("#breadth"); if (b) { b.innerHTML = `<i class="b-up" style="width:${mm.br.toFixed(1)}%"></i><i class="b-dn" style="width:${(100 - mm.br).toFixed(1)}%"></i>`; b.title = `${mm.up}/${mm.n} coins 24h mein upar (${Math.round(mm.br)}%)`; }
   }
   function renderAnalysis() {
     const q = $("#aq").value.trim().toLowerCase();
@@ -270,8 +333,8 @@
   }
   function renderAll() {
     window.__homeBoot = true;
-    if (T5 || LED || AG) [renderHeader, renderStats, renderLive, renderUL, renderJudge, renderQG, renderPerf, renderPnl, renderSignals, renderScanner, renderAnalysis, renderStatus].forEach(safe);
-    else { safe(renderUL); safe(renderQG); }
+    if (T5 || LED || AG) [renderHeader, renderStats, renderLive, renderUL, renderJudge, renderQG, renderPerf, renderPnl, renderTop, renderCards, renderAnalysis, renderStatus].forEach(safe);
+    else { safe(renderUL); safe(renderQG); safe(renderTop); safe(renderCards); }
     safe(renderFallbacks);
   }
   document.addEventListener("click", (e) => {
@@ -279,19 +342,33 @@
     const [book, id] = o.dataset.open.split(/:(.*)/s);
     location.href = "top500.html?v=" + VER + "#coin=" + encodeURIComponent(id);
   });
-  $("#sigSeg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; sigK = b.dataset.k; $$("#sigSeg button").forEach((x) => x.classList.toggle("on", x === b)); renderSignals(); });
+  $("#chips").addEventListener("click", (e) => { const b = e.target.closest("button[data-f]"); if (!b) return; haptic(); fK = b.dataset.f; $$("#chips button").forEach((x) => x.classList.toggle("on", x === b)); safe(renderCards); });
+  $("#lq").addEventListener("input", () => safe(renderCards));
+  $("#cards").addEventListener("click", (e) => {
+    const w = e.target.closest("[data-why]"), f = e.target.closest("[data-fav]");
+    if (w) { const id = w.dataset.why; openWhy.has(id) ? openWhy.delete(id) : openWhy.add(id); haptic(); safe(renderCards); }
+    if (f) { const id = f.dataset.fav; favs.has(id) ? favs.delete(id) : favs.add(id); try { localStorage.setItem("hr_fav", JSON.stringify([...favs].slice(-50))); } catch (er) {} haptic(); safe(renderCards); }
+  });
+  let subV = "signals";
+  function goSub(v) { subV = v === "dash" ? "dash" : "signals"; $$(".sub-v").forEach((x) => x.classList.toggle("on", x.id === "sv-" + subV)); $$("#lvSeg button").forEach((b) => b.classList.toggle("on", b.dataset.sv === subV)); if (subV === "dash") { safe(drawChart); safe(renderPnl); } }
+  $("#lvSeg").addEventListener("click", (e) => { const b = e.target.closest("button[data-sv]"); if (!b) return; haptic(); go("live"); goSub(b.dataset.sv); });
   $("#aq").addEventListener("input", renderAnalysis);
   $("#paperChip").addEventListener("click", () => (location.href = "paper.html?v=" + VER));
 
   // ---------- views ----------
+  const ALIAS = { dashboard: "live", signals: "live", scanner: "live", settings: "live", home: "live", research: "analysis" };
   function go(v, push = true) {
-    if (!$("#v-" + v)) v = "dashboard";
+    const want = v; v = ALIAS[v] || v;
+    if (!$("#v-" + v)) v = "live";
     $$(".view").forEach((x) => x.classList.toggle("on", x.id === "v-" + v));
-    $$("#pills button[data-v], #bbar button[data-v]").forEach((b) => b.classList.toggle("on", b.dataset.v === v));
-    if (push && history.replaceState) history.replaceState(null, "", v === "dashboard" ? location.pathname + location.search : "#" + v);
-    scrollTo(0, 0); if (v === "dashboard") { drawChart(); renderPnl(); }
+    $$("#bbar button[data-v]").forEach((b) => b.classList.toggle("on", b.dataset.v === v));
+    const seg = $("#lvSeg"); if (seg) seg.style.display = v === "live" ? "" : "none";
+    if (push && history.replaceState) history.replaceState(null, "", v === "live" ? location.pathname + location.search : "#" + v);
+    scrollTo(0, 0);
+    if (v === "live" && (want === "dashboard" || want === "settings")) goSub("dash");
+    if (v === "live" && subV === "dash") { drawChart(); renderPnl(); }
   }
-  document.addEventListener("click", (e) => { const b = e.target.closest("#pills button, #bbar button"); if (!b) return; haptic(); if (b.dataset.href) location.href = b.dataset.href + "?v=" + VER; else go(b.dataset.v); });
+  document.addEventListener("click", (e) => { const b = e.target.closest("#bbar button"); if (!b) return; haptic(); if (b.dataset.href) location.href = b.dataset.href + "?v=" + VER; else go(b.dataset.v); });
 
   // ---------- candlestick chart ----------
   let pair = (() => { try { return JSON.parse(localStorage.getItem("hr_pair")) || null; } catch (e) { return null; } })() || { sym: "BTC", pair: "BTCUSDT", src: "binance", rank: 1 };
@@ -384,11 +461,11 @@
   renderToggles();
   if (window.ListN) ListN.fill();
   addEventListener("listn-change", () => { renderAll(); });
-  go((location.hash || "").replace("#", "") || "dashboard", false);
+  go((location.hash || "").replace("#", "") || "live", false);
   drawChart(); refresh();
   setInterval(() => { if (!document.hidden && P("auto")) loadChart(); }, 10000);
   setInterval(() => { if (!document.hidden && P("auto")) refresh(); }, 60000);
-  setInterval(() => { if (!document.hidden && P("auto")) livePrices().then(() => { renderHeader(); renderStats(); renderLive(); }); }, 20000);
+  setInterval(() => { if (!document.hidden && P("auto")) livePrices().then(() => { safe(renderHeader); safe(renderStats); safe(renderLive); safe(renderTop); }); }, 20000);
   document.addEventListener("visibilitychange", () => { if (!document.hidden && P("auto") && Date.now() - lastData > 45000) refresh(); });
   addEventListener("resize", () => { drawChart(); renderPnl(); });
 
