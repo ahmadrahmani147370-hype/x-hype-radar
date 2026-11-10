@@ -10,7 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="home.css?v=h11" />
+<link rel="stylesheet" href="home.css?v=h12" />
+<link rel="stylesheet" href="qgate.css?v=h12" />
 </head>
 <body>
 <div class="ptr" id="ptr"><div class="ptr-ring"></div><span id="ptrTxt">Pull to refresh</span></div>
@@ -63,6 +64,14 @@
       <p class="judge-note">Strict filter: sirf mazboot agreement par BUY/SELL. Score = indicator agreement, jeetne ka chance nahi. Financial advice nahi · DYOR.</p>
     </section>
 
+    <section class="card qg-card" id="qgCard">
+      <div class="mini-h">
+        <h3><svg viewBox="0 0 24 24" class="hi"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></svg>Quality Gate <span class="judge-mode" id="qgVer" title="Fixed filters, kam trades par tune nahi kiye">qg1</span></h3>
+        <a class="muted" href="paper.html?v=h12#quality" id="qgMore">Details →</a>
+      </div>
+      <div class="qg" id="qgBody"><div class="qg-empty">Loading…</div></div>
+    </section>
+
     <div class="grid2">
       <section class="card mini">
         <div class="mini-h"><h3><svg viewBox="0 0 24 24" class="hi"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>Live Signals</h3><span class="live"><span class="dot"></span>Live</span></div>
@@ -103,7 +112,7 @@
   <!-- SCANNER -->
   <main class="view" id="v-scanner">
     <section class="card scan">
-      <div class="mini-h"><h3>Top 500 Scanner</h3><div style="display:flex;align-items:center;gap:8px"><div data-listn-host data-label="Show"></div><a class="btn" href="top500.html?v=h11">Open list →</a></div></div>
+      <div class="mini-h"><h3>Top 500 Scanner</h3><div style="display:flex;align-items:center;gap:8px"><div data-listn-host data-label="Show"></div><a class="btn" href="top500.html?v=h12">Open list →</a></div></div>
       <div id="scanT5"></div>
     </section>
   </main>
@@ -154,7 +163,8 @@
   <div id="pList" class="rows"></div>
 </aside>
 <div class="toast" id="toast"></div>
-<script src="paper-chip.js?v=h11"></script>
-<script src="home.js?v=h11"></script>
+<script src="paper-chip.js?v=h12"></script>
+<script src="qgate.js?v=h12"></script>
+<script src="home.js?v=h12"></script>
 </body>
 </html>

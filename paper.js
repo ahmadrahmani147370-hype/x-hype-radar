@@ -59,7 +59,7 @@
     const stale = isOpen && (!m.at || Date.now() - m.at > STALE_MS);
     const link = t.book === "top500" ? `top500.html#coin=${encodeURIComponent(t.key)}` : "home.html";
     return `<a class="t5row pp-row ${isOpen ? "" : "closed"}" href="${link}">
-      <div class="pp-l"><div class="r-sym">${esc(t.symbol)} <span class="pp-side ${t.side === "LONG" ? "long" : "short"}">${t.side}</span> <span class="sig ${tag[1]}">${tag[0]}</span>${t.void ? ' <span class="sig sig-neutral">VOID · stats se bahar</span>' : ""}</div>
+      <div class="pp-l"><div class="r-sym">${esc(t.symbol)} <span class="pp-side ${t.side === "LONG" ? "long" : "short"}">${t.side}</span> <span class="sig ${tag[1]}">${tag[0]}</span>${t.void ? ' <span class="sig sig-neutral">VOID · stats se bahar</span>' : ""}${t.gate_version ? ` <span class="qg-mini ok">${esc(t.gate_version)} · R:R ${esc(t.rr)}</span>` : ""}</div>
         <div class="r-why">↳ ${esc(t.signal_label)}: ${esc(t.signal_reason || "")}</div>
         <div class="pp-meta">Entry ${price(t.entry_price)} · ${pkt(t.entry_at)} · ${esc(t.entry_src)}</div>
         <div class="pp-meta">${t.levels_note ? `<em>${esc(t.levels_note)}</em><br>` : ""}${isOpen ? `TP ${price(t.tp)} <em>(${esc(t.tp_basis)})</em> · SL ${price(t.sl)} <em>(${esc(t.sl_basis)})</em> · expiry ${pkt(t.expires_at)}`
@@ -85,6 +85,7 @@
     busy = (async () => {
       try { const d = await getJSON("data/paper/trades.json?t=" + Date.now()); if (!Array.isArray(d.trades)) throw new Error("bad"); led = d; }
       catch (e) { if (!led) { $("#list").innerHTML = '<div class="empty">Ledger load nahi ho saka. Refresh karein.</div>'; return; } }
+      if (window.QGate) QGate.load().then((q) => QGate.render($("#qgBody"), q, "full")).catch(() => QGate.render($("#qgBody"), null));
       render(); await livePrices(); render(); if (manual) toast(feed || "Refreshed");
     })().finally(() => { busy = null; $("#reloadBtn").classList.remove("spinning"); });
     return busy;

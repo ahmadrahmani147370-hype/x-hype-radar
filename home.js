@@ -2,7 +2,7 @@
    or live public exchange APIs (Binance → Bybit → OKX klines). Missing values show "—". */
 (() => {
   "use strict";
-  const VER = "h11";
+  const VER = "h12";
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const N = (v) => (v == null || v === "" || isNaN(+v) ? null : +v);
   const tg = window.Telegram && window.Telegram.WebApp, inTG = !!(tg && tg.initData);
@@ -43,14 +43,15 @@
   });
 
   // ---------- data ----------
-  let T5 = null, LED = null, AG = null, liveP = new Map(), lastData = 0;
+  let T5 = null, LED = null, AG = null, QG = null, liveP = new Map(), lastData = 0;
   async function getJSON(url, ms = 15000) {
     const c = new AbortController(), t = setTimeout(() => c.abort(), ms);
     try { const r = await fetch(url, { cache: "no-store", signal: c.signal }); if (!r.ok) { const e = new Error(r.status); e.status = r.status; throw e; } return await r.json(); }
     finally { clearTimeout(t); }
   }
   async function loadData() {
-    const [a, c, g] = await Promise.allSettled([getJSON("data/top500.json?t=" + Date.now()), getJSON("data/paper/trades.json?t=" + Date.now()), getJSON("data/agent.json?t=" + Date.now())]);
+    const [a, c, g, q] = await Promise.allSettled([getJSON("data/top500.json?t=" + Date.now()), getJSON("data/paper/trades.json?t=" + Date.now()), getJSON("data/agent.json?t=" + Date.now()), getJSON("data/quality.json?t=" + Date.now())]);
+    if (q.status === "fulfilled" && q.value && q.value.counts) QG = q.value;
     if (a.status === "fulfilled" && Array.isArray(a.value.coins)) T5 = a.value;
     if (c.status === "fulfilled" && c.value.trades) LED = c.value;
     if (g.status === "fulfilled" && g.value && (g.value.picks || g.value.mood)) AG = g.value;
@@ -75,6 +76,12 @@
     return { v: null, src: "" };
   }
 
+  // ---------- quality gate ----------
+  const gateOf = (id, code) => (QG && QG.signals ? QG.signals.find((x) => x.id === id && x.code === code) || null : null);
+  const gateTag = (g) => (!g ? "" : g.pass ? '<span class="qg-mini ok">✓ Gate pass</span>' : '<span class="qg-mini no">⛔ Filtered</span>');
+  const gateWhy = (g) => (!g ? "" : g.pass ? `<span class="qg-why">Gate pass · TP ${fmtP(g.tp)} · SL ${fmtP(g.sl)} · R:R ${esc(g.rr)}</span>` : `<span class="qg-why">⛔ ${esc(g.reasons.slice(0, 2).map((r) => r.t).join(" · "))}${g.reasons.length > 2 ? " · +" + (g.reasons.length - 2) : ""}</span>`);
+  function renderQG() { const el = $("#qgBody"); if (!el || !window.QGate) return; QGate.render(el, QG, "compact"); if (QG) $("#qgVer").textContent = QG.version; }
+
   // ---------- signals ----------
   const T5DIR = { pump: "LONG", breakout: "LONG", oversold: "LONG", dump: "SHORT", breakdown: "SHORT", overbought: "SHORT", hype: "HYPE" };
   function allSignals() {
@@ -82,7 +89,8 @@
     for (const c of T5?.coins || []) {
       const s = c.signal || {}; const dir = T5DIR[s.code]; if (!dir) continue;
       if (P("risk") && (c.risk || {}).level === "High") continue;
-      out.push({ book: "top500", code: s.code, id: c.id, sym: c.symbol, name: c.name, dir, label: s.label, reason: s.reason, ch: N(c.change_24h), chL: "24h", risk: c.risk, rank: c.rank });
+      const gk = gateOf(c.id, s.code);
+      out.push({ gate: gk, book: "top500", code: s.code, id: c.id, sym: c.symbol, name: c.name, dir, label: s.label, reason: s.reason, ch: N(c.change_24h), chL: "24h", risk: c.risk, rank: c.rank });
     }
     return out;
   }
@@ -109,7 +117,7 @@
       $("#sMarketS").parentNode.parentNode.title = `${up}/${cs.length} coins 24h mein upar · BTC 24h ${pct(b24)} · BTC 4h trend ${t4 || "—"}`;
     }
     const sg = allSignals(); $("#sSignals").textContent = T5 ? sg.length : "—";
-    $("#sSignalsS").textContent = T5 ? sg.filter((s) => s.dir === "LONG").length + "▲ " + sg.filter((s) => s.dir === "SHORT").length + "▼ abhi" : "";
+    $("#sSignalsS").textContent = T5 ? sg.filter((s) => s.dir === "LONG").length + "▲ " + sg.filter((s) => s.dir === "SHORT").length + "▼" + (QG ? " · " + (QG.counts.pass || 0) + "✓" : " abhi") : "";
     const tr = trades(), closed = tr.filter((t) => t.status === "closed"), wins = closed.filter((t) => N(t.pnl_usd) > 0).length;
     $("#sWin").textContent = closed.length ? ((wins / closed.length) * 100).toFixed(1) + "%" : "—";
     $("#sWinS").textContent = closed.length ? wins + "/" + closed.length + " paper" : "0 closed";
@@ -134,7 +142,7 @@
     // fill with current signals (24h / 1h change, no entry → not "since signal")
     const strong = { pump: 0, breakout: 0, dump: 0, breakdown: 0, early: 1, overheated: 1, overbought: 2, oversold: 2, hype: 3 };
     const sg = allSignals().filter((s) => !rows.some((r) => r.sym === s.sym)).sort((a, b) => (strong[a.code] ?? 1) - (strong[b.code] ?? 1) || Math.abs(b.ch || 0) - Math.abs(a.ch || 0));
-    for (const s of sg) { if (rows.length >= listN()) break; rows.push({ sym: s.sym, dir: s.dir, v: s.ch, sub: s.label + " · " + s.chL + " change", id: s.id, book: s.book }); }
+    for (const s of sg) { if (rows.length >= listN()) break; rows.push({ sym: s.sym, dir: s.dir, v: s.ch, sub: (s.gate ? (s.gate.pass ? "✓ gate · " : "⛔ filtered · ") : "") + s.label + " · " + s.chL + " change", id: s.id, book: s.book }); }
     const col = (d) => (d === "LONG" ? C.up : d === "SHORT" ? C.down : C.accent);
     const n = listN();
     $("#liveSignals").innerHTML = rows.length ? rows.slice(0, n).map((r) => `<div class="r" data-open="${esc(r.book)}:${esc(r.id)}"><i class="bul" style="background:${col(r.dir)}33;border:1.5px solid ${col(r.dir)}"></i><span class="sym">${esc(r.sym)}</span>
@@ -176,8 +184,8 @@
     const l = pts[pts.length - 1]; ctx.beginPath(); ctx.arc(X(l.t), Y(l.v), 3.5, 0, 7); ctx.fillStyle = c1; ctx.fill();
   }
   function rowSig(s) {
-    return `<div class="row" data-open="${esc(s.book)}:${esc(s.id)}"><div class="a">${esc(s.sym)}<small>${esc(s.name || "")}</small><span class="badge ${s.dir === "LONG" ? "b-long" : s.dir === "SHORT" ? "b-short" : "b-info"}">${s.dir === "LONG" ? "▲ LONG" : s.dir === "SHORT" ? "▼ SHORT" : "◆ HYPE"}</span></div>
-      <div class="b ${cls(s.ch)}">${pct(s.ch)} <small class="muted">${s.chL}</small></div><div class="c">${esc(s.label)} · ${esc(s.reason || "")}${s.risk ? " · risk " + esc(s.risk.score) + " (" + esc(s.risk.level) + ")" : ""} · Top 500 #${s.rank ?? "—"}</div></div>`;
+    return `<div class="row" data-open="${esc(s.book)}:${esc(s.id)}"><div class="a">${esc(s.sym)}<small>${esc(s.name || "")}</small>${gateTag(s.gate)}<span class="badge ${s.dir === "LONG" ? "b-long" : s.dir === "SHORT" ? "b-short" : "b-info"}">${s.dir === "LONG" ? "▲ LONG" : s.dir === "SHORT" ? "▼ SHORT" : "◆ HYPE"}</span></div>
+      <div class="b ${cls(s.ch)}">${pct(s.ch)} <small class="muted">${s.chL}</small></div><div class="c">${esc(s.label)} · ${esc(s.reason || "")}${s.risk ? " · risk " + esc(s.risk.score) + " (" + esc(s.risk.level) + ")" : ""} · Top 500 #${s.rank ?? "—"}${gateWhy(s.gate)}</div></div>`;
   }
   let sigK = "all";
   function renderSignals() {
@@ -240,7 +248,7 @@
     };
     box.innerHTML = col("🟢 BUY picks", (AG.picks || {}).buy, "abhi koi mazboot setup nahi") + col("🔴 SELL picks", (AG.picks || {}).sell, "abhi koi mazboot setup nahi");
   }
-  function renderAll() { if (!T5 && !LED && !AG) return; renderHeader(); renderStats(); renderLive(); renderJudge(); renderPerf(); renderPnl(); renderSignals(); renderScanner(); renderAnalysis(); renderStatus(); }
+  function renderAll() { if (!T5 && !LED && !AG) return; renderHeader(); renderStats(); renderLive(); renderJudge(); renderQG(); renderPerf(); renderPnl(); renderSignals(); renderScanner(); renderAnalysis(); renderStatus(); }
   document.addEventListener("click", (e) => {
     const o = e.target.closest("[data-open]"); if (!o) return;
     const [book, id] = o.dataset.open.split(/:(.*)/s);
