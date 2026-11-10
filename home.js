@@ -2,6 +2,7 @@
    or live public exchange APIs (Binance → Bybit → OKX klines). Missing values show "—". */
 (() => {
   "use strict";
+  const VER = "h4";
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const N = (v) => (v == null || v === "" || isNaN(+v) ? null : +v);
   const tg = window.Telegram && window.Telegram.WebApp, inTG = !!(tg && tg.initData);
@@ -136,7 +137,7 @@
     const rows = [];
     for (const t of trades().filter((t) => t.status !== "closed").sort((a, b) => ts(b.entry_at) - ts(a.entry_at))) {
       if (!P("meme") && t.book === "meme") continue;
-      const r = tradePnlPct(t); rows.push({ sym: t.symbol, dir: t.side, v: r.v, sub: "paper · " + pkt(ts(t.entry_at)) + " se", id: t.key, book: t.book });
+      const r = tradePnlPct(t); rows.push({ sym: t.symbol, dir: t.side, v: r.v, sub: "paper · " + pkt(ts(t.entry_at)) + " se", id: t.book === "meme" ? t.symbol : t.key, book: t.book });
     }
     // fill with current signals (24h / 1h change, no entry → not "since signal")
     const strong = { pump: 0, breakout: 0, dump: 0, breakdown: 0, early: 1, overheated: 1, overbought: 2, oversold: 2, hype: 3 };
@@ -216,11 +217,11 @@
   document.addEventListener("click", (e) => {
     const o = e.target.closest("[data-open]"); if (!o) return;
     const [book, id] = o.dataset.open.split(/:(.*)/s);
-    location.href = book === "meme" ? "index.html?v=h3#" + encodeURIComponent(id) : "top500.html?v=h3#coin=" + encodeURIComponent(id);
+    location.href = book === "meme" ? "index.html?v=" + VER + "#token=" + encodeURIComponent(id) : "top500.html?v=" + VER + "#coin=" + encodeURIComponent(id);
   });
   $("#sigSeg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; sigK = b.dataset.k; $$("#sigSeg button").forEach((x) => x.classList.toggle("on", x === b)); renderSignals(); });
   $("#aq").addEventListener("input", renderAnalysis);
-  $("#paperChip").addEventListener("click", () => (location.href = "paper.html?v=h3"));
+  $("#paperChip").addEventListener("click", () => (location.href = "paper.html?v=" + VER));
 
   // ---------- views ----------
   function go(v, push = true) {
@@ -230,7 +231,7 @@
     if (push && history.replaceState) history.replaceState(null, "", v === "dashboard" ? location.pathname + location.search : "#" + v);
     scrollTo(0, 0); if (v === "dashboard") { drawChart(); renderPnl(); }
   }
-  document.addEventListener("click", (e) => { const b = e.target.closest("#pills button, #bbar button"); if (!b) return; haptic(); if (b.dataset.href) location.href = b.dataset.href + "?v=h3"; else go(b.dataset.v); });
+  document.addEventListener("click", (e) => { const b = e.target.closest("#pills button, #bbar button"); if (!b) return; haptic(); if (b.dataset.href) location.href = b.dataset.href + "?v=" + VER; else go(b.dataset.v); });
 
   // ---------- candlestick chart ----------
   let pair = (() => { try { return JSON.parse(localStorage.getItem("hr_pair")) || null; } catch (e) { return null; } })() || { sym: "BTC", pair: "BTCUSDT", src: "binance", rank: 1 };

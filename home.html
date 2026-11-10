@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="home.css?v=h3" />
+<link rel="stylesheet" href="home.css?v=h4" />
 </head>
 <body>
 <div class="ptr" id="ptr"><div class="ptr-ring"></div><span id="ptrTxt">Pull to refresh</span></div>
@@ -34,11 +34,11 @@
   </section>
 
   <nav class="pills" id="pills">
-    <button data-v="dashboard" class="on"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>Dashboard</button>
-    <button data-v="signals"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>Signals</button>
-    <button data-v="scanner"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>Scanner</button>
-    <button data-href="paper.html"><svg viewBox="0 0 24 24"><path d="M5 20V11M10 20V6M15 20v-6M20 20V9"/></svg>Trades</button>
-    <button data-v="analysis"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg>Analysis</button>
+    <button data-v="dashboard" class="on" title="Dashboard"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg><span class="pl-full">Dashboard</span><span class="pl-short">Dash</span></button>
+    <button data-v="signals" title="Signals"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg><span class="pl-full">Signals</span><span class="pl-short">Signals</span></button>
+    <button data-v="scanner" title="Scanner"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><span class="pl-full">Scanner</span><span class="pl-short">Scan</span></button>
+    <button data-href="paper.html" title="Trades"><svg viewBox="0 0 24 24"><path d="M5 20V11M10 20V6M15 20v-6M20 20V9"/></svg><span class="pl-full">Trades</span><span class="pl-short">Trades</span></button>
+    <button data-v="analysis" title="Analysis"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg><span class="pl-full">Analysis</span><span class="pl-short">Analyse</span></button>
   </nav>
 
   <!-- DASHBOARD -->
@@ -89,11 +89,11 @@
   <!-- SCANNER -->
   <main class="view" id="v-scanner">
     <section class="card scan">
-      <div class="mini-h"><h3>Top 500 Scanner</h3><a class="btn" href="top500.html?v=h3">Open list →</a></div>
+      <div class="mini-h"><h3>Top 500 Scanner</h3><a class="btn" href="top500.html?v=h4">Open list →</a></div>
       <div id="scanT5"></div>
     </section>
     <section class="card scan">
-      <div class="mini-h"><h3>Meme Radar (X hype)</h3><a class="btn" href="index.html?v=h3">Open radar →</a></div>
+      <div class="mini-h"><h3>Meme Radar (X hype)</h3><a class="btn" href="index.html?v=h4">Open radar →</a></div>
       <div id="scanMeme"></div>
     </section>
   </main>
@@ -136,7 +136,7 @@
   <div id="pList" class="rows"></div>
 </aside>
 <div class="toast" id="toast"></div>
-<script src="paper-chip.js?v=h3"></script>
-<script src="home.js?v=h3"></script>
+<script src="paper-chip.js?v=h4"></script>
+<script src="home.js?v=h4"></script>
 </body>
 </html>

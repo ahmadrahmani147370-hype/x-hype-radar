@@ -1,15 +1,15 @@
 {
- "generated_at": "2026-11-10T02:07:45.970453Z",
- "x_data_as_of": "2026-11-10T02:07:12.000Z",
+ "generated_at": "2026-11-10T03:06:18.289747Z",
+ "x_data_as_of": "2026-11-10T03:05:49.000Z",
  "source": "X public search via Grok Bot x MCP (search_posts_all, get_posts_counts_recent); market: DexScreener, CoinGecko",
  "stats": {
-  "posts_analyzed": 96,
-  "unique_authors": 82,
-  "cashtags_seen": 50,
+  "posts_analyzed": 99,
+  "unique_authors": 91,
+  "cashtags_seen": 63,
   "tokens_tracked": 6,
   "count_queries": 6,
   "discovery_queries": 8,
-  "mentions_24h_tracked": 7380
+  "mentions_24h_tracked": 9026
  },
  "method": {
   "spike_ratio": "posts/hour over last ~1.5h (previous full hour + current partial hour) / average posts/hour over the 22 hours before (floor 0.5/h)",
@@ -19,19 +19,148 @@
  },
  "tokens": [
   {
+   "symbol": "RED",
+   "kind": "major",
+   "note": null,
+   "count_query": "RED (crypto OR coin OR token OR CA OR solana OR pump OR memecoin OR price OR chart) -is:retweet",
+   "mentions_24h": 3203,
+   "mentions_6h": 578,
+   "mentions_current_hour_partial": 14,
+   "current_hour_minutes": 6,
+   "recent_rate_per_h": 131.3,
+   "baseline_per_h": 135.09,
+   "spike_ratio": 0.97,
+   "hourly": [
+    79,
+    100,
+    91,
+    117,
+    148,
+    137,
+    108,
+    112,
+    147,
+    172,
+    200,
+    176,
+    163,
+    170,
+    149,
+    168,
+    144,
+    157,
+    113,
+    108,
+    106,
+    107,
+    130,
+    145.2
+   ],
+   "hourly_start": "2026-11-09T04:00:00.000Z",
+   "sample_posts": 3,
+   "unique_authors": 3,
+   "sample_engagement": 30,
+   "scam_pattern_share": 0.0,
+   "contract_address": null,
+   "top_posts": [
+    {
+     "id": "2119983415038533837",
+     "url": "https://x.com/lagesjullia/status/2119983415038533837",
+     "text": "🎁 Discover RED PUMP ( $red on Solana \n\n Explore this airdrop token in the crypto coin and memecoin world \n\n Chain: Solana \n\n CA=uwjmjj8mH6qf7Rv1vGZj4zCZHYbc8TsdQh5N1gwpump \n\n https://t.co/8lMO8rgY2o",
+     "created_at": "2026-11-10T02:40:08.000Z",
+     "author": "lagesjullia",
+     "author_name": "jullia",
+     "followers": 1786,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 20,
+      "like_count": 0,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 5
+     },
+     "engagement": 10
+    },
+    {
+     "id": "2119969870783660387",
+     "url": "https://x.com/luzrolkx33/status/2119969870783660387",
+     "text": "🎁 Discover RED PUMP ( $red on Solana \n\n Explore this airdrop token in the crypto coin and memecoin world \n\n Chain: Solana \n\n CA=uwjmjj8mH6qf7Rv1vGZj4zCZHYbc8TsdQh5N1gwpump \n\n https://t.co/JYtYD7cCNd",
+     "created_at": "2026-11-10T01:46:18.000Z",
+     "author": "luzrolkx33",
+     "author_name": "Lucero Licona Rossetti",
+     "followers": 3003,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 10,
+      "like_count": 0,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 5
+     },
+     "engagement": 10
+    },
+    {
+     "id": "2119956034789818456",
+     "url": "https://x.com/WPrezesa/status/2119956034789818456",
+     "text": "🎁 Discover RED PUMP ( $red on Solana \n\n Explore this airdrop token in the crypto coin and memecoin world \n\n Chain: Solana \n\n CA=uwjmjj8mH6qf7Rv1vGZj4zCZHYbc8TsdQh5N1gwpump \n\n https://t.co/StiFgK8WJo",
+     "created_at": "2026-11-10T00:51:20.000Z",
+     "author": "WPrezesa",
+     "author_name": "Wielbiciel zębów prezesa ***** *** i Chujownię 2,5",
+     "followers": 1302,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 15,
+      "like_count": 0,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 5
+     },
+     "engagement": 10
+    }
+   ],
+   "market": {
+    "source": "CoinGecko",
+    "match": "coingecko id redstone-oracles",
+    "coingecko_id": "redstone-oracles",
+    "price_usd": 0.142649,
+    "change_24h": -6.716178046047738,
+    "volume_24h": 5570018.789845441,
+    "market_cap": 81431620.97832659
+   },
+   "hype_score": 47,
+   "risk_flags": [],
+   "momentum": {
+    "accel": 1.23,
+    "prior_rate_per_h": 106.5,
+    "state": "steady"
+   },
+   "signal": {
+    "code": "neutral",
+    "label": "Neutral",
+    "reason": "X 1.0x, steady · 24h -6.7%"
+   },
+   "risk": {
+    "score": 10,
+    "level": "Low",
+    "reasons": [
+     "+10 market cap < $1B"
+    ]
+   },
+   "is_spiking": false
+  },
+  {
    "symbol": "ZNR",
    "kind": "emerging",
    "note": null,
    "count_query": "ZNR (crypto OR coin OR token OR CA OR solana OR pump OR memecoin OR price OR chart) -is:retweet",
-   "mentions_24h": 3396,
-   "mentions_6h": 731,
-   "mentions_current_hour_partial": 32,
-   "current_hour_minutes": 7,
-   "recent_rate_per_h": 198.4,
-   "baseline_per_h": 138.27,
-   "spike_ratio": 1.43,
+   "mentions_24h": 3447,
+   "mentions_6h": 773,
+   "mentions_current_hour_partial": 16,
+   "current_hour_minutes": 6,
+   "recent_rate_per_h": 199.8,
+   "baseline_per_h": 141.14,
+   "spike_ratio": 1.42,
    "hourly": [
-    123,
     109,
     112,
     121,
@@ -47,16 +176,17 @@
     229,
     436,
     302,
-    188,
+    186,
     193,
     143,
     124,
     128,
-    114,
-    190,
-    268.5
+    113,
+    189,
+    203,
+    166.5
    ],
-   "hourly_start": "2026-11-09T03:00:00.000Z",
+   "hourly_start": "2026-11-09T04:00:00.000Z",
    "sample_posts": 29,
    "unique_authors": 27,
    "sample_engagement": 7,
@@ -64,34 +194,34 @@
    "contract_address": null,
    "top_posts": [
     {
-     "id": "2119911675046285606",
-     "url": "https://x.com/BB8494219919820/status/2119911675046285606",
-     "text": "Mining $ZNR on Zenora every day 🚀\n⛏️ Mined: 0 $ZNR\n🏆 Node Points: 0.5\n👉 Join me: https://t.co/XEH3TiYgCq\n\n#Zenora #ZNR #Airdrop #ZenoraNetwork",
-     "created_at": "2026-11-09T21:55:04.000Z",
-     "author": "BB8494219919820",
-     "author_name": "B.M",
-     "followers": 100,
-     "metrics": {
-      "bookmark_count": 1,
-      "impression_count": 32,
-      "like_count": 1,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 1
-     },
-     "engagement": 3
-    },
-    {
-     "id": "2119975003995218252",
-     "url": "https://x.com/salahu8040228/status/2119975003995218252",
-     "text": "Zenora کے ساتھ ہوں 🙌\n⛏️ مائن کیا: 45.9 $ZNR\n🏆 نوڈ پوائنٹس: 55.8\n👉 میرے ساتھ شامل ہوں: https://t.co/hhciwT5qg1\n\n#Zenora #ZNR #ZenoraNetwork #Crypto https://t.co/ZCkY7Vr3Iz",
-     "created_at": "2026-11-10T02:06:42.000Z",
-     "author": "salahu8040228",
-     "author_name": "salahuddin salahuddin",
-     "followers": 7,
+     "id": "2119857418897396077",
+     "url": "https://x.com/Princedanimessi/status/2119857418897396077",
+     "text": "Nice project \nMining $ZNR on Zenora every day 🚀\n⛏️ Mined: 0 $ZNR\n🏆 Node Points: 0.5\n👉 Join me: https://t.co/PQ4XESnA19\n\n#Zenora #ZNR #Web3 #Crypto",
+     "created_at": "2026-11-09T18:19:28.000Z",
+     "author": "Princedanimessi",
+     "author_name": "Daniel Emmanuel",
+     "followers": 98,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 0,
+      "impression_count": 12,
+      "like_count": 1,
+      "quote_count": 0,
+      "reply_count": 1,
+      "retweet_count": 0
+     },
+     "engagement": 2
+    },
+    {
+     "id": "2119832762521731457",
+     "url": "https://x.com/GWAZAHF2020/status/2119832762521731457",
+     "text": "Good project \nMining $ZNR on Zenora every day 🚀\n⛏️ Mined: 15 $ZNR\n🏆 Node Points: 14\n👉 Join me: https://t.co/5IXB8nsb19\n\n#Zenora #ZNR #Airdrop #Web3",
+     "created_at": "2026-11-09T16:41:29.000Z",
+     "author": "GWAZAHF2020",
+     "author_name": "GWAZAH FRIDAY",
+     "followers": 1,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 3,
       "like_count": 0,
       "quote_count": 0,
       "reply_count": 0,
@@ -100,16 +230,34 @@
      "engagement": 2
     },
     {
-     "id": "2119622842744713642",
-     "url": "https://x.com/Ijay100/status/2119622842744713642",
-     "text": "Mining $ZNR on Zenora every day 🚀\n⛏️ Mined: 85.23 $ZNR\n🏆 Node Points: 65.5\n👉 Join me: https://t.co/0DZJN6hfjq\n\n#Zenora #ZNR #Mining #ZenoraNetwork",
-     "created_at": "2026-11-09T02:47:21.000Z",
-     "author": "Ijay100",
-     "author_name": "ijeoma okonkwo $TOR",
-     "followers": 188,
+     "id": "2119913536621019206",
+     "url": "https://x.com/femiadeleke7/status/2119913536621019206",
+     "text": "ZenoraNetwork\nMining $ZNR on Zenora every day 🚀\n⛏️ Mined: 10.05 $ZNR\n🏆 Node Points: 9.5\n👉 Join me: https://t.co/BsokOIhAul\n\n#Zenora #ZNR #Crypto #ZenoraNetwork https://t.co/gLTO94pdS2",
+     "created_at": "2026-11-09T22:02:27.000Z",
+     "author": "femiadeleke7",
+     "author_name": "Olufemi Adeleke",
+     "followers": 1725,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 14,
+      "impression_count": 4,
+      "like_count": 0,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 1
+     },
+     "engagement": 2
+    },
+    {
+     "id": "2119861276419461177",
+     "url": "https://x.com/shmshark1/status/2119861276419461177",
+     "text": "Mining $ZNR on Zenora every day 🚀\n⛏️ Mined: 14.43 $ZNR\n🏆 Node Points: 11.1\n👉 Join me: https://t.co/6FDvwPyhAI\n\n#Zenora #ZNR #ZenoraNetwork #Crypto https://t.co/0EApJOJT11",
+     "created_at": "2026-11-09T18:34:48.000Z",
+     "author": "shmshark1",
+     "author_name": "arthur j h lewis",
+     "followers": 51,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 3,
       "like_count": 1,
       "quote_count": 0,
       "reply_count": 0,
@@ -118,31 +266,13 @@
      "engagement": 1
     },
     {
-     "id": "2119860439542612346",
-     "url": "https://x.com/vell4l7177/status/2119860439542612346",
-     "text": "Nice\nMining $ZNR on Zenora every day 🚀\n⛏️ Mined: 25.77 $ZNR\n\n#Zenora #ZNR #ZenoraNetwork #ZenoraMiner",
-     "created_at": "2026-11-09T18:31:28.000Z",
-     "author": "vell4l7177",
-     "author_name": "vell4l",
-     "followers": 1,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 2,
-      "like_count": 1,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 1
-    },
-    {
-     "id": "2119975021510877377",
-     "url": "https://x.com/Ubaidkhanr57/status/2119975021510877377",
-     "text": "Zenora کے ساتھ ہوں 🙌\n⛏️ مائن کیا: 50.81 $ZNR\n🏆 نوڈ پوائنٹس: 55.3\n👉 میرے ساتھ شامل ہوں: https://t.co/EWgqZ8QATC\n\n#Zenora #ZNR #Crypto #Web3 https://t.co/sVxB4ihQ71",
-     "created_at": "2026-11-10T02:06:47.000Z",
-     "author": "Ubaidkhanr57",
-     "author_name": "Ubaidkhan",
-     "followers": 0,
+     "id": "2119989503955972281",
+     "url": "https://x.com/cct_w3/status/2119989503955972281",
+     "text": "@ZenoraNetwork अब तक मेरी Zenora यात्रा 💎\n⛏️ माइन किया: 40.11 $ZNR\n🏆 नोड पॉइंट: 43.2\n👉 मेरे साथ जुड़ें: https://t.co/oY5IDgKxU0\n\n#Zenora #ZNR #Web3 #Crypto",
+     "created_at": "2026-11-10T03:04:19.000Z",
+     "author": "cct_w3",
+     "author_name": "၊||၊ NuruN Crypto ၊||၊",
+     "followers": 96,
      "metrics": {
       "bookmark_count": 0,
       "impression_count": 0,
@@ -199,17 +329,17 @@
    "risk_flags": [
     "Matched by symbol only - verify contract"
    ],
-   "prev_spike_ratio": 0.93,
-   "prev_snapshot_at": "2026-11-10T01:06:08.000Z",
+   "prev_spike_ratio": 1.43,
+   "prev_snapshot_at": "2026-11-10T02:07:12.000Z",
    "momentum": {
-    "accel": 1.64,
-    "prior_rate_per_h": 121.0,
-    "state": "accelerating"
+    "accel": 1.32,
+    "prior_rate_per_h": 151.0,
+    "state": "steady"
    },
    "signal": {
     "code": "neutral",
     "label": "Neutral",
-    "reason": "X 1.4x, accelerating · 1h +0.0% · buy/sell n/a"
+    "reason": "X 1.4x, steady · 1h +0.0% · buy/sell n/a"
    },
    "risk": {
     "score": 20,
@@ -226,15 +356,14 @@
    "kind": "major",
    "note": null,
    "count_query": "USELESS (crypto OR coin OR token OR CA OR solana OR pump OR memecoin OR price OR chart) -is:retweet",
-   "mentions_24h": 644,
-   "mentions_6h": 117,
-   "mentions_current_hour_partial": 2,
-   "current_hour_minutes": 7,
-   "recent_rate_per_h": 18.8,
-   "baseline_per_h": 27.68,
-   "spike_ratio": 0.68,
+   "mentions_24h": 650,
+   "mentions_6h": 106,
+   "mentions_current_hour_partial": 4,
+   "current_hour_minutes": 6,
+   "recent_rate_per_h": 20.1,
+   "baseline_per_h": 28.09,
+   "spike_ratio": 0.71,
    "hourly": [
-    10,
     12,
     12,
     24,
@@ -257,12 +386,13 @@
     28,
     17,
     19,
-    16.7
+    18,
+    41.4
    ],
-   "hourly_start": "2026-11-09T03:00:00.000Z",
+   "hourly_start": "2026-11-09T04:00:00.000Z",
    "sample_posts": 3,
    "unique_authors": 3,
-   "sample_engagement": 535,
+   "sample_engagement": 540,
    "scam_pattern_share": 0.0,
    "contract_address": null,
    "top_posts": [
@@ -273,16 +403,16 @@
      "created_at": "2026-11-09T15:11:09.000Z",
      "author": "coldtrz",
      "author_name": "cold",
-     "followers": 84378,
+     "followers": 84377,
      "metrics": {
       "bookmark_count": 2,
-      "impression_count": 10600,
-      "like_count": 200,
-      "quote_count": 7,
+      "impression_count": 10751,
+      "like_count": 202,
+      "quote_count": 8,
       "reply_count": 99,
       "retweet_count": 49
      },
-     "engagement": 411
+     "engagement": 415
     },
     {
      "id": "2119825519307092027",
@@ -294,13 +424,13 @@
      "followers": 2316,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 1227,
-      "like_count": 43,
+      "impression_count": 1243,
+      "like_count": 44,
       "quote_count": 1,
       "reply_count": 2,
       "retweet_count": 8
      },
-     "engagement": 63
+     "engagement": 64
     },
     {
      "id": "2119816240919134642",
@@ -309,10 +439,10 @@
      "created_at": "2026-11-09T15:35:50.000Z",
      "author": "TheBearSoprano",
      "author_name": "Tony",
-     "followers": 836,
+     "followers": 837,
      "metrics": {
       "bookmark_count": 2,
-      "impression_count": 950,
+      "impression_count": 953,
       "like_count": 42,
       "quote_count": 0,
       "reply_count": 1,
@@ -325,24 +455,24 @@
     "source": "CoinGecko",
     "match": "coingecko id useless-3",
     "coingecko_id": "useless-3",
-    "price_usd": 0.135159,
-    "change_24h": 5.041003100255603,
-    "volume_24h": 11077446.101389222,
-    "market_cap": 135095738.2096376
+    "price_usd": 0.136278,
+    "change_24h": 5.580073293053745,
+    "volume_24h": 11023927.832560655,
+    "market_cap": 136269954.1376081
    },
    "hype_score": 45,
    "risk_flags": [],
-   "prev_spike_ratio": 0.84,
-   "prev_snapshot_at": "2026-11-10T01:06:08.000Z",
+   "prev_spike_ratio": 0.68,
+   "prev_snapshot_at": "2026-11-10T02:07:12.000Z",
    "momentum": {
-    "accel": 0.84,
-    "prior_rate_per_h": 22.5,
+    "accel": 1.12,
+    "prior_rate_per_h": 18.0,
     "state": "steady"
    },
    "signal": {
     "code": "neutral",
     "label": "Neutral",
-    "reason": "X 0.7x, steady · 24h +5.0%"
+    "reason": "X 0.7x, steady · 24h +5.6%"
    },
    "risk": {
     "score": 10,
@@ -354,19 +484,150 @@
    "is_spiking": false
   },
   {
+   "symbol": "PEPE",
+   "kind": "major",
+   "note": null,
+   "count_query": "(PEPE (crypto OR coin OR memecoin)) -is:retweet",
+   "mentions_24h": 677,
+   "mentions_6h": 113,
+   "mentions_current_hour_partial": 2,
+   "current_hour_minutes": 6,
+   "recent_rate_per_h": 23.7,
+   "baseline_per_h": 28.73,
+   "spike_ratio": 0.83,
+   "hourly": [
+    15,
+    13,
+    25,
+    19,
+    24,
+    25,
+    41,
+    26,
+    28,
+    27,
+    57,
+    55,
+    43,
+    35,
+    34,
+    34,
+    22,
+    22,
+    17,
+    24,
+    21,
+    25,
+    24,
+    20.7
+   ],
+   "hourly_start": "2026-11-09T04:00:00.000Z",
+   "sample_posts": 3,
+   "unique_authors": 3,
+   "sample_engagement": 27,
+   "scam_pattern_share": 0.0,
+   "contract_address": null,
+   "top_posts": [
+    {
+     "id": "2119813131023065401",
+     "url": "https://x.com/Anonmicheal11/status/2119813131023065401",
+     "text": "The crypto market is presenting three interesting opportunities: $ZEC, $PEPE, and $ARB. Each has a different catalyst, and understanding their fundamentals alongside price action is essential.\n\n$ZEC  Privacy &amp; Network Upgrade\n\nZcash is gaining attention following its NU7 upgr",
+     "created_at": "2026-11-09T15:23:29.000Z",
+     "author": "Anonmicheal11",
+     "author_name": "A.LAWAN",
+     "followers": 2052,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 84,
+      "like_count": 8,
+      "quote_count": 0,
+      "reply_count": 5,
+      "retweet_count": 1
+     },
+     "engagement": 15
+    },
+    {
+     "id": "2119816701684617639",
+     "url": "https://x.com/zzsami69/status/2119816701684617639",
+     "text": "PEPE: More Than Just Meme Hype?\n\n$PEPE is gaining attention again, with whale activity adding another interesting dimension to its market narrative. Beyond its strong community sentiment, reports surrounding Justin Sun's holdings have also brought fresh attention to the token. ht",
+     "created_at": "2026-11-09T15:37:40.000Z",
+     "author": "zzsami69",
+     "author_name": "Samiul",
+     "followers": 4891,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 84,
+      "like_count": 8,
+      "quote_count": 0,
+      "reply_count": 4,
+      "retweet_count": 0
+     },
+     "engagement": 12
+    },
+    {
+     "id": "2119816988625076393",
+     "url": "https://x.com/meganmistakesx/status/2119816988625076393",
+     "text": "The market is giving us three interesting stories to watch: privacy, meme coin momentum, and Layer 2 adoption. 👀\n\nHere's my take on $ZEC, $PEPE and $ARB.\n\n$ZEC – Privacy is back in focus\n\nZcash is getting attention following the activation of its NU7 upgrade on November 6. The ht",
+     "created_at": "2026-11-09T15:38:49.000Z",
+     "author": "meganmistakesx",
+     "author_name": "Lanre",
+     "followers": 2361,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 71,
+      "like_count": 0,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 0
+    }
+   ],
+   "market": {
+    "source": "CoinGecko",
+    "match": "coingecko id pepe",
+    "coingecko_id": "pepe",
+    "price_usd": 5.14e-06,
+    "change_24h": 1.0073286785600248,
+    "volume_24h": 480771471.0683684,
+    "market_cap": 2163179469.6511536
+   },
+   "hype_score": 40,
+   "risk_flags": [],
+   "prev_spike_ratio": 0.88,
+   "prev_snapshot_at": "2026-11-10T02:07:12.000Z",
+   "momentum": {
+    "accel": 1.03,
+    "prior_rate_per_h": 23.0,
+    "state": "steady"
+   },
+   "signal": {
+    "code": "neutral",
+    "label": "Neutral",
+    "reason": "X 0.8x, steady · 24h +1.0%"
+   },
+   "risk": {
+    "score": 0,
+    "level": "Low",
+    "reasons": [
+     "Large-cap major (CoinGecko)"
+    ]
+   },
+   "is_spiking": false
+  },
+  {
    "symbol": "ZEC",
    "kind": "major",
    "note": null,
    "count_query": "ZEC (crypto OR coin OR token OR CA OR solana OR pump OR memecoin OR price OR chart) -is:retweet",
    "mentions_24h": 798,
-   "mentions_6h": 159,
+   "mentions_6h": 146,
    "mentions_current_hour_partial": 3,
-   "current_hour_minutes": 7,
-   "recent_rate_per_h": 23.2,
-   "baseline_per_h": 34.18,
-   "spike_ratio": 0.68,
+   "current_hour_minutes": 6,
+   "recent_rate_per_h": 21.9,
+   "baseline_per_h": 33.95,
+   "spike_ratio": 0.64,
    "hourly": [
-    27,
     9,
     19,
     23,
@@ -380,7 +641,7 @@
     57,
     80,
     60,
-    34,
+    33,
     30,
     33,
     22,
@@ -389,12 +650,13 @@
     19,
     28,
     23,
-    25.1
+    21,
+    31.2
    ],
-   "hourly_start": "2026-11-09T03:00:00.000Z",
-   "sample_posts": 6,
-   "unique_authors": 6,
-   "sample_engagement": 48,
+   "hourly_start": "2026-11-09T04:00:00.000Z",
+   "sample_posts": 5,
+   "unique_authors": 5,
+   "sample_engagement": 45,
    "scam_pattern_share": 0.0,
    "contract_address": null,
    "top_posts": [
@@ -408,13 +670,13 @@
      "followers": 1992,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 204,
-      "like_count": 18,
+      "impression_count": 209,
+      "like_count": 19,
       "quote_count": 0,
-      "reply_count": 8,
+      "reply_count": 9,
       "retweet_count": 0
      },
-     "engagement": 26
+     "engagement": 28
     },
     {
      "id": "2119813131023065401",
@@ -426,31 +688,13 @@
      "followers": 2052,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 80,
+      "impression_count": 84,
       "like_count": 8,
       "quote_count": 0,
       "reply_count": 5,
       "retweet_count": 1
      },
      "engagement": 15
-    },
-    {
-     "id": "2119801491011555386",
-     "url": "https://x.com/Orlandopirate01/status/2119801491011555386",
-     "text": "From my experience following trending crypto assets, strong narratives can create opportunities, but chasing sudden pumps is rarely a good strategy. I prefer watching trading volume, market structure, and confirmation before entering. \n\n$ZEC : Its privacy-focused technology and h",
-     "created_at": "2026-11-09T14:37:14.000Z",
-     "author": "Orlandopirate01",
-     "author_name": "Adex_crypt",
-     "followers": 5445,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 100,
-      "like_count": 1,
-      "quote_count": 1,
-      "reply_count": 0,
-      "retweet_count": 1
-     },
-     "engagement": 5
     },
     {
      "id": "2119818071711813694",
@@ -487,142 +731,48 @@
       "retweet_count": 0
      },
      "engagement": 0
+    },
+    {
+     "id": "2119816988625076393",
+     "url": "https://x.com/meganmistakesx/status/2119816988625076393",
+     "text": "The market is giving us three interesting stories to watch: privacy, meme coin momentum, and Layer 2 adoption. 👀\n\nHere's my take on $ZEC, $PEPE and $ARB.\n\n$ZEC – Privacy is back in focus\n\nZcash is getting attention following the activation of its NU7 upgrade on November 6. The ht",
+     "created_at": "2026-11-09T15:38:49.000Z",
+     "author": "meganmistakesx",
+     "author_name": "Lanre",
+     "followers": 2361,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 71,
+      "like_count": 0,
+      "quote_count": 0,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 0
     }
    ],
    "market": {
     "source": "CoinGecko",
     "match": "coingecko id zcash",
     "coingecko_id": "zcash",
-    "price_usd": 1162.05,
-    "change_24h": -6.197112047940537,
-    "volume_24h": 1024270938.5690665,
-    "market_cap": 19805283272.33436
-   },
-   "hype_score": 40,
-   "risk_flags": [],
-   "prev_spike_ratio": 0.75,
-   "prev_snapshot_at": "2026-11-10T01:06:08.000Z",
-   "momentum": {
-    "accel": 0.99,
-    "prior_rate_per_h": 23.5,
-    "state": "steady"
-   },
-   "signal": {
-    "code": "neutral",
-    "label": "Neutral",
-    "reason": "X 0.7x, steady · 24h -6.2%"
-   },
-   "risk": {
-    "score": 0,
-    "level": "Low",
-    "reasons": [
-     "Large-cap major (CoinGecko)"
-    ]
-   },
-   "is_spiking": false
-  },
-  {
-   "symbol": "PEPE",
-   "kind": "major",
-   "note": null,
-   "count_query": "(PEPE (crypto OR coin OR memecoin)) -is:retweet",
-   "mentions_24h": 680,
-   "mentions_6h": 112,
-   "mentions_current_hour_partial": 3,
-   "current_hour_minutes": 7,
-   "recent_rate_per_h": 25.0,
-   "baseline_per_h": 28.45,
-   "spike_ratio": 0.88,
-   "hourly": [
-    19,
-    15,
-    13,
-    25,
-    19,
-    24,
-    25,
-    41,
-    26,
-    28,
-    27,
-    57,
-    55,
-    43,
-    35,
-    34,
-    34,
-    22,
-    22,
-    17,
-    24,
-    21,
-    25,
-    25.0
-   ],
-   "hourly_start": "2026-11-09T03:00:00.000Z",
-   "sample_posts": 2,
-   "unique_authors": 2,
-   "sample_engagement": 15,
-   "scam_pattern_share": 0.0,
-   "contract_address": null,
-   "top_posts": [
-    {
-     "id": "2119813131023065401",
-     "url": "https://x.com/Anonmicheal11/status/2119813131023065401",
-     "text": "The crypto market is presenting three interesting opportunities: $ZEC, $PEPE, and $ARB. Each has a different catalyst, and understanding their fundamentals alongside price action is essential.\n\n$ZEC  Privacy &amp; Network Upgrade\n\nZcash is gaining attention following its NU7 upgr",
-     "created_at": "2026-11-09T15:23:29.000Z",
-     "author": "Anonmicheal11",
-     "author_name": "A.LAWAN",
-     "followers": 2052,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 80,
-      "like_count": 8,
-      "quote_count": 0,
-      "reply_count": 5,
-      "retweet_count": 1
-     },
-     "engagement": 15
-    },
-    {
-     "id": "2119816988625076393",
-     "url": "https://x.com/meganmistakesx/status/2119816988625076393",
-     "text": "The market is giving us three interesting stories to watch: privacy, meme coin momentum, and Layer 2 adoption. 👀\n\nHere's my take on $ZEC, $PEPE and $ARB.\n\n$ZEC – Privacy is back in focus\n\nZcash is getting attention following the activation of its NU7 upgrade on November 6. The ht",
-     "created_at": "2026-11-09T15:38:49.000Z",
-     "author": "meganmistakesx",
-     "author_name": "Lanre",
-     "followers": 2360,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 70,
-      "like_count": 0,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 0
-    }
-   ],
-   "market": {
-    "source": "CoinGecko",
-    "match": "coingecko id pepe",
-    "coingecko_id": "pepe",
-    "price_usd": 5.11e-06,
-    "change_24h": -0.7265702043894232,
-    "volume_24h": 471905439.9356573,
-    "market_cap": 2149663026.1822
+    "price_usd": 1156.99,
+    "change_24h": -6.188649683900047,
+    "volume_24h": 1040269026.0116366,
+    "market_cap": 19708103238.333107
    },
    "hype_score": 39,
    "risk_flags": [],
+   "prev_spike_ratio": 0.68,
+   "prev_snapshot_at": "2026-11-10T02:07:12.000Z",
    "momentum": {
-    "accel": 1.11,
-    "prior_rate_per_h": 22.5,
+    "accel": 0.86,
+    "prior_rate_per_h": 25.5,
     "state": "steady"
    },
    "signal": {
     "code": "neutral",
     "label": "Neutral",
-    "reason": "X 0.9x, steady · 24h -0.7%"
+    "reason": "X 0.6x, steady · 24h -6.2%"
    },
    "risk": {
     "score": 0,
@@ -634,246 +784,167 @@
    "is_spiking": false
   },
   {
-   "symbol": "ARB",
-   "kind": "major",
-   "note": null,
-   "count_query": "ARB (crypto OR coin OR token OR CA OR solana OR pump OR memecoin OR price OR chart) -is:retweet",
-   "mentions_24h": 410,
-   "mentions_6h": 45,
-   "mentions_current_hour_partial": 1,
-   "current_hour_minutes": 7,
-   "recent_rate_per_h": 8.0,
-   "baseline_per_h": 17.82,
-   "spike_ratio": 0.45,
-   "hourly": [
-    6,
-    12,
-    10,
-    14,
-    14,
-    18,
-    10,
-    17,
-    14,
-    22,
-    31,
-    56,
-    50,
-    31,
-    19,
-    16,
-    5,
-    11,
-    6,
-    15,
-    5,
-    10,
-    8,
-    8.4
-   ],
-   "hourly_start": "2026-11-09T03:00:00.000Z",
-   "sample_posts": 3,
-   "unique_authors": 3,
-   "sample_engagement": 123,
-   "scam_pattern_share": 0.0,
-   "contract_address": null,
-   "top_posts": [
-    {
-     "id": "2119798848487125325",
-     "url": "https://x.com/Nazmulhasanpal3/status/2119798848487125325",
-     "text": "ZEC is gaining attention through privacy technology and its completed NU7 upgrade. PEPE is showing strength through community sentiment and whale activity, while $ARB is attracting interest through Layer 2 adoption and ecosystem developments. A good time to take advantage of http",
-     "created_at": "2026-11-09T14:26:44.000Z",
-     "author": "Nazmulhasanpal3",
-     "author_name": "Nazmul hasan palash",
-     "followers": 2714,
-     "metrics": {
-      "bookmark_count": 2,
-      "impression_count": 159,
-      "like_count": 45,
-      "quote_count": 0,
-      "reply_count": 23,
-      "retweet_count": 20
-     },
-     "engagement": 108
-    },
-    {
-     "id": "2119813131023065401",
-     "url": "https://x.com/Anonmicheal11/status/2119813131023065401",
-     "text": "The crypto market is presenting three interesting opportunities: $ZEC, $PEPE, and $ARB. Each has a different catalyst, and understanding their fundamentals alongside price action is essential.\n\n$ZEC  Privacy &amp; Network Upgrade\n\nZcash is gaining attention following its NU7 upgr",
-     "created_at": "2026-11-09T15:23:29.000Z",
-     "author": "Anonmicheal11",
-     "author_name": "A.LAWAN",
-     "followers": 2052,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 80,
-      "like_count": 8,
-      "quote_count": 0,
-      "reply_count": 5,
-      "retweet_count": 1
-     },
-     "engagement": 15
-    },
-    {
-     "id": "2119816988625076393",
-     "url": "https://x.com/meganmistakesx/status/2119816988625076393",
-     "text": "The market is giving us three interesting stories to watch: privacy, meme coin momentum, and Layer 2 adoption. 👀\n\nHere's my take on $ZEC, $PEPE and $ARB.\n\n$ZEC – Privacy is back in focus\n\nZcash is getting attention following the activation of its NU7 upgrade on November 6. The ht",
-     "created_at": "2026-11-09T15:38:49.000Z",
-     "author": "meganmistakesx",
-     "author_name": "Lanre",
-     "followers": 2360,
-     "metrics": {
-      "bookmark_count": 0,
-      "impression_count": 70,
-      "like_count": 0,
-      "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
-     },
-     "engagement": 0
-    }
-   ],
-   "market": {
-    "source": "CoinGecko",
-    "match": "coingecko id arbitrum",
-    "coingecko_id": "arbitrum",
-    "price_usd": 0.173715,
-    "change_24h": 1.2185533762758298,
-    "volume_24h": 246098948.75294504,
-    "market_cap": 1197266447.5927074
-   },
-   "hype_score": 37,
-   "risk_flags": [],
-   "prev_spike_ratio": 0.62,
-   "prev_snapshot_at": "2026-11-10T01:06:08.000Z",
-   "momentum": {
-    "accel": 1.07,
-    "prior_rate_per_h": 7.5,
-    "state": "steady"
-   },
-   "signal": {
-    "code": "neutral",
-    "label": "Neutral",
-    "reason": "X 0.5x, steady · 24h +1.2%"
-   },
-   "risk": {
-    "score": 0,
-    "level": "Low",
-    "reasons": [
-     "Large-cap major (CoinGecko)"
-    ]
-   },
-   "is_spiking": false
-  },
-  {
-   "symbol": "UNLOCK",
+   "symbol": "LASTTRUCK",
    "kind": "emerging",
    "note": null,
-   "count_query": "UNLOCK (crypto OR coin OR token OR CA OR solana OR pump OR memecoin OR price OR chart) -is:retweet",
-   "mentions_24h": 1452,
-   "mentions_6h": 178,
+   "count_query": "LASTTRUCK (crypto OR coin OR token OR CA OR solana OR pump OR memecoin OR price OR chart) -is:retweet",
+   "mentions_24h": 251,
+   "mentions_6h": 6,
    "mentions_current_hour_partial": 3,
-   "current_hour_minutes": 7,
-   "recent_rate_per_h": 28.6,
-   "baseline_per_h": 62.27,
-   "spike_ratio": 0.46,
+   "current_hour_minutes": 6,
+   "recent_rate_per_h": 4.6,
+   "baseline_per_h": 11.18,
+   "spike_ratio": 0.41,
    "hourly": [
-    48,
-    63,
-    60,
-    70,
-    61,
-    67,
-    61,
-    66,
-    68,
-    68,
-    58,
-    97,
-    139,
-    76,
-    76,
-    65,
-    45,
-    36,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    4,
     47,
-    32,
-    35,
-    32,
-    29,
-    25.1
+    94,
+    61,
+    22,
+    12,
+    4,
+    0,
+    0,
+    1,
+    0,
+    2,
+    30.9
    ],
-   "hourly_start": "2026-11-09T03:00:00.000Z",
-   "sample_posts": 2,
+   "hourly_start": "2026-11-09T04:00:00.000Z",
+   "sample_posts": 3,
    "unique_authors": 2,
-   "sample_engagement": 0,
+   "sample_engagement": 42,
    "scam_pattern_share": 0.0,
-   "contract_address": null,
+   "contract_address": "6kmkcwKxxmoREhkxrbBvwDY3N2KSfpdMMtWtNoPpump",
    "top_posts": [
     {
-     "id": "2119899118147391967",
-     "url": "https://x.com/Rogalitto_/status/2119899118147391967",
-     "text": "🔓 $UNLOCK – Unlock Day\n\nNov 11. 6.875B tokens unlocking. Everyone's scared.\nWe're not. We brought the key. 🔑🐱\n\nThe only coin that's happy about unlocks.\nCountdown is on. ⏳\n\n#Solana #memecoin #pumpfun",
-     "created_at": "2026-11-09T21:05:10.000Z",
-     "author": "Rogalitto_",
-     "author_name": "rogal",
-     "followers": 0,
+     "id": "2119829352871501923",
+     "url": "https://x.com/TheLastTruck/status/2119829352871501923",
+     "text": "The last truck just left the factory. 🏁🛻\n\nBonding curve: 100%.\n$LASTTRUCK has migrated to PumpSwap.\n\nThey refunded deposits. We filled the curve.\n\nCA: 6kmkcwKxxmoREhkxrbBvwDY3N2KSfpdMMtWtNoPpump\n\nthelasttruck..fun\n\n#LASTTRUCK #Solana #memecoin #pumpfun",
+     "created_at": "2026-11-09T16:27:56.000Z",
+     "author": "TheLastTruck",
+     "author_name": "The Last Truck $LASTTRUCK",
+     "followers": 131,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 4,
-      "like_count": 0,
+      "impression_count": 1265,
+      "like_count": 22,
       "quote_count": 0,
-      "reply_count": 0,
-      "retweet_count": 0
+      "reply_count": 12,
+      "retweet_count": 1
      },
-     "engagement": 0
+     "engagement": 36
     },
     {
-     "id": "2119901653788979462",
-     "url": "https://x.com/ekekoo777/status/2119901653788979462",
-     "text": "PUMP holders on Nov 11: 😰📉\n$UNLOCK holders on Nov 11: 😎🔑\n\n6.875B tokens get unlocked.\nWe're the only ones celebrating.\n\nWhile everyone fears the unlock, we ARE the unlock. 🔒🐱\n\nCountdown is on ⏳\n\n#UNLOCK #Solana #memecoin #pumpfun",
-     "created_at": "2026-11-09T21:15:14.000Z",
-     "author": "ekekoo777",
-     "author_name": "filip S",
-     "followers": 3,
+     "id": "2119989238363988055",
+     "url": "https://x.com/JEREMYhboo/status/2119989238363988055",
+     "text": "$LASTTRUCK 15.9x+ 🚀🔥\n\nCalled around $10K MC → touched $159K MC+\n\nA powerful move from the early entry, with strong momentum driving the breakout 👀🔥\n\nCa: 6kmkcwKxxmoREhkxrbBvwDY3N2KSfpdMMtWtNoPpump\n\n#LASTTRUCK #memecoin #Solana #crypto https://t.co/XQshJzLR30 https://t.co/zyBTutem",
+     "created_at": "2026-11-10T03:03:16.000Z",
+     "author": "JEREMYhboo",
+     "author_name": "JEREMY 🪐",
+     "followers": 4054,
      "metrics": {
       "bookmark_count": 0,
-      "impression_count": 4,
-      "like_count": 0,
+      "impression_count": 15,
+      "like_count": 2,
+      "quote_count": 1,
+      "reply_count": 0,
+      "retweet_count": 0
+     },
+     "engagement": 4
+    },
+    {
+     "id": "2119989305749721363",
+     "url": "https://x.com/JEREMYhboo/status/2119989305749721363",
+     "text": "$LASTTRUCK 21.6x+ 🚀🔥\n\nCalled around $10K MC → touched $216K MC+\n\nAn explosive move with strong momentum from the early entry 👀🔥\n\nCa: 6kmkcwKxxmoREhkxrbBvwDY3N2KSfpdMMtWtNoPpump\n\n#LASTTRUCK #memecoin #Solana #crypto https://t.co/doCfbP6wzS https://t.co/XsWvVhf68n",
+     "created_at": "2026-11-10T03:03:32.000Z",
+     "author": "JEREMYhboo",
+     "author_name": "JEREMY 🪐",
+     "followers": 4054,
+     "metrics": {
+      "bookmark_count": 0,
+      "impression_count": 7,
+      "like_count": 2,
       "quote_count": 0,
       "reply_count": 0,
       "retweet_count": 0
      },
-     "engagement": 0
+     "engagement": 2
     }
    ],
    "market": {
     "source": "DexScreener",
-    "match": "symbol search rejected: best 'UNLOCK' pool liquidity 3,492 USD < 50,000 (may be a different token; no CA in posts)",
-    "rejected": true,
-    "candidate_pair_url": "https://dexscreener.com/solana/bt8egfr2py8ztscby7lgaevepu9a166qun7kek5wxeia",
-    "candidate_token_address": "GV7jJnAqX7dWkXiaxDAcn3CyEb8RGvRX2VG7nqjapump"
+    "match": "contract address from X posts",
+    "chain": "solana",
+    "dex": "pumpswap",
+    "pair_url": "https://dexscreener.com/solana/gudwfrhndp882jnvu8yjdocfxs21zrvp3dn4xdoeo9so",
+    "token_address": "6kmkcwKxxmoREhkxrbBvwDY3N2KSfpdMMtWtNoPpump",
+    "name": "The Last Truck",
+    "price_usd": 4.271e-06,
+    "change_5m": 1.36,
+    "change_1h": 2.14,
+    "change_6h": -31.53,
+    "change_24h": -88.17,
+    "volume_5m": 2.02,
+    "volume_1h": 84.87,
+    "volume_6h": 6090.07,
+    "volume_24h": 5358176.57,
+    "liquidity_usd": 5055.07,
+    "market_cap": 4117,
+    "fdv": 4117,
+    "pair_created_at": 1794241142000,
+    "image": "https://cdn.dexscreener.com/cms/images/walvlk_q2WnF2ay7?width=800&height=800&quality=95&format=auto",
+    "txns_5m": {
+     "buys": 2,
+     "sells": 0
+    },
+    "txns_1h": {
+     "buys": 4,
+     "sells": 5
+    },
+    "txns_6h": {
+     "buys": 143,
+     "sells": 129
+    },
+    "txns_24h": {
+     "buys": 20300,
+     "sells": 18951
+    },
+    "pairs_count": 7,
+    "top_pair_liq_share": 0.572
    },
-   "hype_score": 31,
+   "hype_score": 33,
    "risk_flags": [
-    "No confirmed market: symbol-only match rejected (tiny liquidity / maybe a different token)"
+    "Low liquidity (< $20k)",
+    "Pair < 24h old"
    ],
    "momentum": {
-    "accel": 0.85,
-    "prior_rate_per_h": 33.5,
-    "state": "steady"
+    "accel": 9.2,
+    "prior_rate_per_h": 0.5,
+    "state": "accelerating"
    },
    "signal": {
     "code": "neutral",
     "label": "Neutral",
-    "reason": "X 0.5x, steady · market data n/a · market match reject (symbol-only, kam liquidity)"
+    "reason": "X 0.4x, accelerating · 1h +2.1% · buys 53% (6h)"
    },
    "risk": {
-    "score": 30,
+    "score": 45,
     "level": "Medium",
     "reasons": [
-     "+20 no DEX liquidity data",
-     "+10 matched by symbol only"
+     "+30 liquidity < $10K",
+     "+15 pair < 24h old"
     ]
    },
    "is_spiking": false
@@ -881,24 +952,29 @@
  ],
  "also_seen": [
   {
+   "symbol": "CLASH",
+   "posts": 3,
+   "authors": 2
+  },
+  {
+   "symbol": "UNLOCK",
+   "posts": 2,
+   "authors": 2
+  },
+  {
+   "symbol": "XRP",
+   "posts": 2,
+   "authors": 2
+  },
+  {
    "symbol": "NVDAX",
    "posts": 2,
    "authors": 2
   },
   {
-   "symbol": "BLSH",
-   "posts": 6,
-   "authors": 1
-  },
-  {
-   "symbol": "LINK",
-   "posts": 5,
-   "authors": 1
-  },
-  {
-   "symbol": "AVAX",
-   "posts": 5,
-   "authors": 1
+   "symbol": "ARB",
+   "posts": 2,
+   "authors": 2
   },
   {
    "symbol": "RUSH",
@@ -906,12 +982,17 @@
    "authors": 1
   },
   {
-   "symbol": "FROXO",
-   "posts": 1,
+   "symbol": "PUMP",
+   "posts": 2,
    "authors": 1
   },
   {
-   "symbol": "LASTTRUCK",
+   "symbol": "SOV",
+   "posts": 2,
+   "authors": 1
+  },
+  {
+   "symbol": "FROXO",
    "posts": 1,
    "authors": 1
   },
@@ -946,17 +1027,12 @@
    "authors": 1
   },
   {
+   "symbol": "CHEF",
+   "posts": 1,
+   "authors": 1
+  },
+  {
    "symbol": "ROCKP",
-   "posts": 1,
-   "authors": 1
-  },
-  {
-   "symbol": "NEXA",
-   "posts": 1,
-   "authors": 1
-  },
-  {
-   "symbol": "EMOG",
    "posts": 1,
    "authors": 1
   },
@@ -966,12 +1042,12 @@
    "authors": 1
   },
   {
-   "symbol": "CHEF",
+   "symbol": "BREW",
    "posts": 1,
    "authors": 1
   },
   {
-   "symbol": "BREW",
+   "symbol": "EMOG",
    "posts": 1,
    "authors": 1
   },
@@ -991,22 +1067,12 @@
    "authors": 1
   },
   {
-   "symbol": "CHLOE",
-   "posts": 1,
-   "authors": 1
-  },
-  {
    "symbol": "GOOFYNJA",
    "posts": 1,
    "authors": 1
   },
   {
-   "symbol": "GIDO",
-   "posts": 1,
-   "authors": 1
-  },
-  {
-   "symbol": "MAMESUKE",
+   "symbol": "CHLOE",
    "posts": 1,
    "authors": 1
   },
@@ -1016,17 +1082,22 @@
    "authors": 1
   },
   {
-   "symbol": "XRP",
+   "symbol": "OMIKAMI",
    "posts": 1,
    "authors": 1
   },
   {
-   "symbol": "MID",
+   "symbol": "RYUJIN",
    "posts": 1,
    "authors": 1
   },
   {
-   "symbol": "FRUNK",
+   "symbol": "SNDK",
+   "posts": 1,
+   "authors": 1
+  },
+  {
+   "symbol": "MU",
    "posts": 1,
    "authors": 1
   }

@@ -316,6 +316,25 @@
       <p class="muted small">Automatic andaza hai, guarantee nahi. Zyada score = zyada khatra. DYOR — kharidne se pehle contract, holders aur liquidity lock khud check karein.</p>
     </div>`;
   }
+  function deepTokenWanted() {
+    const q = new URLSearchParams(location.search);
+    const raw = (location.hash || "").replace(/^#/, "");
+    let want = q.get("token") || "";
+    const m = raw.match(/(?:^|&)token=([^&]*)/i);
+    if (m) want = decodeURIComponent(m[1] || "");
+    else if (raw && !/[=&]/.test(raw)) want = decodeURIComponent(raw);
+    if (!want && inTG && tg.initDataUnsafe?.start_param) want = tg.initDataUnsafe.start_param;
+    return (want || "").trim();
+  }
+  function findDeepToken(want) {
+    want = (want == null ? deepTokenWanted() : want);
+    if (!want || !snap) return null;
+    const u = want.toUpperCase(), lo = want.toLowerCase();
+    const ca = (t) => (t.contract_address || (t.market || {}).token_address || "").toLowerCase();
+    return snap.tokens.find((t) => t.symbol && t.symbol.toUpperCase() === u)
+      || snap.tokens.find((t) => ca(t) && ca(t) === lo);
+  }
+  addEventListener("hashchange", () => { const hit = findDeepToken(); if (hit) openSheet(hit); else if (!deepTokenWanted()) closeSheet(); });
   function openSheet(t, updating = false) {
     if (!t) return;
     openSymbol = t.symbol;
@@ -487,8 +506,7 @@
       if (openSymbol) openSheet(snap.tokens.find(t => t.symbol === openSymbol), true);
       if (firstLoad) {
         firstLoad = false;
-        const want = (new URLSearchParams(location.search).get("token") || (inTG && tg.initDataUnsafe?.start_param) || "").toUpperCase();
-        const hit = snap.tokens.find(t => t.symbol === want); if (hit) openSheet(hit);
+        const hit = findDeepToken(); if (hit) openSheet(hit);
       }
       if (manual) toast(snapshotFailed ? "X snapshot delayed · last known data kept" : snap.tokens.some(t => t.market._stale) ? "Refreshed · some markets stale" : "Live prices refreshed");
     })().catch(() => { if (snap) { snap.tokens.forEach(t => t.market._stale = true); updatePill(); } })

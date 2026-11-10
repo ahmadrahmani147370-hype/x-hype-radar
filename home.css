@@ -27,11 +27,14 @@ svg{fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-l
 .st-v{margin-top:2px;font:700 14px/1.2 Inter,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.2px}
 .st-s{font-size:9.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .up{color:var(--green)}.down{color:var(--red)}.flat{color:var(--text)}
-.pills{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;margin:11px -12px 10px;padding:2px 12px}
+.pills{display:flex;gap:4px;overflow:hidden;scrollbar-width:none;margin:11px -12px 10px;padding:2px 12px;width:auto}
 .pills::-webkit-scrollbar{display:none}
-.pills button{flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;padding:7px 10px;border-radius:12px;font-size:12px!important;border:1px solid var(--line);background:#fff;color:var(--text2);font-weight:500;font-size:12.5px;box-shadow:var(--sh)}
-.pills button svg{width:15px;height:15px}
+.pills button{flex:1 1 0;min-width:0;justify-content:center;display:inline-flex;align-items:center;gap:3px;padding:6px 4px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--text2);font-weight:500;font-size:11px;box-shadow:var(--sh);white-space:nowrap;overflow:hidden}
+.pills button svg{width:13px;height:13px;flex:0 0 auto}
+.pills button .pl-full,.pills button .pl-short{overflow:hidden;text-overflow:clip}
+.pills button .pl-short{display:none}
 .pills button.on{background:linear-gradient(180deg,#8fbaf8,#5b97f3);color:#fff;border-color:#6aa1f4;box-shadow:0 4px 12px rgba(59,130,246,.28)}
+@media (max-width:430px){.pills{gap:3px}.pills button{font-size:10.5px;padding:6px 3px;gap:2px;letter-spacing:-.15px}.pills button svg{width:12px;height:12px}.pills button .pl-full{display:none}.pills button .pl-short{display:inline}}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);padding:11px 11px;margin-bottom:10px}
 .view{display:none}.view.on{display:block}
 .cc-h{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
