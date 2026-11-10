@@ -85,7 +85,8 @@
     const same = (a, b) => a && b && (a.startsWith("0x") && b.startsWith("0x") ? a.toLowerCase() === b.toLowerCase() : a === b);
     const ps = (pairs || []).filter((p) => same(p.baseToken?.address, address) && N(p.priceUsd) > 0);
     if (!ps.length) return null;
-    ps.sort((a, b) => (b.liquidity?.usd || 0) - (a.liquidity?.usd || 0));
+    const real = (x) => (x.volume?.h24 || 0) >= 0.01 * (x.liquidity?.usd || 0);
+    ps.sort((a, b) => real(b) - real(a) || (b.liquidity?.usd || 0) - (a.liquidity?.usd || 0));
     const p = ps.find((x) => preferUrl && (x.url || "").toLowerCase() === preferUrl.toLowerCase()) || ps[0];
     const pc = p.priceChange || {}, tx = p.txns || {}, vol = p.volume || {};
     const chg = (w) => { if (pc[w] != null) return pc[w]; const t = tx[w]; return t && typeof t === "object" && (t.buys || 0) + (t.sells || 0) === 0 ? 0 : null; };
@@ -172,7 +173,11 @@
     pts = Math.min(100, pts);
     return { score: pts, level: pts < 30 ? "Low" : pts < 60 ? "Medium" : "High", reasons: why.length ? why : ["No automatic risk points"] };
   }
-  const enrich = (t) => { t.momentum = momentumFor(t); t.signal = signalFor(t); t.risk = riskFor(t); return t; };
+  const enrich = (t) => { t.momentum = momentumFor(t); t.signal = signalFor(t); t.risk = riskFor(t);
+    const m = t.market || {};
+    if (m.rejected) t.signal.reason += " · market match reject (symbol-only, kam liquidity)";
+    else if ((m.match || "").startsWith("symbol search (") && t.signal.code !== "neutral") t.signal.reason += " · ⚠ sirf symbol match — CA verify karein";
+    return t; };
   const SIG = { pump: ["🚀", "sig-pump"], overheated: ["🔥", "sig-hot"], dump: ["🩸", "sig-dump"], early: ["👀", "sig-early"], neutral: ["•", "sig-neutral"] };
   const sigBadge = (t) => { const s = t.signal || { code: "neutral", label: "Neutral" }; const [ic, cl] = SIG[s.code] || SIG.neutral; return `<span class="sig ${cl}">${ic} ${esc(s.label)}</span>`; };
   const riskChip = (t) => { const r = t.risk; if (!r) return ""; return `<span class="risk-chip risk-${r.level.toLowerCase()}" title="${esc(r.reasons.join(" · "))}">Risk ${r.score}<em>${r.level}</em></span>`; };

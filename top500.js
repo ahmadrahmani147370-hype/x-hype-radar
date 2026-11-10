@@ -6,8 +6,12 @@
   const $ = (s) => document.querySelector(s);
   const TZ = "Asia/Karachi", REFRESH_MS = 60_000, PAGE = 40;
   let data = null, kind = "all", sortBy = "rank", query = "", shown = PAGE, openId = null, nextRefresh = Date.now() + REFRESH_MS,
-      refreshPromise = null, pricesAt = null, priceFail = false, firstLoad = true;
+      refreshPromise = null, pricesAt = null, priceFail = false, firstLoad = true, cgPauseUntil = 0, cgBackoff = 120000, lastFeed = "";
   const reports = new Map();
+  const STALE_MS = 10 * 60000; // a price older than 10 min is never shown as live
+  const hm = (t) => new Date(t).toLocaleTimeString("en-GB", { timeZone: TZ, hour: "2-digit", minute: "2-digit" }) + " PKT";
+  const pxOf = (c) => c._px || { src: "CoinGecko snapshot", at: data && data.market_as_of ? new Date(data.market_as_of).getTime() : 0 };
+  const pxStale = (c) => Date.now() - pxOf(c).at > STALE_MS;
 
   if (inTG) {
     tg.ready(); tg.expand();
@@ -105,12 +109,12 @@
   }
   function row(c, i) {
     const ta = c.ta, s = c.signal || {};
-    const zone = noTA(c) ? `<span class="muted">${c.kind === "yield" ? "Tokenized yield asset" : "Stablecoin"} — zones apply nahi</span>` : ta ? `<span class="zb">Buy <b>${ta.buy_zone ? price(ta.buy_zone[0]) + "–" + price(ta.buy_zone[1]) : "data nahi mila"}</b> <em>${ta.buy_zone ? distTxt(ta.buy_dist_pct, "buy") : ""}</em></span><span class="zs">Sell <b>${ta.sell_zone ? price(ta.sell_zone[0]) + "–" + price(ta.sell_zone[1]) : "ATH zone"}</b> <em>${ta.sell_zone ? distTxt(ta.sell_dist_pct, "sell") : "price discovery"}</em></span>` : `<span class="muted">Zones: candles abhi load ho rahe hain (rotation)</span>`;
+    const zone = noTA(c) ? `<span class="muted">${c.kind === "yield" ? "Tokenized yield asset" : "Stablecoin"} — zones apply nahi</span>` : ta ? `<span class="zb">Buy <b>${ta.buy_zone ? price(ta.buy_zone[0]) + "–" + price(ta.buy_zone[1]) : "data nahi mila"}</b> <em>${ta.buy_zone ? distTxt(ta.buy_dist_pct, "buy") : ""}</em></span><span class="zs">Sell <b>${ta.sell_zone ? price(ta.sell_zone[0]) + "–" + price(ta.sell_zone[1]) : "ATH zone"}</b> <em>${ta.sell_zone ? distTxt(ta.sell_dist_pct, "sell") : "price discovery"}</em></span>` : `<span class="muted">${c.ta_note ? "Zones hide: " + esc(c.ta_note) : "Zones: candles abhi load ho rahe hain (rotation)"}</span>`;
     const x = c.x && c.x.fresh ? `<span class="xh ${c.x.spike >= 3 ? "hot" : ""}">X ${c.x.spike.toFixed(1)}x</span>` : "";
     return `<div class="t5row ${["pump", "breakout", "dump", "breakdown"].includes(s.code) ? "hot" : ""}" data-id="${esc(c.id)}" style="animation-delay:${Math.min(i, 12) * 25}ms">
       <div class="r-rank">${c.rank ?? "—"}</div>${avatar(c)}
-      <div class="r-id"><div class="r-sym">${esc(c.symbol)} <span>${esc(c.name)}</span></div><div class="r-tags">${trendChip(ta?.trend)}${sigBadge(s)}${x}</div></div>
-      <div class="r-px"><b class="mono" data-px="${esc(c.id)}">${price(c.price)}</b><span>${pct(c.change_24h)} <em>24h</em></span><span class="r-7d">${pct(c.change_7d)} <em>7d</em></span></div>
+      <div class="r-id"><div class="r-sym">${esc(c.symbol)} <span>${esc(c.name)}</span></div><div class="r-tags">${trendChip(ta?.trend)}${sigBadge(s)}${x}</div>${s.code && s.code !== "neutral" && s.reason ? `<div class="r-why">↳ ${esc(s.reason)}</div>` : ""}</div>
+      <div class="r-px"><b class="mono ${pxStale(c) ? "px-stale" : ""}" data-px="${esc(c.id)}" title="${esc(pxOf(c).src)} · ${pxOf(c).at ? hm(pxOf(c).at) : "n/a"}">${price(c.price)}${pxStale(c) ? `<small class="stale-tag">⏱ ${pxOf(c).at ? hm(pxOf(c).at).replace(" PKT", "") : "n/a"}</small>` : ""}</b><span>${pct(c.change_24h)} <em>24h</em></span><span class="r-7d">${pct(c.change_7d)} <em>7d</em></span></div>
       <div class="r-spark">${sparkSVG(ta?.spark)}</div>
       <div class="r-zone">${zone}${riskChip(c.risk)}</div>
     </div>`;
@@ -123,10 +127,12 @@
   }
   function updatePill() {
     if (!data) return;
-    $("#priceAge").textContent = pricesAt ? `Prices · live ${new Date(pricesAt).toLocaleTimeString("en-GB", { timeZone: TZ, hour: "2-digit", minute: "2-digit" })} PKT` : "Prices · snapshot";
-    $("#snapAge").textContent = `Data: ${ago(data.generated_at)}`;
-    $("#feedStatus").textContent = priceFail ? "Live price feed busy — last known prices" : "";
-    $("#livePill").classList.toggle("stale", priceFail || Date.now() - new Date(data.generated_at) > 45 * 60000);
+    const live = data.coins.filter((c) => !noTA(c)), stale = live.filter(pxStale).length;
+    $("#priceAge").textContent = !pricesAt ? "Prices · snapshot " + (data.market_as_of ? hm(data.market_as_of) : "") : stale === 0 ? `Prices · live ${hm(pricesAt)}` : `Prices · ${live.length - stale} live, ${stale} purani`;
+    const snapOld = Date.now() - new Date(data.generated_at) > 45 * 60000;
+    $("#snapAge").textContent = `Data: ${ago(data.generated_at)} (${hm(data.generated_at)})` + (snapOld ? " · late" : "");
+    $("#feedStatus").textContent = lastFeed;
+    $("#livePill").classList.toggle("stale", priceFail || stale > live.length * 0.2 || snapOld);
   }
   function updateCountdown() {
     const left = Math.max(0, Math.ceil((nextRefresh - Date.now()) / 1000));
@@ -162,6 +168,17 @@
       ${kv("Mentions 24h", num(x.m24))}${kv("24h vs pichle 24h", x.m24_chg != null ? pct(x.m24_chg, 0) : NM)}</div>
       <div class="xbars">${bars}</div><div class="axis"><span>24h pehle</span><span>hourly X posts</span><span>abhi</span></div>
       <p class="muted small">Checked ${pkt(x.checked_at)}${x.fresh ? "" : " · <span class='gold'>purana (26h+), agle rotation mein update hoga</span>"} · query: <span class="mono">${esc(x.query)}</span></p>`;
+  }
+  function dqSection(c) {
+    const px = pxOf(c), ta = c.ta, x = c.x, line = (k, v, warn) => `<li class="${warn ? "dq-warn" : ""}"><b>${k}</b> ${v}</li>`;
+    const day = (ms) => new Date(ms).toLocaleDateString("en-GB", { timeZone: "UTC", day: "numeric", month: "short" });
+    return `<ul class="dq">
+      ${line("Price:", `${esc(px.src)} · ${px.at ? pkt(new Date(px.at).toISOString()) : "n/a"}${pxStale(c) ? " · <b>purani (live nahi)</b>" : " · live"}`, pxStale(c))}
+      ${line("Signal:", `${esc((c.signal || {}).label || "Neutral")} — ${data.generated_at ? pkt(data.generated_at) : "n/a"} ke snapshot se (CoinGecko 24h + candles${x && x.fresh ? " + X counts" : ""})`)}
+      ${ta ? line("Candles:", `${esc(ta.src)} ${esc(ta.pair || "")} · last closed 1D ${ta.last_closed_1d ? day(ta.last_closed_1d) : "n/a"}${ta.last_closed_4h ? " · 4H " + hm(ta.last_closed_4h) : ""} · pair vs CoinGecko ${ta.pair_vs_cg_pct != null ? ta.pair_vs_cg_pct.toFixed(2) + "%" : "n/a"}`) : line("Candles:", c.ta_note ? esc(c.ta_note) : "data nahi mila", true)}
+      ${line("X hype:", x ? `X post counts (Grok Bot x get_posts_counts_recent) · checked ${pkt(x.checked_at)}${x.fresh ? "" : " · purana"}` : "abhi check nahi hua", x && !x.fresh)}
+      ${line("Report:", c.report_at ? `CoinGecko/CoinPaprika/DefiLlama · ${pkt(c.report_at)}` : "abhi nahi bani")}
+    </ul>`;
   }
   function riskSection(r) {
     if (!r) return "";
@@ -227,7 +244,8 @@
         ${kv("RSI 14 (1D / 4H)", `${ta.rsi != null ? ta.rsi.toFixed(0) : "n/a"} / ${ta.rsi_4h != null ? ta.rsi_4h.toFixed(0) : "n/a"}`)}${kv("ATR (daily)", ta.atr_pct != null ? ta.atr_pct.toFixed(1) + "% · " + price(ta.atr) : NM)}
         ${kv("EMA 20 / 50", price(ta.ema20) + " / " + price(ta.ema50))}${kv("EMA 200", ta.ema200 != null ? price(ta.ema200) : NM + ` <small class="muted">(${ta.candles_1d} candles)</small>`)}
         ${kv("Volume spike", ta.vol_spike != null ? ta.vol_spike.toFixed(2) + "x <small class='muted'>7d avg</small>" : NM)}${kv("180d range", price(ta.low_180d) + " – " + price(ta.high_180d))}</div>
-      <p class="muted small">Candles: ${esc(ta.src)} ${esc(ta.pair || "")}${ta.src === "coingecko" ? " (sirf daily closes — 4h data nahi)" : ""} · ${ta.asof ? pkt(ta.asof) : ""}. Zones andaza hain, guarantee nahi — <b>financial advice nahi, DYOR</b>.</p>` : `<p class="muted">Is coin ke candles abhi load nahi hue (rotation chal rahi hai) — zones thori der mein aayenge.</p>`}
+      <p class="muted small">Candles: ${esc(ta.src)} ${esc(ta.pair || "")}${ta.src === "coingecko" ? " (sirf daily closes — 4h data nahi)" : ""} · sirf closed candles · fetched ${ta.asof ? pkt(ta.asof) : "n/a"}. Zones andaza hain, guarantee nahi — <b>financial advice nahi, DYOR</b>.</p>` : `<p class="muted">${c.ta_note ? "Trend/zones hide kiye: " + esc(c.ta_note) + " (galat data dikhane se behtar)." : "Is coin ke candles abhi load nahi hue (rotation chal rahi hai) — zones thori der mein aayenge."}</p>`}
+      <div class="sec-t">Data quality</div>${dqSection(c)}
       <div class="sec-t">X hype</div>${xSection(c)}
       <div class="sec-t">Risk</div>${riskSection(c.risk)}
       <div id="repBox">${reportHTML(c, reports.get(id))}</div>
@@ -263,20 +281,38 @@
   $("#reloadBtn").onclick = () => { haptic("medium"); load(true); };
 
   // ---------- data ----------
+  async function getJSON(url, ms = 15000) {
+    const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), ms);
+    try { const r = await fetch(url, { cache: "no-store", signal: ctl.signal }); if (r.status === 429) { const e = new Error("429"); e.rate = true; throw e; } if (!r.ok) throw new Error(r.status); return await r.json(); }
+    finally { clearTimeout(t); }
+  }
+  const setPx = (c, p, ch, src, at) => { if (!(N(p) > 0)) return false; c.price = +p; if (N(ch) != null) c.change_24h = +ch; c._px = { src, at }; zoneDist(c); return true; };
   async function livePrices() {
-    const ids = data.coins.filter((c) => !noTA(c)).map((c) => c.id);
-    const chunks = [ids.slice(0, 250), ids.slice(250)].filter((x) => x.length);
-    let ok = false;
-    for (const ch of chunks) {
+    const live = data.coins.filter((c) => !noTA(c)), got = new Set(); let cgOk = false, cgLimited = false;
+    // 1) CoinGecko (2 calls). On 429: pause CoinGecko with backoff (2 → 4 → 8 → 10 min) instead of hammering it.
+    if (Date.now() >= cgPauseUntil) {
+      const ids = live.map((c) => c.id);
+      for (const ch of [ids.slice(0, 250), ids.slice(250)].filter((x) => x.length)) {
+        try {
+          const q = await getJSON("https://api.coingecko.com/api/v3/simple/price?vs_currencies=usd&include_24hr_change=true&include_last_updated_at=true&ids=" + ch.join(","));
+          for (const c of live) { const v = q[c.id]; if (v && setPx(c, v.usd, v.usd_24h_change, "CoinGecko live", v.last_updated_at ? v.last_updated_at * 1000 : Date.now())) got.add(c.id); }
+          cgOk = true; cgBackoff = 120000;
+        } catch (e) { if (e.rate) { cgLimited = true; cgPauseUntil = Date.now() + cgBackoff; cgBackoff = Math.min(cgBackoff * 2, 600000); break; } }
+      }
+    } else cgLimited = true;
+    // 2) Fallback: Binance 24h ticker for coins whose candles come from a verified Binance USDT pair.
+    const need = live.filter((c) => !got.has(c.id) && c.ta && c.ta.src === "binance" && c.ta.pair), byPair = new Map(need.map((c) => [c.ta.pair, c]));
+    let bnOk = false;
+    for (let i = 0; i < need.length; i += 100) {
+      const syms = need.slice(i, i + 100).map((c) => c.ta.pair);
       try {
-        const r = await fetch("https://api.coingecko.com/api/v3/simple/price?vs_currencies=usd&include_24hr_change=true&include_last_updated_at=true&ids=" + ch.join(","));
-        if (!r.ok) throw new Error(r.status);
-        const q = await r.json();
-        for (const c of data.coins) { const v = q[c.id]; if (v && N(v.usd)) { c.price = v.usd; if (N(v.usd_24h_change) != null) c.change_24h = v.usd_24h_change; zoneDist(c); } }
-        ok = true;
-      } catch (e) { /* keep snapshot prices */ }
+        const rows = await getJSON("https://data-api.binance.vision/api/v3/ticker/24hr?symbols=" + encodeURIComponent(JSON.stringify(syms)));
+        for (const x of rows || []) { const c = byPair.get(x.symbol); if (c && setPx(c, x.lastPrice, x.priceChangePercent, "Binance " + x.symbol + " (fallback)", N(x.closeTime) || Date.now())) { got.add(c.id); bnOk = true; } }
+      } catch (e) { /* keep last known prices, marked stale */ }
     }
-    priceFail = !ok; if (ok) pricesAt = Date.now();
+    priceFail = !cgOk && !bnOk;
+    lastFeed = cgOk ? "" : cgLimited ? (bnOk ? "CoinGecko rate-limit — Binance fallback prices" : "CoinGecko rate-limit — purani prices (stale)") : bnOk ? "CoinGecko fail — Binance fallback prices" : "Live price feed fail — purani prices (stale)";
+    if (got.size) pricesAt = Date.now();
   }
   function load(manual = false) {
     if (refreshPromise) return refreshPromise;
@@ -285,7 +321,7 @@
       try {
         const r = await fetch("data/top500.json?t=" + Date.now()); if (!r.ok) throw new Error(r.status);
         const d = await r.json(); if (!Array.isArray(d.coins)) throw new Error("bad data");
-        if (data) { const old = new Map(data.coins.map((c) => [c.id, c])); for (const c of d.coins) { const o = old.get(c.id); if (o && pricesAt && o.price) { c.price = o.price; c.change_24h = o.change_24h; zoneDist(c); } } }
+        if (data) { const old = new Map(data.coins.map((c) => [c.id, c])); const snapAt = d.market_as_of ? new Date(d.market_as_of).getTime() : 0; for (const c of d.coins) { const o = old.get(c.id); if (o && o._px && o._px.at > snapAt && o.price) { c.price = o.price; c.change_24h = o.change_24h; c._px = o._px; zoneDist(c); } } }
         if (data && d.generated_at !== data.generated_at) reports.clear();
         data = d;
       } catch (e) { if (!data) { $("#list").innerHTML = '<div class="empty">Data load nahi ho saka. Refresh karein.</div>'; return; } }
@@ -298,7 +334,7 @@
         const h = decodeURIComponent((location.hash.match(/coin=([^&]+)/) || [])[1] || new URLSearchParams(location.search).get("coin") || (inTG && tg.initDataUnsafe?.start_param) || "");
         if (h) { const c = data.coins.find((x) => x.id === h) || data.coins.find((x) => x.symbol.toLowerCase() === h.toLowerCase()); if (c) openSheet(c.id); }
       }
-      if (manual) toast(priceFail ? "Data refreshed · live prices busy" : "Live prices refreshed");
+      if (manual) toast(priceFail ? "Data refreshed · live prices fail (purani prices)" : lastFeed ? "Refreshed · " + lastFeed : "Live prices refreshed");
     })().finally(() => { refreshPromise = null; $("#reloadBtn").classList.remove("spinning"); updateCountdown(); updatePill(); });
     return refreshPromise;
   }

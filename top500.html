@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css?v=soft-1" />
-<link rel="stylesheet" href="top500.css?v=soft-1" />
+<link rel="stylesheet" href="styles.css?v=soft-2" />
+<link rel="stylesheet" href="top500.css?v=soft-2" />
 </head>
 <body class="t5">
 
@@ -82,10 +82,10 @@
 
   <section class="panel method" id="method">
     <div class="panel-h"><h3>Yeh kaise kaam karta hai</h3><span class="muted small">Sirf asli data · jo nahi mila woh "data nahi mila"</span></div>
-    <p><b>Market:</b> CoinGecko top 500 (rank, price, supply, ATH) har ~10 min. App khuli ho to prices har 60 s CoinGecko se live.</p>
-    <p><b>Trend:</b> daily EMA20/50/200 — price &gt; EMA50 aur EMA20 &gt; EMA50 &gt; EMA200 = Uptrend, ulta = Downtrend, warna Range. 4h trend aur RSI14 bhi. Candles: Binance → Bybit → OKX → Gate → MEXC (USDT pair, CoinGecko price se match), warna CoinGecko daily closes.</p>
-    <p><b>Zones:</b> pichle 180 din ke swing high/low (pivot) levels, 0.5×ATR ke andar cluster. Buy zone = nearest support −0.25 ATR se +0.5 ATR tak; Sell zone = nearest resistance −0.5 ATR se +0.25 ATR tak. Distance % live price se.</p>
-    <p><b>Signal:</b> 🩸 Dump/Breakdown = support toota ya 24h girawat (≥ max(6%, 1.5×ATR)) volume ke saath · 🚀 Pump/Breakout = resistance ke upar ya utni hi tezi · 🔥 Overbought RSI ≥ 75 (4h ≥ 80) · 🧊 Oversold RSI ≤ 28 (4h ≤ 20) · 👀 X Hype = X mentions normal se 3x+ (ya 24h mein 2x) lekin price flat. Volume spike = pichle 24h volume / pichle 7 din ka average.</p>
+    <p><b>Market:</b> CoinGecko top 500 (rank, price, supply, ATH) har ~10 min. App khuli ho to prices har 60 s CoinGecko se live; CoinGecko rate-limit (429) par Binance fallback, aur 10 min se purani price "⏱ time" ke saath purani dikhti hai — live nahi.</p>
+    <p><b>Trend:</b> sirf <b>closed</b> candles (aaj ki adhuri candle shamil nahi) — daily EMA20/50/200 — price &gt; EMA50 aur EMA20 &gt; EMA50 &gt; EMA200 = Uptrend, ulta = Downtrend, warna Range. 4h trend aur RSI14 bhi. Candles: Binance → Bybit → OKX → Gate → MEXC (USDT pair, CoinGecko price se 5% ke andar match hona zaroori — warna pair reject), warna CoinGecko daily closes. 12h se purane candles ya 8%+ price farq ho to zones hide.</p>
+    <p><b>Zones:</b> pichle 180 din ke swing high/low (pivot) levels, 0.5×ATR ke andar cluster. Buy zone = nearest support ±0.25 ATR; Sell zone = nearest resistance ±0.25 ATR (levels price se kam az kam 0.5 ATR door). Distance % live price se.</p>
+    <p><b>Signal:</b> 🩸 Dump/Breakdown = support toota ya 24h girawat (≥ max(6%, 1.5×ATR)) volume ke saath · 🚀 Pump/Breakout = resistance ke upar ya utni hi tezi · 🔥 Overbought RSI ≥ 75 (4h ≥ 80) · 🧊 Oversold RSI ≤ 28 (4h ≤ 20) · 👀 X Hype = X mentions normal se 3x+ (ya 24h mein 2x) lekin price flat. Volume spike = pichle 24h (6 closed 4h candles) volume / us se pehle ke 7 closed din ka average. ⚪ Low volatility = daily ATR &lt; 0.3% (fund/NAV tokens) — RSI/pump/dump label nahi lagta.</p>
     <p><b>X hype:</b> har ghante ~20 coins ki X post counts (48h hourly) rotation mein: rank 1–30 har ~4h, 31–100 har ~12h, baqi ~3 din, aur volume-spike coins har ~3h. Spike = abhi ki rate / normal (24h average + kal isi waqt).</p>
     <p><b>Report:</b> CoinGecko (project, links, supply, listings), CoinPaprika (team), DefiLlama (TVL, fees, revenue). Unlock schedule ka free source nahi mila — is liye "data nahi mila" likha hota hai.</p>
     <p class="red"><b>Financial advice nahi hai.</b> Zones aur signals sirf data par mabni andaze hain — DYOR, stop-loss aur position size khud tay karein.</p>
@@ -105,6 +105,6 @@
 </aside>
 <div class="toast" id="toast"></div>
 
-<script src="top500.js?v=soft-1"></script>
+<script src="top500.js?v=soft-2"></script>
 </body>
 </html>

@@ -126,3 +126,12 @@
   .t5controls .sort{justify-content:space-between}
 }
 @media (max-width:520px){.t5controls{flex-wrap:nowrap}.t5controls .search{flex:none}}
+/* audit: signal reason, stale prices, data quality */
+.r-id{min-width:0}
+.r-why{margin-top:5px;font:500 11px/1.35 Inter,sans-serif;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}
+.r-px b.px-stale{color:var(--muted)}
+.stale-tag{display:block;font:600 9.5px Inter,sans-serif;color:#b7791f;margin-top:1px}
+.dq{list-style:none;margin:0;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:var(--card2);display:grid;gap:6px}
+.dq li{font:500 12px/1.4 Inter,sans-serif;color:var(--text2);word-break:break-word}
+.dq li b{color:var(--text);font-weight:600;margin-right:4px}
+.dq li.dq-warn{color:#b7791f}
