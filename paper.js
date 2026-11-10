@@ -50,7 +50,7 @@
     const w = cl.filter((t) => t.pnl_usd > 0), real = cl.reduce((a, t) => a + t.pnl_usd, 0);
     const unr = op.reduce((a, t) => { const m = mark(t); return a + (m.p ? pnl(t, m.p)[0] : 0); }, 0);
     const best = cl.length ? cl.reduce((a, t) => (t.pnl_pct > a.pnl_pct ? t : a)) : null, worst = cl.length ? cl.reduce((a, t) => (t.pnl_pct < a.pnl_pct ? t : a)) : null;
-    return { n: trs.length, cl: cl.length, op: op.length, wr: cl.length ? w.length / cl.length * 100 : null, real, unr, avg: cl.length ? cl.reduce((a, t) => a + t.hold_h, 0) / cl.length : null, best, worst };
+    return { n: cl.length + op.length, void: trs.filter((t) => t.void).length, cl: cl.length, op: op.length, wr: cl.length ? w.length / cl.length * 100 : null, real, unr, avg: cl.length ? cl.reduce((a, t) => a + t.hold_h, 0) / cl.length : null, best, worst };
   }
   const TAG = { "top500:trend": ["🏆 Top 500", "sig-pump"], "top500:mean-reversion": ["↩ Mean-rev", "sig-early"], "meme:trend": ["🔴 Meme", "sig-hot"] };
   function row(t) {
@@ -70,7 +70,7 @@
     const all = led.trades, trs = all.filter((t) => book === "all" || t.book + ":" + t.strategy === book), s = stats(trs);
     $("#heroLine").innerHTML = `Ledger shuru: <b>${pkt(led.started_at)}</b> · ${led.baseline_signals ?? 0} signals jo start par pehle se chal rahe the un par trade nahi khuli (sirf naye signals). Last box update ${led.updated_at ? pkt(led.updated_at) : "n/a"}.`;
     const tot = s.real + s.unr;
-    $("#stats").innerHTML = [[s.n, "Total trades"], [`${s.op} / ${s.cl}`, "Open / Closed"], [s.wr == null ? "—" : s.wr.toFixed(0) + "%", "Win rate (closed)"],
+    $("#stats").innerHTML = [[s.n, "Total trades" + (s.void ? ` <small>(+${s.void} void)</small>` : "")], [`${s.op} / ${s.cl}`, "Open / Closed"], [s.wr == null ? "—" : s.wr.toFixed(0) + "%", "Win rate (closed)"],
       [usd(tot), `Total P&L <small>(real ${s.real.toFixed(2)} + open ${s.unr.toFixed(2)})</small>`], [s.avg == null ? "—" : hold(s.avg), "Avg hold"],
       [s.best ? `${esc(s.best.symbol)} ${pc(s.best.pnl_pct)}` : "—", "Best"], [s.worst ? `${esc(s.worst.symbol)} ${pc(s.worst.pnl_pct)}` : "—", "Worst"]]
       .map(([b, l]) => `<div class="stat"><b>${b}</b><span>${l}</span></div>`).join("");
