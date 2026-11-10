@@ -2,7 +2,7 @@
    or live public exchange APIs (Binance → Bybit → OKX klines). Missing values show "—". */
 (() => {
   "use strict";
-  const VER = "h13";
+  const VER = "h14";
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const N = (v) => (v == null || v === "" || isNaN(+v) ? null : +v);
   const tg = window.Telegram && window.Telegram.WebApp, inTG = !!(tg && tg.initData);
@@ -49,21 +49,29 @@
     try { const r = await fetch(url, { cache: "no-store", signal: c.signal }); if (!r.ok) { const e = new Error(r.status); e.status = r.status; throw e; } return await r.json(); }
     finally { clearTimeout(t); }
   }
+  const FAIL = {}; // which data files failed on the last attempt (cards show "data unavailable" instead of eternal Loading)
+  let rafQ = 0;
+  const renderSoon = () => { if (rafQ) return; rafQ = setTimeout(() => { rafQ = 0; renderAll(); }, 30); };
   async function loadData() {
-    const [a, c, g, q, uu] = await Promise.allSettled([getJSON("data/top500.json?t=" + Date.now()), getJSON("data/paper/trades.json?t=" + Date.now()), getJSON("data/agent.json?t=" + Date.now()), getJSON("data/quality.json?t=" + Date.now()), getJSON("data/ultra.json?t=" + Date.now())]);
-    if (q.status === "fulfilled" && q.value && q.value.counts) QG = q.value;
-    if (uu.status === "fulfilled" && uu.value && uu.value.version) UL = uu.value;
-    if (a.status === "fulfilled" && Array.isArray(a.value.coins)) T5 = a.value;
-    if (c.status === "fulfilled" && c.value.trades) LED = c.value;
-    if (g.status === "fulfilled" && g.value && (g.value.picks || g.value.mood)) AG = g.value;
+    const one = (key, url, ok, set) => getJSON(url + "?t=" + Date.now(), 12000)
+      .then((v) => { if (ok(v)) { set(v); FAIL[key] = 0; } else FAIL[key] = "bad data"; })
+      .catch((e) => { FAIL[key] = (e && e.name === "AbortError") ? "timeout" : String((e && e.message) || e); })
+      .finally(renderSoon);
+    await Promise.allSettled([
+      one("t5", "data/top500.json", (v) => v && Array.isArray(v.coins), (v) => (T5 = v)),
+      one("led", "data/paper/trades.json", (v) => v && Array.isArray(v.trades), (v) => (LED = v)),
+      one("ag", "data/agent.json", (v) => v && (v.picks || v.mood), (v) => (AG = v)),
+      one("qg", "data/quality.json", (v) => v && v.counts, (v) => (QG = v)),
+      one("ul", "data/ultra.json", (v) => v && v.version, (v) => (UL = v)),
+    ]);
     lastData = Date.now();
-    await livePrices();
+    livePrices().then(() => { safe(renderHeader); safe(renderStats); safe(renderLive); });  // background, never blocks cards
   }
   async function livePrices() {
     // live Binance price for open paper trades + BTC (one small request)
     const pairs = new Set(["BTCUSDT"]);
     (LED?.trades || []).forEach((t) => { if (!t.void && t.binance_pair) pairs.add(t.binance_pair); });
-    try { const q = await getJSON("https://data-api.binance.vision/api/v3/ticker/price?symbols=" + encodeURIComponent(JSON.stringify([...pairs])), 12000);
+    try { const q = await getJSON("https://data-api.binance.vision/api/v3/ticker/price?symbols=" + encodeURIComponent(JSON.stringify([...pairs])), 6000);
       q.forEach((x) => liveP.set(x.symbol, { p: +x.price, at: Date.now() })); } catch (e) { /* keep ledger marks */ }
   }
   const coinById = () => new Map((T5?.coins || []).map((c) => [c.id, c]));
@@ -82,8 +90,8 @@
   const gateTag = (g) => (!g ? "" : g.pass ? '<span class="qg-mini ok">✓ Gate pass</span>' : '<span class="qg-mini no">⛔ Filtered</span>');
   const gateWhy = (g) => (!g ? "" : g.pass ? `<span class="qg-why">Gate pass · TP ${fmtP(g.tp)} · SL ${fmtP(g.sl)} · R:R ${esc(g.rr)}</span>` : `<span class="qg-why">⛔ ${esc(g.reasons.slice(0, 2).map((r) => r.t).join(" · "))}${g.reasons.length > 2 ? " · +" + (g.reasons.length - 2) : ""}</span>`);
   const ultraKeys = () => new Set([...(UL?.active || []), ...(UL?.today || [])].map((x) => x.key));
-  function renderUL() { const el = $("#usBody"); if (!el || !window.Ultra) return; Ultra.render(el, UL); if (UL) $("#usVer").textContent = UL.version; }
-  function renderQG() { const el = $("#qgBody"); if (!el || !window.QGate) return; QGate.render(el, QG, "compact"); if (QG) $("#qgVer").textContent = QG.version; }
+  function renderUL() { const el = $("#usBody"); if (!el || !window.Ultra || (!UL && !FAIL.ul)) return; Ultra.render(el, UL); if (UL) $("#usVer").textContent = UL.version; }
+  function renderQG() { const el = $("#qgBody"); if (!el || !window.QGate || (!QG && !FAIL.qg)) return; QGate.render(el, QG, "compact"); if (QG) $("#qgVer").textContent = QG.version; }
 
   // ---------- signals ----------
   const T5DIR = { pump: "LONG", breakout: "LONG", oversold: "LONG", dump: "SHORT", breakdown: "SHORT", overbought: "SHORT", hype: "HYPE" };
@@ -103,7 +111,7 @@
     const t5At = ts(T5?.generated_at), ledAt = ts(LED?.updated_at);
     const fresh = t5At && Date.now() - t5At < 40 * 60000;
     const st = $("#status"); st.classList.toggle("warn", !fresh);
-    $("#statusTxt").textContent = !T5 ? "Data load fail" : fresh ? "Bot Running" : "Data stale";
+    $("#statusTxt").textContent = !T5 ? (FAIL.t5 ? "Data load fail" : "Loading…") : fresh ? "Bot Running" : "Data stale";
     st.title = `Top 500 data: ${t5At ? pkt(t5At) : "—"} · Paper ledger: ${ledAt ? pkt(ledAt) : "—"}`;
     PaperChip.render($("#paperChip"), LED, livePx);
   }
@@ -251,7 +259,21 @@
     };
     box.innerHTML = col("🟢 BUY picks", (AG.picks || {}).buy, "abhi koi mazboot setup nahi") + col("🔴 SELL picks", (AG.picks || {}).sell, "abhi koi mazboot setup nahi");
   }
-  function renderAll() { if (!T5 && !LED && !AG) return; renderHeader(); renderStats(); renderLive(); renderUL(); renderJudge(); renderQG(); renderPerf(); renderPnl(); renderSignals(); renderScanner(); renderAnalysis(); renderStatus(); }
+  function safe(fn) { try { fn(); } catch (e) { (window.__bootErr || (window.__bootErr = [])).push(fn.name + ": " + (e && e.message)); try { console.warn("render", fn.name, e); } catch (x) {} } }
+  const UNAV = (why) => `<div class="empty">Data abhi load nahi hua (${esc(why)}). Neeche khench kar refresh karein.</div>`;
+  function renderFallbacks() {
+    const set = (sel, html) => { const el = $(sel); if (el && /Loading/.test(el.textContent)) el.innerHTML = html; };
+    if (!T5 && FAIL.t5) { set("#liveSignals", UNAV(FAIL.t5)); $("#statusTxt").textContent = "Data load fail"; $("#status").classList.add("warn"); }
+    if (!AG && FAIL.ag) { set("#judgeMood", '<span class="muted">Signal Judge data unavailable (' + esc(FAIL.ag) + ")</span>"); $("#judgeAcc").textContent = "—"; }
+    if (!UL && FAIL.ul) set("#usBody", '<div class="qg-empty">Ultra data unavailable (' + esc(FAIL.ul) + ") — thori der baad khud try hoga</div>");
+    if (!QG && FAIL.qg) set("#qgBody", '<div class="qg-empty">Quality Gate data unavailable (' + esc(FAIL.qg) + ")</div>");
+  }
+  function renderAll() {
+    window.__homeBoot = true;
+    if (T5 || LED || AG) [renderHeader, renderStats, renderLive, renderUL, renderJudge, renderQG, renderPerf, renderPnl, renderSignals, renderScanner, renderAnalysis, renderStatus].forEach(safe);
+    else { safe(renderUL); safe(renderQG); }
+    safe(renderFallbacks);
+  }
   document.addEventListener("click", (e) => {
     const o = e.target.closest("[data-open]"); if (!o) return;
     const [book, id] = o.dataset.open.split(/:(.*)/s);
@@ -273,26 +295,30 @@
 
   // ---------- candlestick chart ----------
   let pair = (() => { try { return JSON.parse(localStorage.getItem("hr_pair")) || null; } catch (e) { return null; } })() || { sym: "BTC", pair: "BTCUSDT", src: "binance", rank: 1 };
-  let tf = localStorage.getItem("hr_tf") || "5m", candles = [], chartAt = 0, chartSrc = "", chartBusy = false, chartErr = "";
+  const lsGet = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } }, lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+  let tf = lsGet("hr_tf") || "5m", candles = [], chartAt = 0, chartSrc = "", chartBusy = false, chartErr = "";
   const TFB = { "1m": "1", "3m": "3", "5m": "5", "15m": "15", "1h": "60", "4h": "240" }, TFO = { "1m": "1m", "3m": "3m", "5m": "5m", "15m": "15m", "1h": "1H", "4h": "4H" };
   const base = (p) => p.pair.replace(/[-_]?USDT$/i, "").replace(/[-_]/g, "");
   async function fetchK(src, p) {
     const b = base(p), L = 120;
-    if (src === "binance") { const r = await getJSON(`https://data-api.binance.vision/api/v3/klines?symbol=${b}USDT&interval=${tf}&limit=${L}`, 10000); return r.map((k) => ({ t: k[0], o: +k[1], h: +k[2], l: +k[3], c: +k[4], v: +k[5] })); }
-    if (src === "bybit") { const r = await getJSON(`https://api.bybit.com/v5/market/kline?category=spot&symbol=${b}USDT&interval=${TFB[tf]}&limit=${L}`, 10000); if (r.retCode) throw new Error(r.retMsg);
+    if (src === "binance") { const r = await getJSON(`https://data-api.binance.vision/api/v3/klines?symbol=${b}USDT&interval=${tf}&limit=${L}`, 7000); return r.map((k) => ({ t: k[0], o: +k[1], h: +k[2], l: +k[3], c: +k[4], v: +k[5] })); }
+    if (src === "bybit") { const r = await getJSON(`https://api.bybit.com/v5/market/kline?category=spot&symbol=${b}USDT&interval=${TFB[tf]}&limit=${L}`, 7000); if (r.retCode) throw new Error(r.retMsg);
       return r.result.list.map((k) => ({ t: +k[0], o: +k[1], h: +k[2], l: +k[3], c: +k[4], v: +k[5] })).reverse(); }
-    if (src === "okx") { const r = await getJSON(`https://www.okx.com/api/v5/market/candles?instId=${b}-USDT&bar=${TFO[tf]}&limit=${L}`, 10000); if (r.code !== "0") throw new Error(r.msg);
+    if (src === "okx") { const r = await getJSON(`https://www.okx.com/api/v5/market/candles?instId=${b}-USDT&bar=${TFO[tf]}&limit=${L}`, 7000); if (r.code !== "0") throw new Error(r.msg);
       return r.data.map((k) => ({ t: +k[0], o: +k[1], h: +k[2], l: +k[3], c: +k[4], v: +k[5] })).reverse(); }
     throw new Error("src");
   }
   async function loadChart() {
     if (chartBusy) return; chartBusy = true;
+    try { await loadChart0(); } catch (e) { chartErr = "Chart load error: " + (e && e.message); } finally { chartBusy = false; safe(drawChart); }
+  }
+  async function loadChart0() {
     // verified exchange first; other exchanges only for top-50 tickers (avoid same-ticker different coin)
     const order = [pair.src, ...((pair.rank || 999) <= 50 ? ["binance", "bybit", "okx"] : [])].filter((s, i, a) => ["binance", "bybit", "okx"].includes(s) && a.indexOf(s) === i);
     let ok = false;
-    for (const s of order) { try { const k = await fetchK(s, pair); if (k.length > 5) { candles = k; chartSrc = { binance: "Binance", bybit: "Bybit", okx: "OKX" }[s]; chartAt = Date.now(); chartErr = ""; ok = true; break; } } catch (e) {} }
+    const res = await Promise.allSettled(order.map((s) => fetchK(s, pair)));  // parallel, each with its own 7 s timeout
+    for (let i = 0; i < order.length; i++) { const r = res[i]; if (r.status === "fulfilled" && r.value.length > 5) { candles = r.value; chartSrc = { binance: "Binance", bybit: "Bybit", okx: "OKX" }[order[i]]; chartAt = Date.now(); chartErr = ""; ok = true; break; } }
     if (!ok) chartErr = order.length ? "Is waqt candles nahi mil sakin (exchange API fail/limit). Thori der baad khud try hoga." : "Is coin ki candles Binance/Bybit/OKX par nahi — chart available nahi.";
-    chartBusy = false; drawChart();
   }
   function ema(vals, n) { const k = 2 / (n + 1); let e = null; return vals.map((v, i) => (e = i === 0 ? v : v * k + e * (1 - k))); }
   function setupCanvas(cv) { const r = cv.getBoundingClientRect(); if (!r.width) return null; const d = window.devicePixelRatio || 1;
@@ -329,7 +355,7 @@
     const first = candles[0], ch = (last.c / cs[0].o - 1) * 100;
     $("#chartInfo").innerHTML = `${chartSrc} live · <span class="${cls(ch)}">${pct(ch)}</span> · ${pktS(chartAt)}`;
   }
-  $("#tfs").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; tf = b.dataset.tf; localStorage.setItem("hr_tf", tf); candles = []; haptic(); drawChart(); loadChart(); });
+  $("#tfs").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; tf = b.dataset.tf; lsSet("hr_tf", tf); candles = []; haptic(); drawChart(); loadChart(); });
   // pair picker
   const sheet = $("#pairSheet"), bd = $("#backdrop");
   const chartable = () => (T5?.coins || []).filter((c) => c.ta && ["binance", "bybit", "okx"].includes(c.ta.src) && c.ta.pair);
@@ -340,7 +366,7 @@
   const closeSheet = () => { sheet.classList.remove("on"); bd.classList.remove("on"); };
   $("#pairBtn").onclick = openSheet; $("#pairClose").onclick = closeSheet; bd.onclick = closeSheet; $("#pq").addEventListener("input", renderPairs);
   $("#pList").addEventListener("click", (e) => { const r = e.target.closest("[data-pair]"); if (!r) return; e.stopPropagation(); const c = chartable().find((x) => x.id === r.dataset.pair); if (!c) return;
-    pair = { sym: c.symbol, pair: c.ta.pair, src: c.ta.src, rank: c.rank }; localStorage.setItem("hr_pair", JSON.stringify(pair)); candles = []; closeSheet(); drawChart(); loadChart(); });
+    pair = { sym: c.symbol, pair: c.ta.pair, src: c.ta.src, rank: c.rank }; lsSet("hr_pair", JSON.stringify(pair)); candles = []; closeSheet(); drawChart(); loadChart(); });
 
   // ---------- refresh loop ----------
   let busy = null, seen = (() => { try { return new Set(JSON.parse(localStorage.getItem("hr_seen") || "[]")); } catch (e) { return new Set(); } })(), firstSeen = !seen.size;
@@ -351,7 +377,8 @@
   }
   function refresh(manual) {
     if (busy) return busy;
-    busy = (async () => { await Promise.all([loadData(), loadChart()]); checkNew(); renderAll(); if (manual) toast("Refreshed · " + pktS(Date.now())); })().finally(() => (busy = null));
+    loadChart().catch(() => {});  // independent: a slow/blocked exchange never holds the cards
+    busy = (async () => { await loadData(); safe(checkNew); renderAll(); if (manual) toast("Refreshed · " + pktS(Date.now())); })().finally(() => (busy = null));
     return busy;
   }
   renderToggles();

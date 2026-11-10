@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="home.css?v=h13" />
-<link rel="stylesheet" href="qgate.css?v=h13" />
+<link rel="stylesheet" href="home.css?v=h14" />
+<link rel="stylesheet" href="qgate.css?v=h14" />
 </head>
 <body>
 <div class="ptr" id="ptr"><div class="ptr-ring"></div><span id="ptrTxt">Pull to refresh</span></div>
@@ -75,7 +75,7 @@
     <section class="card qg-card" id="qgCard">
       <div class="mini-h">
         <h3><svg viewBox="0 0 24 24" class="hi"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.4 2.4 4.6-4.8"/></svg>Quality Gate <span class="judge-mode" id="qgVer" title="Fixed filters, kam trades par tune nahi kiye">qg1</span></h3>
-        <a class="muted" href="paper.html?v=h13#quality" id="qgMore">Details →</a>
+        <a class="muted" href="paper.html?v=h14#quality" id="qgMore">Details →</a>
       </div>
       <div class="qg" id="qgBody"><div class="qg-empty">Loading…</div></div>
     </section>
@@ -120,7 +120,7 @@
   <!-- SCANNER -->
   <main class="view" id="v-scanner">
     <section class="card scan">
-      <div class="mini-h"><h3>Top 500 Scanner</h3><div style="display:flex;align-items:center;gap:8px"><div data-listn-host data-label="Show"></div><a class="btn" href="top500.html?v=h13">Open list →</a></div></div>
+      <div class="mini-h"><h3>Top 500 Scanner</h3><div style="display:flex;align-items:center;gap:8px"><div data-listn-host data-label="Show"></div><a class="btn" href="top500.html?v=h14">Open list →</a></div></div>
       <div id="scanT5"></div>
     </section>
   </main>
@@ -171,9 +171,24 @@
   <div id="pList" class="rows"></div>
 </aside>
 <div class="toast" id="toast"></div>
-<script src="paper-chip.js?v=h13"></script>
-<script src="qgate.js?v=h13"></script>
-<script src="ultra.js?v=h13"></script>
-<script src="home.js?v=h13"></script>
+<script>
+/* boot watchdog: if home.js cannot start (script error / blocked file), show the reason instead of eternal "Loading" */
+(function () {
+  var errs = window.__bootErr = [];
+  window.addEventListener("error", function (e) { errs.push((e.message || "script load fail") + (e.filename ? " @" + String(e.filename).split("/").pop() + ":" + e.lineno : (e.target && e.target.src ? " " + e.target.src.split("/").pop() : ""))); }, true);
+  window.addEventListener("unhandledrejection", function (e) { errs.push("promise: " + ((e.reason && e.reason.message) || e.reason)); });
+  setTimeout(function () {
+    if (window.__homeBoot) return;
+    var b = document.createElement("div");
+    b.style.cssText = "position:fixed;left:10px;right:10px;bottom:84px;z-index:99;padding:12px 14px;border-radius:14px;background:#1B1D22;border:1px solid #6B3236;color:#F0EDE8;font:500 12.5px/1.45 Outfit,sans-serif";
+    b.innerHTML = "App abhi load nahi hua. Internet check karein ya dobara kholein." + (errs.length ? "<br><small style='color:#8A8882'>" + errs.slice(0, 3).join(" · ").replace(/[<>&]/g, "") + "</small>" : "") + "<br><button style='margin-top:8px;padding:6px 14px;border-radius:99px;border:1px solid #4A4538;background:#1A1916;color:#C6B08A;font:600 12px Outfit,sans-serif' onclick='location.reload()'>Reload</button>";
+    document.body.appendChild(b);
+  }, 15000);
+})();
+</script>
+<script src="paper-chip.js?v=h14"></script>
+<script src="qgate.js?v=h14"></script>
+<script src="ultra.js?v=h14"></script>
+<script src="home.js?v=h14"></script>
 </body>
 </html>
