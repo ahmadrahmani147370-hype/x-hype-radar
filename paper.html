@@ -49,9 +49,9 @@
   <section class="panel method">
     <div class="panel-h"><h3>Rules (simple)</h3><span class="muted small">Har trade ka data ledger mein public hai</span></div>
     <p><b>Entry:</b> Top 500 — 🚀 Pump/Breakout = LONG, 🩸 Dump/Breakdown = SHORT. Meme radar — PUMP shuru = LONG, DUMP chal raha = SHORT (sirf contract ya CoinGecko se confirmed market). Alag tag: ↩ <b>Mean-reversion</b> — 🧊 Oversold = LONG, 🔥 Overbought = SHORT. Sirf jab signal <b>naya</b> shuru ho (ledger start par pehle se chal rahe signals par trade nahi). Wohi signal 6 ghante ke andar wapas aaye to duplicate trade nahi. Ek coin par ek waqt mein ek hi trade.</p>
-    <p><b>Size:</b> $100, qty = 100 / entry price. Entry price = signal milte hi fetch ki gayi live quote (CoinGecko, warna Binance; meme ke liye DexScreener).</p>
+    <p><b>Size:</b> $100, qty = 100 / entry price. Entry price = signal milte hi fetch ki gayi live quote (CoinGecko, warna Binance; meme ke liye DexScreener). 20 min se purani quote kabhi use nahi hoti.</p>
     <p><b>Exit (jo pehle ho):</b> ulta signal · take-profit · stop-loss · 7 din. Trend LONG: TP = sell zone (resistance), warna +2 ATR; SL = −1.5 ATR. SHORT ulta (TP = buy zone/support). Mean-reversion: TP 1.5 ATR, SL 1.5 ATR. ATR distance ki hadd: SL max 15%, TP max 25%. Candles/ATR na hon: TP 12%, SL 8%. Meme: TP 20%, SL 10%.</p>
-    <p><b>Void:</b> agar baad mein data-quality check se signal hi invalid nikle (jaise pegged/wrapped ya low-volatility token), trade "VOID" band hoti hai aur stats mein shamil nahi hoti — record phir bhi dikhta hai.</p>
+    <p><b>Void:</b> agar baad mein data-quality check se signal hi invalid nikle (jaise pegged/wrapped ya low-volatility token, ya source ki price 20 min se purani thi), trade "VOID" band hoti hai aur stats mein shamil nahi hoti — record phir bhi dikhta hai.</p>
     <p><b>Check:</b> har ~15 min box par live price se. Exit price = us check ki price, is liye TP/SL level se thori behtar ya buri ho sakti hai. App mein open trades ka P&amp;L har 60 s live price se.</p>
     <p class="red"><b>Financial advice nahi.</b> Paper results future profit ki guarantee nahi.</p>
   </section>
